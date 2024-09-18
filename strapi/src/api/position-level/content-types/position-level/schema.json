@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "position_levels",
+  "info": {
+    "singularName": "position-level",
+    "pluralName": "position-levels",
+    "displayName": "Position Level",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "levelName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "organization": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization.organization",
+      "inversedBy": "position_levels"
+    }
+  }
+}

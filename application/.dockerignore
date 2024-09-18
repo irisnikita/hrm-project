@@ -1,0 +1,7 @@
+node_modules
+.next
+.git
+.turbo
+.gitignore
+.DS_Store
+README.md

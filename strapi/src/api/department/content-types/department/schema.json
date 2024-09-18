@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "departments",
+  "info": {
+    "singularName": "department",
+    "pluralName": "departments",
+    "displayName": "Department"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "departmentName": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::organization.organization",
+      "inversedBy": "departments"
+    },
+    "employees": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::employee.employee",
+      "mappedBy": "departments"
+    }
+  }
+}
