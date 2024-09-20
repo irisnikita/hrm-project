@@ -1,0 +1,12 @@
+{
+  "common": {
+    "home": "Trang chủ",
+    "dashboard": "Bảng điều khiển",
+    "profile": "Hồ sơ",
+    "getStarted": "Bắt đầu"
+  },
+  "home": {
+    "title": "Công ty là gia đình thứ hai của bạn",
+    "description": "Chia sẻ kỷ niệm, hạnh phúc và khó khăn trong gia đình thứ hai này."
+  }
+}

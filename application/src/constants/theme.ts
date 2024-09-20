@@ -2,7 +2,7 @@
 import { ThemeConfig /* theme */ } from "antd";
 
 export const COLORS = {
-  PRIMARY: "#005eb8",
+  PRIMARY: "#13c2c2",
   ERROR: "#EF3340",
   SUCCESS: "#12B800",
   WARNING: "#faad14",
@@ -44,6 +44,16 @@ export const THEME: ThemeConfig = {
     borderRadius: RADIUS.DEFAULT,
     fontSize: FONT_SIZE.DEFAULT,
   },
+  components: {
+    Menu: {
+      activeBarBorderWidth: 0,
+    },
+    Button: {
+      fontWeight: 500,
+    },
+    Slider: {},
+  },
+  cssVar: true,
 };
 
 // export const GLOBAL_TOKEN = theme?.getDesignToken(THEME);

@@ -1,0 +1,12 @@
+{
+  "common": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "getStarted": "Get Started"
+  },
+  "home": {
+    "title": "Company is your second family",
+    "description": "Share memories, happiness, and difficulties in this second family."
+  }
+}
