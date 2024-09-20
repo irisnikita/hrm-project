@@ -734,6 +734,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::employee.employee'
     >;
+    firstName: Attribute.String;
+    lastName: Attribute.String;
+    primaryEmailAddress: Attribute.JSON;
+    userId: Attribute.UID;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -910,6 +914,7 @@ export interface ApiOrganizationOrganization extends Schema.CollectionType {
     singularName: 'organization';
     pluralName: 'organizations';
     displayName: 'Organization';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -970,11 +975,17 @@ export interface ApiOrganizationOrganization extends Schema.CollectionType {
       'manyToMany',
       'api::employee.employee'
     >;
-    position_levels: Attribute.Relation<
+    positionLevels: Attribute.Relation<
       'api::organization.organization',
       'oneToMany',
       'api::position-level.position-level'
     >;
+    logo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

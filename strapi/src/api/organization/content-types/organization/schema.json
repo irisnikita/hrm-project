@@ -4,7 +4,8 @@
   "info": {
     "singularName": "organization",
     "pluralName": "organizations",
-    "displayName": "Organization"
+    "displayName": "Organization",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -76,11 +77,26 @@
       "target": "api::employee.employee",
       "mappedBy": "organizations"
     },
-    "position_levels": {
+    "positionLevels": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::position-level.position-level",
       "mappedBy": "organization"
+    },
+    "logo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
