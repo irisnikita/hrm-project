@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
 // Libraries
-import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 interface PageTransitionProps {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ export const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
           // exit: { opacity: 0, x: 0, y: -100 },
         }}
         transition={{
-          type: "linear",
+          type: 'linear',
           duration: 0.5,
         }}
       >

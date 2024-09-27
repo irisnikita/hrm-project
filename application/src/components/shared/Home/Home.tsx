@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
 // Libraries
 // import { useState } from "react";
-import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
-import { useTranslations } from "next-intl";
-import { User } from "@clerk/nextjs/server";
+import { motion } from 'framer-motion';
+import { useEffect } from 'react';
+import { useUser } from '@clerk/nextjs';
+import { useTranslations } from 'next-intl';
+import { User } from '@clerk/nextjs/server';
 import // ChevronDown,
 
 // ChevronUp,
@@ -14,29 +14,36 @@ import // ChevronDown,
     Clock,
     Star,
     ArrowRight, */
-"lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 // Styled
-import { HeroSection } from "./styled";
+import { HeroSection } from './styled';
 
 // Hooks
-import { use3DEffect } from "@/hooks";
+import { use3DEffect } from '@/hooks';
 
 // Components
-import { Button } from "@/components/ui";
-import { Header } from "../Header";
+import { Button } from '@/components/ui';
+import { Header } from '../Header';
 
 // Utils
-import { mapClerkUserToCreateUserDto } from "@/utils";
+import { mapClerkUserToCreateUserDto } from '@/utils';
 
 // Services
-import { userService } from "@/services";
+import { userService } from '@/services';
+
+// Constants
+import { SHADOW } from '@/constants';
+
+// Hooks
+import { useUserConfig } from '@/hooks/useUserConfig';
 
 export const Home = () => {
-  const { isSignedIn, user } = useUser();
+  const { isSignedIn, isLoaded, user } = useUser();
   const t = useTranslations();
+  const { removeUserConfig } = useUserConfig();
 
   const {
     ref: containerRef,
@@ -50,16 +57,16 @@ export const Home = () => {
   // };
 
   useEffect(() => {
-    try {
-      if (isSignedIn && !!user) {
-        const userData = mapClerkUserToCreateUserDto(user as unknown as User);
+    if (isSignedIn && !!user && isLoaded) {
+      const userData = mapClerkUserToCreateUserDto(user as unknown as User);
 
-        userService.createUser(userData);
-      }
-    } catch (error) {
-      console.error(error);
+      userService.createUser(userData);
     }
-  }, [isSignedIn, user]);
+
+    if (isLoaded && !isSignedIn) {
+      removeUserConfig();
+    }
+  }, [isSignedIn, user, isLoaded, removeUserConfig]);
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800">
@@ -67,26 +74,26 @@ export const Home = () => {
       <Header />
 
       {/* Hero Section */}
-      <HeroSection className="py-20 bg-gray-100">
-        <div className="container mx-auto px-4 flex flex-col xl:flex-row xl:gap-16 items-center">
-          <div className="xl:w-1/2 mb-10 xl:mb-0">
+      <HeroSection className="glass-section py-20">
+        <div className="container mx-auto flex flex-col items-center px-4 xl:flex-row xl:gap-16">
+          <div className="mb-10 text-center xl:mb-0 xl:w-1/2 xl:text-left">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 delay: 0.4,
               }}
-              className="text-4xl md:text-5xl font-bold mb-6"
+              className="mb-6 text-4xl font-bold md:text-5xl"
             >
-              {t("home.title")}
+              {t('home.title')}
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="text-xl mb-8"
+              className="mb-8 text-xl"
             >
-              {t("home.description")}
+              {t('home.description')}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -95,7 +102,7 @@ export const Home = () => {
             >
               <Link href="/dashboard">
                 <Button size="large" type="primary">
-                  {t("common.getStarted")}
+                  {t('common.getStarted')}
                 </Button>
               </Link>
             </motion.div>
@@ -112,14 +119,14 @@ export const Home = () => {
               style={{
                 ...containerStyle,
                 transformPerspective: 1000,
+                filter: `drop-shadow(${SHADOW.TERTIARY})`,
               }}
             >
               <Image
                 fill
-                objectPosition="center"
-                objectFit="contain"
                 src="/svgs/undraw_pizza_sharing.svg"
                 alt="HRM App Mockup"
+                className="object-contain object-center"
               />
             </motion.div>
           </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, RefObject } from "react";
+import { useState, useEffect, RefObject } from 'react';
 
 interface ScrollPosition {
   scrollY: number;
@@ -7,7 +7,7 @@ interface ScrollPosition {
 
 export const useScrollPosition = (
   threshold: number = 0,
-  elementRef?: RefObject<HTMLElement>
+  elementRef?: RefObject<HTMLElement>,
 ): ScrollPosition => {
   const [scrollPosition, setScrollPosition] = useState<ScrollPosition>({
     scrollY: 0,
@@ -25,9 +25,9 @@ export const useScrollPosition = (
     };
 
     if (element) {
-      element.addEventListener("scroll", handleScroll, { passive: true });
+      element.addEventListener('scroll', handleScroll, { passive: true });
     } else {
-      window.addEventListener("scroll", handleScroll, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
     }
 
     // Call handler right away so state gets updated with initial window position
@@ -35,9 +35,9 @@ export const useScrollPosition = (
 
     return () => {
       if (element) {
-        element.removeEventListener("scroll", handleScroll);
+        element.removeEventListener('scroll', handleScroll);
       } else {
-        window.removeEventListener("scroll", handleScroll);
+        window.removeEventListener('scroll', handleScroll);
       }
     };
   }, [threshold, elementRef]);

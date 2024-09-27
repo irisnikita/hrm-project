@@ -1,0 +1,1 @@
+export const GREETING_CARD_HEIGHT = 400;

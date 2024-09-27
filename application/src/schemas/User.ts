@@ -1,6 +1,9 @@
 // Libraries
-import { User as ClerkUser } from "@clerk/nextjs/server";
-import { z } from "zod";
+import { User as ClerkUser } from '@clerk/nextjs/server';
+import { z } from 'zod';
+
+// Schemas
+import { OrganizationAttributesSchema } from './Organization';
 
 export const UserSchema = z.object({
   userId: z.string(),
@@ -22,6 +25,7 @@ export const UserSchema = z.object({
   fullName: z.string().nullable(),
   firstName: z.string().nullable(),
   lastName: z.string().nullable(),
+  organizations: z.array(OrganizationAttributesSchema),
   primaryEmailAddress: z
     .object({
       id: z.string(),
@@ -30,7 +34,7 @@ export const UserSchema = z.object({
           id: z.string(),
           type: z.string(),
           pathRoot: z.string(),
-        })
+        }),
       ),
       pathRoot: z.string(),
       emailAddress: z.string(),
@@ -56,15 +60,23 @@ export const CreateUserDtoSchema = UserSchema.omit({
   updatedAt: true,
   role: true,
   provider: true,
+  organizations: true,
 }).and(
   z.object({
     password: z.string(),
     role: z.number(),
-  })
+    organizations: z.array(z.number()).optional(),
+  }),
 );
 
+export const UpdateUserDtoSchema = CreateUserDtoSchema;
+
 export type User = z.infer<typeof UserSchema>;
-export type CreateUserDto = Omit<
-  z.infer<typeof CreateUserDtoSchema>,
-  "primaryEmailAddress"
-> & { primaryEmailAddress?: ClerkUser["primaryEmailAddress"] };
+export type CreateUserDto = Omit<z.infer<typeof CreateUserDtoSchema>, 'primaryEmailAddress'> & {
+  primaryEmailAddress?: ClerkUser['primaryEmailAddress'];
+};
+export type UpdateUserDto = Partial<
+  Omit<z.infer<typeof UpdateUserDtoSchema>, 'primaryEmailAddress'> & {
+    primaryEmailAddress?: ClerkUser['primaryEmailAddress'];
+  }
+>;

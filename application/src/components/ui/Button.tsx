@@ -1,4 +1,4 @@
 // Libraries
-import Button from "antd/es/button";
+import Button from 'antd/es/button';
 
 export { Button };

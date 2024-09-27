@@ -1,5 +1,5 @@
 // Components
-import { Home } from "@/components/shared";
+import { Home } from '@/components/shared';
 
 export default function HomePage() {
   return <Home />;

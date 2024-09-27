@@ -1,6 +1,18 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"],
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:tailwindcss/recommended",
+    "next",
+    "prettier"
+  ],
+  "plugins": ["prettier"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": ["warn", { "useTabs": false }],
+    "tailwindcss/no-custom-classname": "off"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
   }
 }

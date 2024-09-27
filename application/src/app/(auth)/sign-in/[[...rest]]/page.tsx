@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { SignIn } from "@clerk/nextjs";
+import { SignIn } from '@clerk/nextjs';
 
 export default function SignInPage() {
   return (
-    <div className="neumorphism-section authentication-wrapper">
+    <div className="glass-section authentication-wrapper">
       <SignIn
         fallbackRedirectUrl="/"
         signUpFallbackRedirectUrl="/"

@@ -1,10 +1,10 @@
 // Libraries
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const StyledHeader = styled.header<{ $isScrolled?: boolean }>`
   z-index: 1000;
 
-  ${(props) =>
+  ${props =>
     props.$isScrolled &&
     css`
       background-color: rgb(255, 255, 255, 0.8);

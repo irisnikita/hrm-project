@@ -1,60 +1,60 @@
-"use client";
+'use client';
 
 // Libraries
-import { useState } from "react";
-import Image from "next/image";
+import { memo, useMemo, useState } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 // Components
-import { Button, Dropdown } from "@/components/ui";
+import { Button, Dropdown } from '@/components/ui';
 
 // Constants
-import { LOCALE_OPTIONS } from "@/constants";
+import { LOCALE_OPTIONS } from '@/constants';
 
 // Utils
-import { getLanguage, setLanguage } from "@/utils";
-import { useRouter } from "next/navigation";
-import { tryCatch } from "@/lib";
+import { getLanguage, setLanguage } from '@/utils';
 
-export const LanguageSwitcher = () => {
+// Libs
+import { tryCatch } from '@/lib';
+
+export const LanguageSwitcher = memo(() => {
   const router = useRouter();
   const [currentLanguage, setCurrentLanguage] = useState(getLanguage());
+
+  // Memo
+  const languageIcon = useMemo(() => {
+    return LOCALE_OPTIONS.find(option => option.key === currentLanguage)?.icon;
+  }, [currentLanguage]);
 
   const handleLanguageChange = async (key: string) => {
     setCurrentLanguage(key);
     setLanguage(key);
     router.refresh();
-
-    throw new Error("Test");
   };
 
   return (
     <Dropdown
       menu={{
-        items: LOCALE_OPTIONS.map((option) => ({
+        items: LOCALE_OPTIONS.map(option => ({
           key: option.key,
           label: (
             <div className="flex items-center gap-2">
-              <Image
-                src={option.icon}
-                alt={option.label}
-                width={20}
-                height={20}
-              />
+              <Image src={option.icon} alt={option.label} width={20} height={20} />
               {option.label}
             </div>
           ),
         })),
         selectedKeys: [currentLanguage],
-        onClick: (e) => tryCatch(handleLanguageChange)(e.key),
+        onClick: e => tryCatch(handleLanguageChange)(e.key),
       }}
-      trigger={["click"]}
+      trigger={['click']}
       placement="bottomRight"
     >
       <Button shape="circle" type="text">
-        {currentLanguage?.toUpperCase()}
+        <Image src={languageIcon || ''} alt={currentLanguage} width={26} height={26} />
       </Button>
     </Dropdown>
   );
-};
+});
 
-LanguageSwitcher.displayName = "LanguageSwitcher";
+LanguageSwitcher.displayName = 'LanguageSwitcher';

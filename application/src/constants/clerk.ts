@@ -1,16 +1,16 @@
 // Types
-import type { Appearance, Theme } from "@clerk/types";
+import type { Appearance, Theme } from '@clerk/types';
 
 // Constants
-import { COLORS } from "./theme";
+import { COLORS } from './theme';
 
 // Localizations
-import { enUS, viVN } from "@clerk/localizations";
+import { enUS, viVN } from '@clerk/localizations';
 
 export const CLERK_APPEARANCE: Appearance<Theme> = {
   variables: {
     colorPrimary: COLORS.PRIMARY,
-    borderRadius: "10px",
+    borderRadius: '10px',
   },
   elements: {
     footer: {},
@@ -20,4 +20,4 @@ export const CLERK_APPEARANCE: Appearance<Theme> = {
 export const MAP_CLERK_LOCALIZATION = {
   vi: viVN,
   en: enUS,
-}
+};

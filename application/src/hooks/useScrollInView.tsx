@@ -1,13 +1,13 @@
 // Libraries
-import { useEffect, useRef, useState } from "react";
-import { AnimationProps, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from 'react';
+import { AnimationProps, useInView } from 'framer-motion';
 
 interface UseScrollInViewOptions {
   threshold?: number;
   once?: boolean;
-  initial?: AnimationProps["initial"];
-  animate?: AnimationProps["animate"];
-  transition?: AnimationProps["transition"];
+  initial?: AnimationProps['initial'];
+  animate?: AnimationProps['animate'];
+  transition?: AnimationProps['transition'];
 }
 
 export const useScrollInView = (options: UseScrollInViewOptions = {}) => {
@@ -16,7 +16,7 @@ export const useScrollInView = (options: UseScrollInViewOptions = {}) => {
     once = true,
     initial = { opacity: 0, y: 50 },
     animate = { opacity: 1, y: 0 },
-    transition = { duration: 0.5, ease: "easeOut" },
+    transition = { duration: 0.5, ease: 'easeOut' },
   } = options || {};
 
   const ref = useRef(null);

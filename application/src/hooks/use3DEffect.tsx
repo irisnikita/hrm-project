@@ -1,10 +1,5 @@
-import { useRef } from "react";
-import {
-  useMotionValue,
-  useTransform,
-  useSpring,
-  MotionValue,
-} from "framer-motion";
+import { useRef } from 'react';
+import { useMotionValue, useTransform, useSpring, MotionValue } from 'framer-motion';
 
 interface Use3DEffectResult {
   ref: React.RefObject<HTMLDivElement>;
@@ -18,7 +13,7 @@ interface Use3DEffectResult {
 
 export const use3DEffect = (
   rotationIntensity: number = 17.5,
-  springConfig = { stiffness: 300, damping: 30, mass: 0.5 }
+  springConfig = { stiffness: 300, damping: 30, mass: 0.5 },
 ): Use3DEffectResult => {
   const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
@@ -27,12 +22,12 @@ export const use3DEffect = (
   const rotateX = useTransform(
     mouseY,
     [-0.5, 0.5],
-    [`${rotationIntensity}deg`, `-${rotationIntensity}deg`]
+    [`${rotationIntensity}deg`, `-${rotationIntensity}deg`],
   );
   const rotateY = useTransform(
     mouseX,
     [-0.5, 0.5],
-    [`-${rotationIntensity}deg`, `${rotationIntensity}deg`]
+    [`-${rotationIntensity}deg`, `${rotationIntensity}deg`],
   );
 
   const springRotateX = useSpring(rotateX, springConfig);

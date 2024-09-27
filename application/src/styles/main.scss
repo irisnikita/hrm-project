@@ -1,3 +1,7 @@
+@import './base.scss';
+@import './mixin.scss';
+@import './antd.scss';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,39 +44,35 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  background-color: #d9d9d9 !important;
   border-radius: 4px;
 }
 
 /* Neumorphism */
-.neumorphism-background {
-  background-color: rgb(255, 255, 255, 0.8);
-  backdrop-filter: blur(6px) !important;
+.glass-background {
+  background: #ffffff50 !important;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 }
 
-.neumorphism-section {
+.glass-section {
+  @include glass-cover-bg;
+
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0.9)
-    ),
-    url("/images/backgrounds/overlay-1.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  position: relative;
-  overflow: auto;
 }
 
 .cl-footer {
-  > [class*="cl-internal-"]:nth-child(2) {
+  > [class*='cl-internal-']:nth-child(2) {
     display: none;
   }
+}
+
+/* Layout */
+#dashboard-layout {
+  @include glass-cover-bg;
 }

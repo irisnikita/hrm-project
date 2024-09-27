@@ -3,10 +3,123 @@
     "home": "Home",
     "dashboard": "Dashboard",
     "profile": "Profile",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "logIn": "Log In",
+    "signUp": "Sign Up",
+    "cancel": "Cancel",
+    "create": "Create",
+    "backHome": "Back Home",
+    "explore": "Explore",
+    "readMore": "Read More",
+    "noData": "No data",
+    "viewAll": "View All"
+  },
+  "apiMessages": {
+    "createdSuccess": "{name} created successfully",
+    "updatedSuccess": "{name} updated successfully",
+    "deletedSuccess": "{name} deleted successfully",
+    "createdFailed": "{name} created failed",
+    "updatedFailed": "{name} updated failed",
+    "deletedFailed": "{name} deleted failed"
   },
   "home": {
     "title": "Company is your second family",
     "description": "Share memories, happiness, and difficulties in this second family."
+  },
+  "organizationList": {
+    "title": "Choose an organization",
+    "description": "to continue to Compily",
+    "createNewOrganization": "Create new organization",
+    "organizationName": "Organization name",
+    "slug": "Slug",
+    "logo": "Logo"
+  },
+  "formValidation": {
+    "required": "{fieldName} is required",
+    "max": "{fieldName} cannot be longer than {max} characters",
+    "min": "{fieldName} must be at least {min} characters",
+    "email": "Please enter a valid email address",
+    "url": "Please enter a valid URL",
+    "number": "Please enter a valid number",
+    "passwordStrength": "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number",
+    "nameExists": "{fieldName} already exists"
+  },
+  "validateMessages": {
+    "default": "Validation error on field ${label}",
+    "required": "${label} is required",
+    "enum": "${label} must be one of [${enum}]",
+    "whitespace": "${label} cannot be empty",
+    "date": {
+      "format": "${label} is invalid for format date",
+      "parse": "${label} could not be parsed as date",
+      "invalid": "${label} is invalid date"
+    },
+    "types": {
+      "string": "${label} is not a valid ${type}",
+      "method": "${label} is not a valid ${type}",
+      "array": "${label} is not a valid ${type}",
+      "object": "${label} is not a valid ${type}",
+      "number": "${label} is not a valid ${type}",
+      "date": "${label} is not a valid ${type}",
+      "boolean": "${label} is not a valid ${type}",
+      "integer": "${label} is not a valid ${type}",
+      "float": "${label} is not a valid ${type}",
+      "regexp": "${label} is not a valid ${type}",
+      "email": "${label} is not a valid ${type}",
+      "url": "${label} is not a valid ${type}",
+      "hex": "${label} is not a valid ${type}"
+    },
+    "string": {
+      "len": "${label} must be exactly ${len} characters",
+      "min": "${label} must be at least ${min} characters",
+      "max": "${label} cannot be longer than ${max} characters",
+      "range": "${label} must be between ${min} and ${max} characters"
+    },
+    "number": {
+      "len": "${label} must equal ${len}",
+      "min": "${label} cannot be less than ${min}",
+      "max": "${label} cannot be greater than ${max}",
+      "range": "${label} must be between ${min} and ${max}"
+    },
+    "array": {
+      "len": "${label} must have exactly ${len} items",
+      "min": "${label} cannot have less than ${min} items",
+      "max": "${label} cannot have more than ${max} items",
+      "range": "${label} must have between ${min} and ${max} items"
+    },
+    "pattern": {
+      "mismatch": "${label} does not match pattern ${pattern}"
+    }
+  },
+  "upload": {
+    "clickOrDrag": "Click to upload or drag and drop",
+    "format": "Only {format} files are allowed",
+    "maxSize": "File size cannot exceed {maxSize} MB",
+    "errors": {
+      "accepted": "You can only upload {acceptLabel} file!",
+      "maxSize": "File size must smaller than {maxSize}MB!"
+    }
+  },
+  "menu": {
+    "home": "Home",
+    "overview": "Overview",
+    "management": "Management",
+    "orgChart": "Org Chart",
+    "employees": "Employees"
+  },
+  "notFound": {
+    "title": "404",
+    "description": "Sorry, the page you visited does not exist."
+  },
+  "noPermission": {
+    "title": "403",
+    "description": "Sorry, you are not authorized to access this page."
+  },
+  "greeting": {
+    "goodMorning": "Good morning",
+    "goodAfternoon": "Good afternoon",
+    "goodEvening": "Good evening",
+    "goodNight": "Good night",
+    "welcome": "Hope you're feeling great today. Let's explore all the exciting things at the company and make this day productive!"
   }
 }

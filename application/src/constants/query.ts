@@ -1,0 +1,14 @@
+export const QUERY_KEYS = {
+  /* Organization */
+  ORGANIZATION_LIST: 'ORGANIZATION_LIST',
+  ORGANIZATION_DETAIL: 'ORGANIZATION_DETAIL',
+
+  /* User */
+  USER_LIST: 'USER_LIST',
+
+  /* News */
+  NEWS_LIST: 'NEWS_LIST',
+
+  /* Organization Role */
+  ORGANIZATION_ROLE_LIST: 'ORGANIZATION_ROLE_LIST',
+};

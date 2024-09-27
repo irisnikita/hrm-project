@@ -1,3 +1,4 @@
 export const LOCAL_STORAGE_KEYS = {
-  LANGUAGE: "language",
+  LANGUAGE: 'language',
+  USER_CONFIG: 'user-config',
 };

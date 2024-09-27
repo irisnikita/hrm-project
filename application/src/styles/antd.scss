@@ -1,0 +1,23 @@
+/* Dropdown */
+.ant-dropdown {
+  > .ant-dropdown-menu {
+    backdrop-filter: blur(7px);
+    background-image: url('/images/backgrounds/red-blur.png');
+    background-repeat: no-repeat, no-repeat;
+    background-size: 50%, 50%;
+    outline: 0px;
+    background-position:
+      right top,
+      left bottom;
+  }
+}
+
+/* Select */
+.ant-select-dropdown {
+  @include glass-bg;
+}
+
+/* Menu */
+.ant-menu-item-group-title {
+  font-weight: 600;
+}

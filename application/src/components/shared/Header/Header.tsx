@@ -1,20 +1,29 @@
-"use client";
+'use client';
 
 // Libraries
-import React, { RefObject } from "react";
-import clsx from "clsx";
-import Link from "next/link";
+import React, { RefObject } from 'react';
+import clsx from 'clsx';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { useTranslations } from 'next-intl';
 
 // Components
-import { Button, Flex } from "@/components/ui";
-import { SignedOut, SignedIn, UserButton } from "@clerk/nextjs";
+import { Button, Flex } from '@/components/ui';
+import { Logo } from '../Logo';
+import { SignedOut, SignedIn, UserButton } from '@clerk/nextjs';
 
 // Styled
-import { StyledHeader } from "./styled";
+import { StyledHeader } from './styled';
 
 // Hooks
-import { useScrollPosition } from "@/hooks";
-import { LanguageSwitcher } from "../LanguageSwitcher";
+import { useScrollPosition } from '@/hooks';
+
+const LanguageSwitcher = dynamic(
+  () => import('@/components/shared/LanguageSwitcher').then(mod => mod.LanguageSwitcher),
+  {
+    ssr: false,
+  },
+);
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   isDashboard?: boolean;
@@ -24,42 +33,34 @@ interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   leftContent?: React.ReactNode;
 }
 
-export const Header: React.FC<HeaderProps> = (props) => {
-  const { className, isDashboard, parentRef, leftContent, ...restOfProps } =
-    props;
+export const Header: React.FC<HeaderProps> = props => {
+  const t = useTranslations();
+  const { className, isDashboard, parentRef, leftContent, ...restOfProps } = props;
   const { isScrolled } = useScrollPosition(0, parentRef);
 
   return (
     <StyledHeader
       $isScrolled={isScrolled}
-      className={clsx(
-        className,
-        "bg-transparent lg:fixed w-full transition-all",
-        {
-          "shadow-sm shadow-slate-50": isScrolled,
-        }
-      )}
+      className={clsx(className, 'fixed w-full bg-transparent transition-all', {
+        'shadow-sm shadow-slate-50': isScrolled,
+      })}
       {...restOfProps}
     >
       <div
-        className={clsx("mx-auto p-4 flex justify-between items-center", {
+        className={clsx('mx-auto flex items-center justify-between p-4', {
           container: !isDashboard,
         })}
       >
-        {leftContent ? (
-          leftContent
-        ) : (
-          <div className="text-2xl font-bold">Compily</div>
-        )}
+        {leftContent ? leftContent : <Logo />}
 
         <Flex gap={16} align="center">
           <SignedOut>
             <Link href="/sign-in">
-              <Button size="large">Log In</Button>
+              <Button size="large">{t('common.logIn')}</Button>
             </Link>
             <Link href="/sign-up">
               <Button type="primary" size="large">
-                Sign Up
+                {t('common.signUp')}
               </Button>
             </Link>
           </SignedOut>

@@ -1,10 +1,10 @@
-"use client"; // Error boundaries must be Client Components
+'use client'; // Error boundaries must be Client Components
 
 // Libraries
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 // Lib
-import { handleError } from "@/lib/errorHandler";
+import { handleError } from '@/lib/errorHandler';
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -13,8 +13,8 @@ interface ErrorProps {
 
 export default function Error({ error, reset }: ErrorProps) {
   useEffect(() => {
-    handleError(error, "Dashboard Error Boundary", {
-      component: "Dashboard",
+    handleError(error, 'Dashboard Error Boundary', {
+      component: 'Dashboard',
     });
   }, [error]);
 

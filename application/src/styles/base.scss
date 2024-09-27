@@ -1,0 +1,24 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --glass-bg: #ffffff70;
+
+  /* Antd */
+  --ant-layout-sider-bg: #ffffff70;
+
+  --palette-common-blackChannel: 0 0 0;
+  --palette-common-black: #000000;
+
+  --swiper-navigation-color: #13c2c2;
+  --swiper-pagination-color: #13c2c2;
+  --swiper-pagination-bullet-inactive-color: #13c2c2;
+  --swiper-pagination-bullet-inactive-opacity: 0.3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}

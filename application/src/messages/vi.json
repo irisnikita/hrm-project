@@ -3,10 +3,123 @@
     "home": "Trang chủ",
     "dashboard": "Bảng điều khiển",
     "profile": "Hồ sơ",
-    "getStarted": "Bắt đầu"
+    "getStarted": "Bắt đầu",
+    "logIn": "Đăng nhập",
+    "signUp": "Đăng ký",
+    "cancel": "Hủy",
+    "create": "Tạo",
+    "backHome": "Trở về trang chủ",
+    "explore": "Khám phá",
+    "readMore": "Đọc thêm",
+    "noData": "Không có dữ liệu",
+    "viewAll": "Xem tất cả"
+  },
+  "apiMessages": {
+    "createdSuccess": "{name} được tạo thành công",
+    "updatedSuccess": "{name} được cập nhật thành công",
+    "deletedSuccess": "{name} được xóa thành công",
+    "createdFailed": "{name} tạo thất bại",
+    "updatedFailed": "{name} cập nhật thất bại",
+    "deletedFailed": "{name} xóa thất bại"
   },
   "home": {
     "title": "Công ty là gia đình thứ hai của bạn",
     "description": "Chia sẻ kỷ niệm, hạnh phúc và khó khăn trong gia đình thứ hai này."
+  },
+  "organizationList": {
+    "title": "Chọn một tổ chức",
+    "description": "để tiếp tục đến Compily",
+    "createNewOrganization": "Tạo tổ chức mới",
+    "organizationName": "Tên tổ chức",
+    "slug": "Đường dẫn rút gọn",
+    "logo": "Logo"
+  },
+  "formValidation": {
+    "required": "{fieldName} là bắt buộc",
+    "max": "{fieldName} không được dài hơn {max} ký tự",
+    "min": "{fieldName} phải ít nhất {min} ký tự",
+    "email": "Vui lòng nhập địa chỉ email hợp lệ",
+    "url": "Vui lòng nhập địa chỉ URL hợp lệ",
+    "number": "Vui lòng nhập số hợp lệ",
+    "passwordStrength": "Mật khẩu phải có ít nhất 8 ký tự, một chữ cái viết hoa, một chữ cái viết thường và một số",
+    "nameExists": "{fieldName} đã tồn tại"
+  },
+  "validateMessages": {
+    "default": "Lỗi xác thực trường ${label}",
+    "required": "${label} là bắt buộc",
+    "enum": "${label} phải là một trong [${enum}]",
+    "whitespace": "${label} không thể để trống",
+    "date": {
+      "format": "${label} không đúng định dạng ngày",
+      "parse": "${label} không thể chuyển đổi thành ngày",
+      "invalid": "${label} là ngày không hợp lệ"
+    },
+    "types": {
+      "string": "${label} không phải là ${type} hợp lệ",
+      "method": "${label} không phải là ${type} hợp lệ",
+      "array": "${label} không phải là ${type} hợp lệ",
+      "object": "${label} không phải là ${type} hợp lệ",
+      "number": "${label} không phải là ${type} hợp lệ",
+      "date": "${label} không phải là ${type} hợp lệ",
+      "boolean": "${label} không phải là ${type} hợp lệ",
+      "integer": "${label} không phải là ${type} hợp lệ",
+      "float": "${label} không phải là ${type} hợp lệ",
+      "regexp": "${label} không phải là ${type} hợp lệ",
+      "email": "${label} không phải là ${type} hợp lệ",
+      "url": "${label} không phải là ${type} hợp lệ",
+      "hex": "${label} không phải là ${type} hợp lệ"
+    },
+    "string": {
+      "len": "${label} phải có đúng ${len} ký tự",
+      "min": "${label} phải có ít nhất ${min} ký tự",
+      "max": "${label} không thể dài hơn ${max} ký tự",
+      "range": "${label} phải có từ ${min} đến ${max} ký tự"
+    },
+    "number": {
+      "len": "${label} phải bằng ${len}",
+      "min": "${label} không thể nhỏ hơn ${min}",
+      "max": "${label} không thể lớn hơn ${max}",
+      "range": "${label} phải nằm trong khoảng từ ${min} đến ${max}"
+    },
+    "array": {
+      "len": "${label} phải có đúng ${len} phần tử",
+      "min": "${label} không thể có ít hơn ${min} phần tử",
+      "max": "${label} không thể có nhiều hơn ${max} phần tử",
+      "range": "${label} phải có từ ${min} đến ${max} phần tử"
+    },
+    "pattern": {
+      "mismatch": "'${label}' không khớp với mẫu ${pattern}"
+    }
+  },
+  "upload": {
+    "clickOrDrag": "Kéo hoặc nhấp để tải lên",
+    "format": "Chỉ các tệp {format} được phép",
+    "maxSize": "Kích thước tệp không được vượt quá {maxSize} MB",
+    "errors": {
+      "accepted": "Bạn chỉ có thể tải lên tệp {acceptLabel}!",
+      "maxSize": "Kích thước tệp phải nhỏ hơn {maxSize}MB!"
+    }
+  },
+  "menu": {
+    "home": "Trang chủ",
+    "overview": "Tổng quan",
+    "management": "Quản lý",
+    "orgChart": "Sơ đồ tổ chức",
+    "employees": "Nhân viên"
+  },
+  "notFound": {
+    "title": "404",
+    "description": "Xin lỗi, trang bạn truy cập không tồn tại."
+  },
+  "noPermission": {
+    "title": "403",
+    "description": "Xin lỗi, bạn không được phép truy cập trang này."
+  },
+  "greeting": {
+    "goodMorning": "Chào buổi sáng",
+    "goodAfternoon": "Chào buổi chiều",
+    "goodEvening": "Chào buổi tối",
+    "goodNight": "Chúc ngủ ngon",
+    "welcome": "Hy vọng hôm nay bạn cảm thấy tuyệt vời. Hãy cùng khám phá những điều thú vị tại công ty và tạo nên một ngày thật hiệu quả nhé!"
   }
 }
