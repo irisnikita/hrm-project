@@ -890,6 +890,7 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
       'oneToOne',
       'api::position-level.position-level'
     >;
+    fullName: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -905,6 +906,148 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+  };
+}
+
+export interface ApiNewNew extends Schema.CollectionType {
+  collectionName: 'news';
+  info: {
+    singularName: 'new';
+    pluralName: 'news';
+    displayName: 'News';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.SetMinMaxLength<{
+        minLength: 8;
+        maxLength: 255;
+      }>;
+    content: Attribute.Blocks &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    author: Attribute.Relation<
+      'api::new.new',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    publishDate: Attribute.DateTime &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    status: Attribute.Enumeration<['draft', 'published', 'archived']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<'draft'>;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    organization: Attribute.Relation<
+      'api::new.new',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    newsTags: Attribute.Relation<
+      'api::new.new',
+      'oneToMany',
+      'api::new-tag.new-tag'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::new.new',
+      'oneToMany',
+      'api::new.new'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiNewTagNewTag extends Schema.CollectionType {
+  collectionName: 'new_tags';
+  info: {
+    singularName: 'new-tag';
+    pluralName: 'new-tags';
+    displayName: 'News Tag';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    tagName: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    color: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    organization: Attribute.Relation<
+      'api::new-tag.new-tag',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::new-tag.new-tag',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::new-tag.new-tag',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::new-tag.new-tag',
+      'oneToMany',
+      'api::new-tag.new-tag'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -986,6 +1129,17 @@ export interface ApiOrganizationOrganization extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    slug: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    owner: Attribute.Relation<
+      'api::organization.organization',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1005,6 +1159,65 @@ export interface ApiOrganizationOrganization extends Schema.CollectionType {
       'api::organization.organization',
       'oneToMany',
       'api::organization.organization'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiOrganizationRoleOrganizationRole
+  extends Schema.CollectionType {
+  collectionName: 'organization_roles';
+  info: {
+    singularName: 'organization-role';
+    pluralName: 'organization-roles';
+    displayName: 'Organization Role';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::organization-role.organization-role',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    organization: Attribute.Relation<
+      'api::organization-role.organization-role',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    role: Attribute.Enumeration<
+      ['admin', 'employee', 'manager', 'user', 'authenticated']
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::organization-role.organization-role',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::organization-role.organization-role',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::organization-role.organization-role',
+      'oneToMany',
+      'api::organization-role.organization-role'
     >;
     locale: Attribute.String;
   };
@@ -1067,7 +1280,10 @@ declare module '@strapi/types' {
       'plugin::i18n.locale': PluginI18NLocale;
       'api::department.department': ApiDepartmentDepartment;
       'api::employee.employee': ApiEmployeeEmployee;
+      'api::new.new': ApiNewNew;
+      'api::new-tag.new-tag': ApiNewTagNewTag;
       'api::organization.organization': ApiOrganizationOrganization;
+      'api::organization-role.organization-role': ApiOrganizationRoleOrganizationRole;
       'api::position-level.position-level': ApiPositionLevelPositionLevel;
     }
   }

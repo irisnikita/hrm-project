@@ -64,6 +64,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::position-level.position-level"
+    },
+    "fullName": {
+      "type": "string"
     }
   }
 }
