@@ -128,7 +128,7 @@ export const NewsCard: React.FC = () => {
       className="relative h-full"
       initial={{ opacity: 0, rotate: 20 }}
       animate={{ opacity: 1, rotate: 0 }}
-      transition={{ delay: 1.5, ease: 'easeInOut' }}
+      transition={{ ease: 'easeInOut' }}
     >
       <StyledNewsCard>
         {Array.isArray(newsList) && newsList.length ? (

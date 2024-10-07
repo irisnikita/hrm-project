@@ -24,6 +24,7 @@ import { ListItem, StyledCard } from './styled';
 
 // Queries
 import { useCreateOrganization, useGetOrganizationList } from '@/queries/organization';
+import { useCreateOrganizationRole } from '@/queries/organizationRole';
 import { useUpdateUser } from '@/queries/user';
 
 // Utils
@@ -63,7 +64,6 @@ const { Text } = Typography;
 export const OrganizationList = memo(() => {
   const t = useTranslations();
   const { systemUser } = useUser();
-  console.log('🚀 ~ OrganizationList ~ systemUser:', systemUser);
   const [form] = Form.useForm<TFormValues>();
   const { setUserConfig } = useUserConfig();
   const [state, setState] = useImmer<TState>({
@@ -82,9 +82,11 @@ export const OrganizationList = memo(() => {
   const { mutateAsync: createOrganization, isPending: isCreatingOrganization } =
     useCreateOrganization();
   const { mutateAsync: updateUser, isPending: isUpdatingUser } = useUpdateUser();
+  const { mutateAsync: createOrganizationRole, isPending: isCreatingOrganizationRole } =
+    useCreateOrganizationRole();
 
   // Variables
-  const isLoadingForm = isCreatingOrganization || isUpdatingUser;
+  const isLoadingForm = isCreatingOrganization || isUpdatingUser || isCreatingOrganizationRole;
   const { isAddNewOrganization } = state;
 
   // Handlers
@@ -129,21 +131,33 @@ export const OrganizationList = memo(() => {
       data: createOrganizationData,
     });
 
+    if (!response.data) return;
+
+    const organizationId = response.data.id || 0;
+
+    // Add created organizations for user
     await updateUser({
       id: systemUser?.id || 0,
       userData: {
         organizations: systemUser.organizations
           ?.map(organization => organization.id || 0)
-          .concat(response.data?.id || 0),
+          .concat(organizationId),
       },
     });
 
-    if (!!response.data) {
-      form.resetFields();
-      setState(draft => {
-        draft.isAddNewOrganization = false;
-      });
-    }
+    // Add relative role between user and organization
+    await createOrganizationRole({
+      data: {
+        organization: organizationId,
+        role: 'admin',
+        user: systemUser?.id,
+      },
+    });
+
+    form.resetFields();
+    setState(draft => {
+      draft.isAddNewOrganization = false;
+    });
   };
 
   // Renders

@@ -4,13 +4,14 @@
 import React, { RefObject } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 
 // Components
 import { Button, Flex } from '@/components/ui';
+import { UserButton as CusUserButton } from '@/components/shared';
 import { Logo } from '../Logo';
-import { SignedOut, SignedIn, UserButton } from '@clerk/nextjs';
+import { SignedOut, SignedIn } from '@clerk/nextjs';
 
 // Styled
 import { StyledHeader } from './styled';
@@ -18,12 +19,12 @@ import { StyledHeader } from './styled';
 // Hooks
 import { useScrollPosition } from '@/hooks';
 
-const LanguageSwitcher = dynamic(
-  () => import('@/components/shared/LanguageSwitcher').then(mod => mod.LanguageSwitcher),
-  {
-    ssr: false,
-  },
-);
+// const LanguageSwitcher = dynamic(
+//   () => import('@/components/shared/LanguageSwitcher').then(mod => mod.LanguageSwitcher),
+//   {
+//     ssr: false,
+//   },
+// );
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   isDashboard?: boolean;
@@ -31,11 +32,13 @@ interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   parentRef?: RefObject<HTMLElement>;
   /** Left content to be displayed on the left side of the header */
   leftContent?: React.ReactNode;
+  /** Right content to be displayed on the right side of the header */
+  rightContent?: React.ReactNode;
 }
 
 export const Header: React.FC<HeaderProps> = props => {
   const t = useTranslations();
-  const { className, isDashboard, parentRef, leftContent, ...restOfProps } = props;
+  const { className, isDashboard, parentRef, leftContent, rightContent, ...restOfProps } = props;
   const { isScrolled } = useScrollPosition(0, parentRef);
 
   return (
@@ -65,10 +68,12 @@ export const Header: React.FC<HeaderProps> = props => {
             </Link>
           </SignedOut>
           <SignedIn>
-            <UserButton showName />
-          </SignedIn>
+            {rightContent}
 
-          <LanguageSwitcher />
+            {/* <LanguageSwitcher /> */}
+            <CusUserButton />
+            {/* <UserButton userProfileMode="navigation" userProfileUrl="/dashboard" /> */}
+          </SignedIn>
         </Flex>
       </div>
     </StyledHeader>

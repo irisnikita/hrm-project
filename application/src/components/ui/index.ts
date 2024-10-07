@@ -21,3 +21,6 @@ export * from './Col';
 export * from './Tag';
 export * from './Swiper';
 export * from './Empty';
+export * from './Popover';
+export * from './Divider';
+export * from './Badge';

@@ -5,7 +5,7 @@ import { AxiosRequestConfig } from 'axios';
 import { axiosInstance } from '../api';
 import { StrapiResponse } from '@/types';
 
-import { OrganizationRole } from '@/schemas';
+import { CreateOrganizationDto, OrganizationRole } from '@/schemas';
 
 const ORGANIZATION_ROLE_PATH = '/organization-roles';
 
@@ -28,6 +28,17 @@ export const organizationRoleService = {
   },
   getOrganizationRole: async (id: number) => {
     const response = await axiosInstance.get(`${ORGANIZATION_ROLE_PATH}/${id}`);
+    return response.data;
+  },
+  createOrganizationRole: async (
+    data: CreateOrganizationDto,
+  ): Promise<StrapiResponse<OrganizationRole>> => {
+    const response = await axiosInstance({
+      method: 'POST',
+      url: ORGANIZATION_ROLE_PATH,
+      data,
+    });
+
     return response.data;
   },
 };

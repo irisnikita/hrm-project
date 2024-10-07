@@ -40,7 +40,7 @@ export const getGreeting = async (): Promise<Greeting> => {
       greeting.Icon = SunsetIcon;
       break;
     }
-    case hour < 21: {
+    case hour <= 24: {
       greeting.message = 'greeting.goodEvening';
       greeting.Icon = MoonIcon;
       break;

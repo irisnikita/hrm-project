@@ -7,7 +7,12 @@ import { useGetOrganization } from '@/queries/organization';
 
 // Schemas
 import { User } from '@/schemas';
-import { useUserConfig } from './useUserConfig';
+
+// Hooks
+import { useUserConfig } from '../useUserConfig';
+
+// Utils
+import { combineUserInfo } from './utils';
 
 export const useUser = () => {
   const { userConfig } = useUserConfig();
@@ -36,6 +41,7 @@ export const useUser = () => {
   return {
     clerkUser: user,
     systemUser,
+    user: combineUserInfo({ clerkUser: user, systemUser }),
     isLoaded,
     isSignedIn,
     role: systemUser?.role,

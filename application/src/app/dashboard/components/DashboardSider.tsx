@@ -36,6 +36,7 @@ export const DashboardSider: React.FC<DashboardSiderProps> = memo(props => {
 
   const t = useTranslations();
   const pathname = usePathname();
+  console.log("🚀 ~ pathname:", pathname)
   const { role } = useOrganizationRole();
 
   const recursiveMenu = useCallback(
@@ -71,6 +72,8 @@ export const DashboardSider: React.FC<DashboardSiderProps> = memo(props => {
     const routeInfo = Object.values(ROUTES).find(route => route.path === pathname);
     return routeInfo?.key || '1';
   }, [pathname]);
+
+  console.log("selectedMenuKey:: ",selectedMenuKey)
 
   return isShow ? (
     <StyledSider trigger={null} collapsible collapsed={collapsed} width={250} className="px-4">

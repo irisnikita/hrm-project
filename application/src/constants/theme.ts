@@ -87,27 +87,33 @@ export const THEME: ThemeConfig = {
     fontFamily: FONT_FAMILY.DEFAULT,
   },
   components: {
+    Divider: {
+      marginLG: 16,
+    },
     Menu: {
       activeBarBorderWidth: 0,
       itemBg: 'transparent',
       groupTitleFontSize: 12,
+      itemMarginInline: 0,
     },
     Button: {
       fontWeight: 500,
-      defaultBg: 'transparent',
+      defaultBg: GLASS_BG,
       defaultHoverBg: '#ffffff36',
+    },
+    Avatar: {
+      colorTextPlaceholder: PRIMARY,
     },
     Card: {
       // boxShadowTertiary: SHADOW.TERTIARY,
       colorBgContainer: GLASS_BG_2,
       borderRadius: 12,
+      paddingLG: 16,
     },
     Input: {
       colorBgContainer: 'transparent',
     },
-    Dropdown: {
-      colorBgElevated: GLASS_BG,
-    },
+    Dropdown: {},
     Select: {
       colorBgContainer: GLASS_BG,
       optionSelectedBg: ACTIVE_OPTION_BG,
@@ -118,6 +124,9 @@ export const THEME: ThemeConfig = {
     Slider: {},
     Tag: {
       lineHeightSM: 2,
+    },
+    Badge: {
+      fontSizeSM: 10,
     },
   },
   cssVar: true,

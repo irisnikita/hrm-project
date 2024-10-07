@@ -48,10 +48,10 @@ export const LanguageSwitcher = memo(() => {
         onClick: e => tryCatch(handleLanguageChange)(e.key),
       }}
       trigger={['click']}
-      placement="bottomRight"
+      placement="bottomLeft"
     >
       <Button shape="circle" type="text">
-        <Image src={languageIcon || ''} alt={currentLanguage} width={26} height={26} />
+        <Image src={languageIcon || ''} alt={currentLanguage} width={24} height={24} />
       </Button>
     </Dropdown>
   );

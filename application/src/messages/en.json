@@ -14,6 +14,11 @@
     "noData": "No data",
     "viewAll": "View All"
   },
+  "user": {
+    "profile": "Profile",
+    "accountSettings": "Account settings",
+    "logout": "Logout"
+  },
   "apiMessages": {
     "createdSuccess": "{name} created successfully",
     "updatedSuccess": "{name} updated successfully",
@@ -105,7 +110,12 @@
     "overview": "Overview",
     "management": "Management",
     "orgChart": "Org Chart",
-    "employees": "Employees"
+    "employees": "Employees",
+    "account": "Account",
+    "accountSetting": "Account Setting",
+    "profile": "Profile",
+    "preferences": "Preferences",
+    "security": "Security"
   },
   "notFound": {
     "title": "404",

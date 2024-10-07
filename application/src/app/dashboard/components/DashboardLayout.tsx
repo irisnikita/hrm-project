@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const isShowSider = !!currentOrganizationId;
 
   const renderContent = () => {
-    if (!isLoading && !isAuthenticated) {
+    if (!isLoading && !isAuthenticated && !!currentOrganizationId) {
       return (
         <Result
           status="404"

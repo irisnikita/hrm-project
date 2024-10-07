@@ -14,6 +14,7 @@ export const UserSchema = z.object({
   confirmed: z.boolean(),
   blocked: z.boolean(),
   avatar: z.string(),
+  imageUrl: z.string(),
   role: z.object({
     id: z.number(),
     name: z.string(),

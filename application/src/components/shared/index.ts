@@ -6,3 +6,4 @@ export * from './OrganizationList';
 export * from './OrganizationSwitcher';
 export * from './Logo';
 export * from './AuthorizationComponent';
+export * from './UserButton';

@@ -14,6 +14,11 @@
     "noData": "Không có dữ liệu",
     "viewAll": "Xem tất cả"
   },
+  "user": {
+    "profile": "Hồ sơ",
+    "accountSettings": "Cài đặt tài khoản",
+    "logout": "Đăng xuất"
+  },
   "apiMessages": {
     "createdSuccess": "{name} được tạo thành công",
     "updatedSuccess": "{name} được cập nhật thành công",
@@ -105,7 +110,12 @@
     "overview": "Tổng quan",
     "management": "Quản lý",
     "orgChart": "Sơ đồ tổ chức",
-    "employees": "Nhân viên"
+    "employees": "Nhân viên",
+    "account": "Tài khoản",
+    "accountSetting": "Cài đặt tài khoản",
+    "profile": "Hồ sơ",
+    "preferences": "Thông tin",
+    "security": "Bảo mật"
   },
   "notFound": {
     "title": "404",

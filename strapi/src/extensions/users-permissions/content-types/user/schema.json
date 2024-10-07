@@ -91,6 +91,9 @@
     },
     "userId": {
       "type": "uid"
+    },
+    "imageUrl": {
+      "type": "string"
     }
   }
 }
