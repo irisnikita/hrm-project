@@ -46,7 +46,7 @@ import { CreateOrganization, Organization } from '@/schemas';
 import { GLOBAL_TOKEN, MAX_FILE_SIZE } from '@/constants';
 
 // Services
-import { organizationService, uploadServices } from '@/services';
+import { organizationService } from '@/services';
 
 // Hooks
 import { useUser } from '@/hooks';
