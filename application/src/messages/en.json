@@ -28,10 +28,11 @@
     "deletedFailed": "{name} deleted failed"
   },
   "home": {
-    "title": "Company is your second family",
-    "description": "Share memories, happiness, and difficulties in this second family."
+    "title": "Company Solutions",
+    "description": "\"Compily\" is an app that helps businesses improve employee engagement, build a positive work culture, and enhance well-being through tailored team-building and development tools."
   },
   "organizationList": {
+    "organization": "Organization",
     "title": "Choose an organization",
     "description": "to continue to Compily",
     "createNewOrganization": "Create new organization",

@@ -79,7 +79,7 @@ export const useCreateOrganization = (props?: UseCreateOrganizationProps) => {
 
       message[isError ? 'error' : 'success'](
         t(isError ? 'apiMessages.createdFailed' : 'apiMessages.createdSuccess', {
-          name: t('organizationList.organizationName'),
+          name: t('organizationList.organization'),
         }),
       );
 

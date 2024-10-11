@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useImmer } from 'use-immer';
 
 // Types
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 // Constants
 import { ACCOUNT_SETTING_ITEMS, ACCOUNT_SETTING_KEYS } from './constants';
@@ -48,7 +48,7 @@ export default function AccountSettingPage() {
           }
         />
       </Card>
-      <Card className="h-full w-full">Hello moi nguoi</Card>
+      <Card className="size-full">Hello moi nguoi</Card>
     </Flex>
   );
 }

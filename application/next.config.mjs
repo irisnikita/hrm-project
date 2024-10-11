@@ -7,7 +7,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [{ hostname: 'localhost' }],
+    remotePatterns: [{ hostname: 'localhost' }, { hostname: '178.128.122.47' }],
   },
   compiler: {
     styledComponents: true,

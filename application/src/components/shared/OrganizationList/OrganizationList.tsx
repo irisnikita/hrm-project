@@ -23,9 +23,13 @@ import {
 import { ListItem, StyledCard } from './styled';
 
 // Queries
-import { useCreateOrganization, useGetOrganizationList } from '@/queries/organization';
-import { useCreateOrganizationRole } from '@/queries/organizationRole';
-import { useUpdateUser } from '@/queries/user';
+import {
+  useUploadFiles,
+  useUpdateUser,
+  useCreateOrganizationRole,
+  useCreateOrganization,
+  useGetOrganizationList,
+} from '@/queries';
 
 // Utils
 import {
@@ -84,9 +88,11 @@ export const OrganizationList = memo(() => {
   const { mutateAsync: updateUser, isPending: isUpdatingUser } = useUpdateUser();
   const { mutateAsync: createOrganizationRole, isPending: isCreatingOrganizationRole } =
     useCreateOrganizationRole();
+  const { mutateAsync: uploadFiles, isPending: isUploading } = useUploadFiles();
 
   // Variables
-  const isLoadingForm = isCreatingOrganization || isUpdatingUser || isCreatingOrganizationRole;
+  const isLoadingForm =
+    isCreatingOrganization || isUpdatingUser || isCreatingOrganizationRole || isUploading;
   const { isAddNewOrganization } = state;
 
   // Handlers
@@ -115,9 +121,7 @@ export const OrganizationList = memo(() => {
     };
 
     if (logo && logo.length) {
-      const uploadedFiles = await uploadServices.uploadFiles(
-        logo.map((file: any) => file.originFileObj),
-      );
+      const uploadedFiles = await uploadFiles(logo.map((file: any) => file.originFileObj));
 
       // If uploaded logo, create new organization
       if (uploadedFiles.length) {

@@ -28,10 +28,11 @@
     "deletedFailed": "{name} xóa thất bại"
   },
   "home": {
-    "title": "Công ty là gia đình thứ hai của bạn",
-    "description": "Chia sẻ kỷ niệm, hạnh phúc và khó khăn trong gia đình thứ hai này."
+    "title": "Giải pháp cho doanh nghiệp",
+    "description": "\"Compily\" là ứng dụng giúp doanh nghiệp nâng cao gắn kết nhân viên, xây dựng văn hóa tích cực và cải thiện sức khỏe tinh thần qua các công cụ phát triển và gắn kết đội nhóm."
   },
   "organizationList": {
+    "organization": "Tổ chức",
     "title": "Chọn một tổ chức",
     "description": "để tiếp tục đến Compily",
     "createNewOrganization": "Tạo tổ chức mới",

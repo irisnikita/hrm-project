@@ -2,14 +2,21 @@
 
 // Libraries
 import { MenuProps } from 'antd';
-import { GaugeIcon, NetworkIcon, UserRoundCheckIcon, UserRoundCogIcon, UserRoundIcon, UsersIcon } from 'lucide-react';
+import {
+  GaugeIcon,
+  NetworkIcon,
+  UserRoundCheckIcon,
+  UserRoundCogIcon,
+  UsersIcon,
+} from 'lucide-react';
 
 // Constants
 import { ROUTE_KEYS, ROUTES } from './routes';
 
 export type MenuItem = Required<MenuProps>['items'][number];
 
-const { HOME, OVERVIEW, MANAGEMENT, ORG_CHART, EMPLOYEES, ACCOUNT, ACCOUNT_SETTING, PROFILE } = ROUTE_KEYS;
+const { HOME, OVERVIEW, MANAGEMENT, ORG_CHART, EMPLOYEES, ACCOUNT, ACCOUNT_SETTING, PROFILE } =
+  ROUTE_KEYS;
 
 export const MENU: MenuItem[] = [
   {
@@ -56,7 +63,6 @@ export const MENU: MenuItem[] = [
         label: ROUTES[ACCOUNT_SETTING].label,
         icon: <UserRoundCogIcon size={20} />,
       },
-     
     ],
   },
 ];
