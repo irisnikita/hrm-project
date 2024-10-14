@@ -5,7 +5,7 @@ module.exports = {
     {
       name: "hrm-strapi-service-dev",
       script: "yarn",
-      args: "dev",
+      args: "develop",
       exec_mode: "fork",
       watch: true,
     },
