@@ -9,17 +9,7 @@ import styled from 'styled-components';
 
 // Components
 import { ImageOverlay } from '@/components/styled';
-import {
-  Button,
-  Card,
-  Flex,
-  Tag,
-  Typography,
-  Swiper,
-  SwiperSlide,
-  Empty,
-  Select,
-} from '@/components/ui';
+import { Button, Card, Flex, Tag, Typography, Swiper, SwiperSlide, Empty } from '@/components/ui';
 
 // Queries
 import { useGetNewsList } from '@/queries/news';

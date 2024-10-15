@@ -57,6 +57,8 @@ export const Header: React.FC<HeaderProps> = props => {
         {leftContent ? leftContent : <Logo />}
 
         <Flex gap={16} align="center">
+          <DarkModeSwitcher />
+
           <SignedOut>
             <Link href="/sign-in">
               <Button size="large">{t('common.logIn')}</Button>
