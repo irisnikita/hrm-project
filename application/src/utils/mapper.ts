@@ -1,6 +1,11 @@
 // Types
 import { User } from '@clerk/nextjs/server';
+
+// Schemas
 import { CreateUserDto } from '@/schemas/User';
+
+// Constants
+import { USER_ROLE_IDS } from '@/constants';
 
 /**
  * Maps a Clerk User object to a CreateUserDto object.
@@ -38,7 +43,7 @@ export function mapClerkUserToCreateUserDto(clerkUser: User): CreateUserDto {
     username: username ?? primaryEmailAddress?.emailAddress ?? '',
     email: primaryEmailAddress?.emailAddress ?? '',
     avatar,
-    role: 3,
+    role: USER_ROLE_IDS.ADMIN,
     imageUrl: avatar,
     blocked: false,
     confirmed: true,

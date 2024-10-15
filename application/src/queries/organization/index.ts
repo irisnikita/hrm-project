@@ -47,27 +47,21 @@ interface UseCreateOrganizationProps {
   options?: UseMutationOptions<StrapiResponse<Organization>, Error, CreateOrganization>;
 }
 
-export const useGetOrganization = (props?: UseGetOrganizationProps) => {
-  const { args } = props || {};
-
-  return useQuery({
+export const useGetOrganization = ({ args, options }: UseGetOrganizationProps = {}) =>
+  useQuery({
     queryKey: [QUERY_KEYS.ORGANIZATION_DETAIL, args],
     queryFn: () => organizationService.getOrganization(args),
-    ...props?.options,
+    ...options,
   });
-};
 
-export const useGetOrganizationList = (props?: UseGetOrganizationListProps) => {
-  const { args } = props || {};
-
-  return useQuery({
+export const useGetOrganizationList = ({ args, options }: UseGetOrganizationListProps = {}) =>
+  useQuery({
     queryKey: [QUERY_KEYS.ORGANIZATION_LIST, args],
     queryFn: () => organizationService.getOrganizationList(args),
-    ...props?.options,
+    ...options,
   });
-};
 
-export const useCreateOrganization = (props?: UseCreateOrganizationProps) => {
+export const useCreateOrganization = ({ options }: UseCreateOrganizationProps = {}) => {
   const queryClient = useQueryClient();
   const { message } = App.useApp();
   const t = useTranslations();
@@ -87,6 +81,6 @@ export const useCreateOrganization = (props?: UseCreateOrganizationProps) => {
         queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORGANIZATION_LIST], exact: false });
       }, 1000);
     },
-    ...props?.options,
+    ...options,
   });
 };
