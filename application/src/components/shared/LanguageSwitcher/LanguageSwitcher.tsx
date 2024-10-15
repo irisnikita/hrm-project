@@ -51,7 +51,7 @@ export const LanguageSwitcher = memo(() => {
       placement="bottomLeft"
     >
       <Button shape="circle" type="text">
-        <Image src={languageIcon || ''} alt={currentLanguage} width={24} height={24} />
+        <Image src={languageIcon || ''} alt={currentLanguage} width={20} height={20} />
       </Button>
     </Dropdown>
   );

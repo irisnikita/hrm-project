@@ -83,7 +83,7 @@ export const Home = () => {
               transition={{
                 delay: 0.4,
               }}
-              className="mb-6 text-4xl font-bold md:text-5xl"
+              className="mb-6 text-4xl font-bold text-default md:text-5xl"
             >
               {t('home.title')}
             </motion.h1>
@@ -91,7 +91,7 @@ export const Home = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="mb-8 text-xl"
+              className="mb-8 text-xl text-default"
             >
               {t('home.description')}
             </motion.p>

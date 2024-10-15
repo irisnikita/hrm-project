@@ -132,5 +132,8 @@
     "goodEvening": "Chào buổi tối",
     "goodNight": "Chúc ngủ ngon",
     "welcome": "Hy vọng hôm nay bạn cảm thấy tuyệt vời. Hãy cùng khám phá những điều thú vị tại công ty và tạo nên một ngày thật hiệu quả nhé!"
+  },
+  "signUp": {
+    "createYourAccount": "Tạo tài khoản"
   }
 }

@@ -132,5 +132,9 @@
     "goodEvening": "Good evening",
     "goodNight": "Good night",
     "welcome": "Hope you're feeling great today. Let's explore all the exciting things at the company and make this day productive!"
+  },
+  "signUp": {
+    "createYourAccount": "Create your account",
+    "welcome": "Welcome! Please fill in the details to get started."
   }
 }

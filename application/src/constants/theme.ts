@@ -12,7 +12,7 @@ type ThemeConfig = Omit<AntdThemeConfig, 'token'> & {
 };
 
 export const COLORS = {
-  PRIMARY: '#13c2c2',
+  PRIMARY: '#9254de',
   ERROR: '#EF3340',
   SUCCESS: '#12B800',
   WARNING: '#faad14',
@@ -29,6 +29,12 @@ export const COLORS = {
   GLASS_BG: '#ffffff50',
   GLASS_BG_2: '#ffffffb3',
   ACTIVE_OPTION_BG: '#919eab29',
+
+  // Dark
+  DARK_GLASS_BG: '#00000050',
+  DARK_GLASS_BG_2: '#00000050',
+  DARK_TEXT_COLOR: '#dfdfdf',
+  DARK_TEXT_BASE: '#ffffff',
 };
 export const WIDTH = {
   MODAL_DEFAULT_WIDTH: 400,
@@ -48,7 +54,7 @@ export const FONT_FAMILY = {
 };
 const {
   PRIMARY,
-  ERROR,
+  // ERROR,
   SUCCESS,
   WARNING,
   TEXT_BASE,
@@ -60,13 +66,18 @@ const {
   ACTIVE_OPTION_BG,
   GLASS_BG_2,
   TEXT_WHITE,
+  DARK_TEXT_COLOR,
+  DARK_GLASS_BG_2,
+  DARK_TEXT_BASE,
 } = COLORS;
 
-export const THEME: ThemeConfig = {
+console.log('theme:: ', theme.darkAlgorithm, theme.defaultAlgorithm);
+
+export const COMMON_THEME: ThemeConfig = {
   token: {
     // Colors
     colorPrimary: PRIMARY,
-    colorError: ERROR,
+    // colorError: ERROR,
     colorSuccess: SUCCESS,
     colorWarning: WARNING,
     colorText: TEXT_BASE,
@@ -132,8 +143,36 @@ export const THEME: ThemeConfig = {
   cssVar: true,
 };
 
+export const LIGHT_THEME: ThemeConfig = {
+  ...COMMON_THEME,
+};
+
+export const DARK_THEME: ThemeConfig = {
+  ...COMMON_THEME,
+  token: {
+    ...COMMON_THEME.token,
+    colorSiderBg: DARK_GLASS_BG_2,
+    colorGlassBgSecondary: DARK_GLASS_BG_2,
+    colorText: DARK_TEXT_BASE,
+    colorTextBase: DARK_TEXT_BASE,
+    colorTextTertiary: DARK_TEXT_COLOR,
+  },
+  components: {
+    ...COMMON_THEME.components,
+    Menu: {
+      ...COMMON_THEME.components?.Menu,
+    },
+    Card: {
+      ...COMMON_THEME.components?.Card,
+      colorBgContainer: DARK_GLASS_BG_2,
+    },
+  },
+};
+
 export const GLOBAL_TOKEN: Partial<ThemeConfig['token']> =
-  typeof theme?.getDesignToken === 'function' ? theme?.getDesignToken(THEME) : THEME.token;
+  typeof theme?.getDesignToken === 'function'
+    ? theme?.getDesignToken(LIGHT_THEME)
+    : LIGHT_THEME.token;
 
 export const STYLED_THEME = {
   ...GLOBAL_TOKEN,

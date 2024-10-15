@@ -72,64 +72,76 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = () => {
   }, [setState]);
 
   return (
-    <StyledWelcomeCard
-      style={{
-        backgroundImage,
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      transition={{
+        duration: 1,
       }}
     >
-      <Flex align="center" gap={16}>
-        <Flex vertical gap={12} className="flex-1">
+      <StyledWelcomeCard
+        style={{
+          backgroundImage,
+        }}
+      >
+        <Flex align="center" gap={16}>
+          <Flex vertical gap={12} className="flex-1">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <Flex align="center" gap={8}>
+                <Text className="!text-xl font-bold">
+                  {message ? t(message as any).toUpperCase() : '&nbsp;'}
+                </Text>
+                {Icon ? <Icon style={{ color: colorTextWhite }} /> : null}
+              </Flex>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.75 }}
+            >
+              <Text className="!text-xl font-bold">{systemUser?.fullName || '&nbsp;'}</Text>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+            >
+              <Text className="opacity-70">{t('greeting.welcome')}</Text>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5, ease: 'easeInOut', duration: 1 }}
+            >
+              <Button type="primary" className="mt-4 w-fit">
+                {t('common.explore')}
+              </Button>
+            </motion.div>
+          </Flex>
+
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            initial={{ opacity: 0, x: 20, scale: 1.2 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ delay: 1.5, ease: 'linear' }}
+            className="relative h-[250px] w-[400px] shrink-0"
           >
-            <Flex align="center" gap={8}>
-              <Text className="!text-xl font-bold">
-                {message ? t(message as any).toUpperCase() : '&nbsp;'}
-              </Text>
-              {Icon ? <Icon style={{ color: colorTextWhite }} /> : null}
-            </Flex>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.75 }}
-          >
-            <Text className="!text-xl font-bold">{systemUser?.fullName || '&nbsp;'}</Text>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
-          >
-            <Text className="opacity-70">{t('greeting.welcome')}</Text>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, ease: 'easeInOut', duration: 1 }}
-          >
-            <Button type="primary" className="mt-4 w-fit">
-              {t('common.explore')}
-            </Button>
+            <Image
+              src="/images/backgrounds/greeting.png"
+              className="object-contain"
+              alt="greeting"
+              fill
+            />
           </motion.div>
         </Flex>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20, scale: 1.2 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ delay: 1.5, ease: 'linear' }}
-          className="relative h-[250px] w-[400px] shrink-0"
-        >
-          <Image
-            src="/images/backgrounds/greeting.png"
-            className="object-contain"
-            alt="greeting"
-            fill
-          />
-        </motion.div>
-      </Flex>
-    </StyledWelcomeCard>
+      </StyledWelcomeCard>
+    </motion.div>
   );
 };

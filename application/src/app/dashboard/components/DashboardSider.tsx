@@ -3,7 +3,7 @@
 // Libraries
 import React, { memo, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
-import { SiderProps } from 'antd';
+import { SiderProps, theme } from 'antd';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -22,19 +22,20 @@ interface DashboardSiderProps extends SiderProps {
   isShow?: boolean;
 }
 
-const { colorSiderBg, borderRadiusLG, boxShadowTertiary } = GLOBAL_TOKEN;
+const { borderRadiusLG, boxShadowTertiary } = GLOBAL_TOKEN;
 
 // Styled
 const StyledSider = styled(Layout.Sider)`
-  background-color: ${colorSiderBg} !important;
   border-radius: ${borderRadiusLG}px !important;
   box-shadow: ${boxShadowTertiary} !important;
+  backdrop-filter: var(--bg-filter-blur);
 `;
 
 export const DashboardSider: React.FC<DashboardSiderProps> = memo(props => {
   const { collapsed, isShow } = props;
 
   const t = useTranslations();
+  const { token } = theme.useToken();
   const pathname = usePathname();
   const { role } = useOrganizationRole();
 
@@ -75,7 +76,16 @@ export const DashboardSider: React.FC<DashboardSiderProps> = memo(props => {
   console.log('selectedMenuKey:: ', selectedMenuKey);
 
   return isShow ? (
-    <StyledSider trigger={null} collapsible collapsed={collapsed} width={250} className="px-4">
+    <StyledSider
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+      width={250}
+      className="px-4"
+      style={{
+        backgroundColor: (token as any)?.colorSiderBg,
+      }}
+    >
       <Logo className="h-[64px]" />
       <Menu inlineIndent={16} mode="inline" selectedKeys={[selectedMenuKey]} items={menuItems} />
     </StyledSider>

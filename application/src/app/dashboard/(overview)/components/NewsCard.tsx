@@ -9,7 +9,17 @@ import styled from 'styled-components';
 
 // Components
 import { ImageOverlay } from '@/components/styled';
-import { Button, Card, Flex, Tag, Typography, Swiper, SwiperSlide, Empty } from '@/components/ui';
+import {
+  Button,
+  Card,
+  Flex,
+  Tag,
+  Typography,
+  Swiper,
+  SwiperSlide,
+  Empty,
+  Select,
+} from '@/components/ui';
 
 // Queries
 import { useGetNewsList } from '@/queries/news';
@@ -126,9 +136,9 @@ export const NewsCard: React.FC = () => {
   return (
     <motion.div
       className="relative h-full"
-      initial={{ opacity: 0, rotate: 20 }}
-      animate={{ opacity: 1, rotate: 0 }}
-      transition={{ ease: 'easeInOut' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ ease: 'easeInOut', duration: 1 }}
     >
       <StyledNewsCard>
         {Array.isArray(newsList) && newsList.length ? (

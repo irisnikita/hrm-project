@@ -7,3 +7,4 @@ export * from './OrganizationSwitcher';
 export * from './Logo';
 export * from './AuthorizationComponent';
 export * from './UserButton';
+export * from './DarkModeSwitcher';

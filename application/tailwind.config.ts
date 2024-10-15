@@ -12,6 +12,7 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         primary: 'var(--ant-color-primary)',
+        default: 'var(--ant-color-text)',
       },
       transitionDuration: {
         DEFAULT: '0.3s',

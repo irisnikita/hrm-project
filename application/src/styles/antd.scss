@@ -12,6 +12,11 @@
   font-weight: 600;
 }
 
+/* Card */
+.ant-card {
+  backdrop-filter: var(--bg-filter-blur);
+}
+
 /* Apply glass bg */
 .ant-select-dropdown,
 .ant-popover-inner {

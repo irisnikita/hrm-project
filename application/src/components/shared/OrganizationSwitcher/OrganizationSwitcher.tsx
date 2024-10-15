@@ -56,6 +56,7 @@ export const OrganizationSwitcher: React.FC<OrganizationSwitcherProps> = () => {
       variant="borderless"
       options={options}
       value={currentOrganization?.id}
+      getPopupContainer={() => document.body}
       popupMatchSelectWidth={200}
       labelRender={labelRender}
       optionRender={labelRender}

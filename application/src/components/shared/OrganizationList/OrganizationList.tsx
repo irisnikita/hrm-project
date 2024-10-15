@@ -345,7 +345,7 @@ export const OrganizationList = memo(() => {
   );
 
   return (
-    <StyledCard bordered={false} className="glass-background !m-auto">
+    <StyledCard bordered={false} className="!m-auto">
       {isAddNewOrganization ? renderAddNewOrganization() : renderOrganizationList()}
     </StyledCard>
   );

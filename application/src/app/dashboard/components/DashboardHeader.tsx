@@ -5,9 +5,15 @@ import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import clsx from 'clsx';
 import { BellIcon } from 'lucide-react';
+import { theme } from 'antd';
 
 // Components
-import { Header, LanguageSwitcher, OrganizationSwitcher } from '@/components/shared';
+import {
+  // DarkModeSwitcher,
+  Header,
+  LanguageSwitcher,
+  OrganizationSwitcher,
+} from '@/components/shared';
 import { Badge, Button, Flex } from '@/components/ui';
 
 // Constants
@@ -18,22 +24,27 @@ interface DashboardHeaderProps {
   isShowSider?: boolean;
 }
 
-const { colorGlassBgSecondary, borderRadiusLG, boxShadowTertiary } = GLOBAL_TOKEN;
+const { borderRadiusLG, boxShadowTertiary } = GLOBAL_TOKEN;
 
-const StyledHeader = styled(Header)<{ $isShowSider: boolean }>`
+const StyledHeader = styled(Header)<{ $isShowSider: boolean; $bgColor?: string }>`
   ${props =>
     props.$isShowSider &&
     css`
-      background-color: ${colorGlassBgSecondary};
+      background-color: ${props.$bgColor};
       border-radius: ${borderRadiusLG}px;
       box-shadow: ${boxShadowTertiary};
+      backdrop-filter: var(--bg-filter-blur);
     `}
 `;
 
 export const DashboardHeader: React.FC<DashboardHeaderProps> = memo(({ isShowSider }) => {
+  const { token } = theme.useToken();
+  const { colorGlassBgSecondary } = token as any;
+
   return (
     <StyledHeader
       $isShowSider={!!isShowSider}
+      $bgColor={colorGlassBgSecondary}
       className={clsx('!sticky top-0', {
         'mb-4': isShowSider,
       })}

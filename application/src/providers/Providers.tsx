@@ -3,7 +3,7 @@
 // Libraries
 import { enUS } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { App } from 'antd';
 
 // Providers
@@ -20,9 +20,21 @@ import { CLERK_APPEARANCE, MAP_CLERK_LOCALIZATION, MOTION_CONFIG, STYLED_THEME }
 // Utils
 import { getLanguage } from '@/utils';
 import { ThemeProvider } from 'styled-components';
+import { useDarkMode } from '@/hooks';
 
 export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
   const locale = getLanguage();
+  const { isDarkMode } = useDarkMode();
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }, [isDarkMode]);
 
   return (
     <ReactQueryProvider>

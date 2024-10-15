@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 
 // Components
 import { Button, Flex } from '@/components/ui';
-import { UserButton as CusUserButton } from '@/components/shared';
+import { UserButton as CusUserButton, DarkModeSwitcher } from '@/components/shared';
 import { Logo } from '../Logo';
 import { SignedOut, SignedIn } from '@clerk/nextjs';
 
