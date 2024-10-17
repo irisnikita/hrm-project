@@ -5,10 +5,10 @@ import styled, { css } from 'styled-components';
 import { Card, List } from '@/components/ui';
 
 // Constants
-import { WIDTH } from '@/constants';
+import { WIDTHS } from '@/constants';
 
 export const StyledCard = styled(Card)`
-  width: ${WIDTH.MODAL_DEFAULT_WIDTH}px;
+  width: ${WIDTHS.MODAL_DEFAULT_WIDTH}px;
 `;
 
 export const ListItem = styled(List.Item)`

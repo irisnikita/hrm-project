@@ -17,6 +17,9 @@ const config: Config = {
       transitionDuration: {
         DEFAULT: '0.3s',
       },
+      width: {
+        'drawer-min': '360px',
+      },
     },
   },
   plugins: [],

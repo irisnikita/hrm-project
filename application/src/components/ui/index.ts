@@ -24,3 +24,4 @@ export * from './Empty';
 export * from './Popover';
 export * from './Divider';
 export * from './Badge';
+export * from './Drawer';

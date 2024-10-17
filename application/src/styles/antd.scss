@@ -5,8 +5,6 @@
   }
 }
 
-/* Select */
-
 /* Menu */
 .ant-menu-item-group-title {
   font-weight: 600;
@@ -17,8 +15,14 @@
   backdrop-filter: var(--bg-filter-blur);
 }
 
+/* Drawer */
+.ant-drawer-content {
+  backdrop-filter: var(--bg-filter-blur);
+}
+
 /* Apply glass bg */
 .ant-select-dropdown,
-.ant-popover-inner {
+.ant-popover-inner,
+.ant-drawer-content {
   @include glass-bg;
 }

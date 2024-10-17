@@ -10,7 +10,8 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "prettier/prettier": ["warn", { "useTabs": false }],
-    "tailwindcss/no-custom-classname": "off"
+    "tailwindcss/no-custom-classname": "off",
+    "no-console": "warn"
   },
   "parserOptions": {
     "project": "./tsconfig.json"

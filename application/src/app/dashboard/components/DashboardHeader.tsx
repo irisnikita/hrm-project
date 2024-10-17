@@ -13,6 +13,7 @@ import {
   Header,
   LanguageSwitcher,
   OrganizationSwitcher,
+  ThemeSetting,
 } from '@/components/shared';
 import { Badge, Button, Flex } from '@/components/ui';
 
@@ -53,6 +54,8 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = memo(({ isShowSid
         isShowSider && (
           <Flex gap={16} align="center">
             <LanguageSwitcher />
+
+            <ThemeSetting />
 
             <Badge count={2} size="small" offset={[-2, 2]}>
               <Button

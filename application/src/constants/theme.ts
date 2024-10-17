@@ -36,8 +36,9 @@ export const COLORS = {
   DARK_TEXT_COLOR: '#dfdfdf',
   DARK_TEXT_BASE: '#ffffff',
 };
-export const WIDTH = {
+export const WIDTHS = {
   MODAL_DEFAULT_WIDTH: 400,
+  DRAWER_MIN_WIDTH: 360,
 };
 export const RADIUS = {
   DEFAULT: 10,
@@ -68,10 +69,9 @@ const {
   TEXT_WHITE,
   DARK_TEXT_COLOR,
   DARK_GLASS_BG_2,
+  DARK_GLASS_BG,
   DARK_TEXT_BASE,
 } = COLORS;
-
-console.log('theme:: ', theme.darkAlgorithm, theme.defaultAlgorithm);
 
 export const COMMON_THEME: ThemeConfig = {
   token: {
@@ -139,6 +139,10 @@ export const COMMON_THEME: ThemeConfig = {
     Badge: {
       fontSizeSM: 10,
     },
+    Drawer: {
+      lineWidth: 0,
+      colorBgMask: 'transparent',
+    },
   },
   cssVar: true,
 };
@@ -165,6 +169,11 @@ export const DARK_THEME: ThemeConfig = {
     Card: {
       ...COMMON_THEME.components?.Card,
       colorBgContainer: DARK_GLASS_BG_2,
+    },
+    Button: {
+      ...COMMON_THEME.components?.Button,
+      defaultBg: DARK_GLASS_BG_2,
+      defaultHoverBg: DARK_GLASS_BG,
     },
   },
 };

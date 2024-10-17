@@ -1,10 +1,8 @@
 @mixin glass-bg {
-  background-image: url('/images/core/cyan-blur.png'), url('/images/core/red-blur.png');
-  background-repeat: no-repeat, no-repeat;
-  background-size: 50%, 50%;
-  background-position:
-    right top,
-    left bottom;
+  background:
+    url('/images/core/cyan-blur.png') right top / 50% no-repeat,
+    url('/images/core/red-blur.png') left bottom / 50% no-repeat,
+    var(--ant-color-bg-elevated) !important;
 }
 
 @mixin glass-cover-bg {
