@@ -786,6 +786,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     primaryEmailAddress: Attribute.JSON;
     userId: Attribute.UID;
     imageUrl: Attribute.String;
+    phoneNumber: Attribute.String &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 5;
+        maxLength: 20;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

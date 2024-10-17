@@ -94,6 +94,12 @@
     },
     "imageUrl": {
       "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string",
+      "unique": true,
+      "maxLength": 20,
+      "minLength": 5
     }
   }
 }
