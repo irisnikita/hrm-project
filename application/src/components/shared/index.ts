@@ -9,3 +9,4 @@ export * from './AuthorizationComponent';
 export * from './UserButton';
 export * from './ThemeSetting';
 export * from './DarkModeSwitcher';
+export * from './SignUp';

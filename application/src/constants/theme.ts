@@ -51,7 +51,7 @@ export const SHADOW = {
   TERTIARY: '0 4px 30px rgba(0, 0, 0, 0.1)',
 };
 export const FONT_FAMILY = {
-  DEFAULT: '__Quicksand_17bebb, __Quicksand_Fallback_17bebb',
+  DEFAULT: 'inherit',
 };
 const {
   PRIMARY,

@@ -39,8 +39,22 @@ export const createFormValidation = (t: any) => {
     }),
 
     passwordStrength: (): Rule => ({
-      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
       message: t('formValidation.passwordStrength'),
+    }),
+
+    basePasswordStrength: (): Rule => ({
+      pattern: /^.{8,}$/,
+      message: t('formValidation.basePasswordStrength'),
+    }),
+
+    confirmPassword: ({ getFieldValue }) => ({
+      validator: (rule, value) => {
+        if (value && value !== getFieldValue('password')) {
+          return Promise.reject(t('formValidation.passwordsNotMatch'));
+        }
+        return Promise.resolve();
+      },
     }),
   };
 };

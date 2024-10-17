@@ -47,8 +47,10 @@
     "email": "Please enter a valid email address",
     "url": "Please enter a valid URL",
     "number": "Please enter a valid number",
-    "passwordStrength": "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number",
-    "nameExists": "{fieldName} already exists"
+    "passwordStrength": "Password must be at least 8 characters, with uppercase, lowercase, number, and special character!",
+    "basePasswordStrength": "Password must be at least 8 characters!",
+    "nameExists": "{fieldName} already exists",
+    "passwordsNotMatch": "Passwords do not match"
   },
   "validateMessages": {
     "default": "Validation error on field ${label}",
@@ -134,7 +136,12 @@
     "welcome": "Hope you're feeling great today. Let's explore all the exciting things at the company and make this day productive!"
   },
   "signUp": {
+    "title": "Sign Up",
     "createYourAccount": "Create your account",
-    "welcome": "Welcome! Please fill in the details to get started."
+    "welcome": "Welcome! Please fill in the details to get started.",
+    "username": "Email address or phone number",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "alreadyHaveAccount": "Already have an account?"
   }
 }

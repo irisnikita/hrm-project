@@ -47,8 +47,10 @@
     "email": "Vui lòng nhập địa chỉ email hợp lệ",
     "url": "Vui lòng nhập địa chỉ URL hợp lệ",
     "number": "Vui lòng nhập số hợp lệ",
-    "passwordStrength": "Mật khẩu phải có ít nhất 8 ký tự, một chữ cái viết hoa, một chữ cái viết thường và một số",
-    "nameExists": "{fieldName} đã tồn tại"
+    "passwordStrength": "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt!",
+    "basePasswordStrength": "Mật khẩu phải có ít nhất 8 ký tự!",
+    "nameExists": "{fieldName} đã tồn tại",
+    "passwordsNotMatch": "Mật khẩu xác nhận không trùng khớp"
   },
   "validateMessages": {
     "default": "Lỗi xác thực trường ${label}",
@@ -134,6 +136,12 @@
     "welcome": "Hy vọng hôm nay bạn cảm thấy tuyệt vời. Hãy cùng khám phá những điều thú vị tại công ty và tạo nên một ngày thật hiệu quả nhé!"
   },
   "signUp": {
-    "createYourAccount": "Tạo tài khoản"
+    "title": "Đăng ký",
+    "createYourAccount": "Tạo tài khoản",
+    "welcome": "Xin chào! Hãy điền thông tin để tiếp tục.",
+    "username": "Địa chỉ Email hoặc số điện thoại",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "alreadyHaveAccount": "Đã có tài khoản?"
   }
 }

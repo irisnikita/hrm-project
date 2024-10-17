@@ -19,6 +19,10 @@
 .ant-drawer-content {
   backdrop-filter: var(--bg-filter-blur);
 }
+/* Form */
+.ant-form-item-explain-error {
+  font-size: 12px;
+}
 
 /* Apply glass bg */
 .ant-select-dropdown,

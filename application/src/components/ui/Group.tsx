@@ -5,8 +5,8 @@ import React from 'react';
 
 interface GroupProps {}
 
-export const Group: React.FC<GroupProps> = props => {
-  const { ...restProps } = props;
+export const Group: React.FC<GroupProps> = () => {
+  // const { ...restProps } = props;
 
   return <div>Group</div>;
 };
