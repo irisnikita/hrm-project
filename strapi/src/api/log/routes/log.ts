@@ -2,21 +2,21 @@ export default {
   routes: [
     // {
     //  method: 'GET',
-    //  path: '/user',
-    //  handler: 'user.exampleAction',
+    //  path: '/log',
+    //  handler: 'log.exampleAction',
     //  config: {
     //    policies: [],
     //    middlewares: [],
     //  },
     // },
     {
-      method: "POST",
-      path: "/users/check-username",
-      handler: "user.checkUsername",
+      method: 'GET',
+      path: '/log',
+      handler: 'log.getLogs',
       config: {
         policies: [],
         middlewares: [],
-      },
-    },
+      }
+    }
   ],
 };

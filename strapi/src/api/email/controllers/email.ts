@@ -1,6 +1,5 @@
 module.exports = {
   async send(ctx) {
-    console.log("🚀 ~ send ~ ctx:", ctx);
     try {
       const { to, subject, text, html } = ctx.request.body;
 
