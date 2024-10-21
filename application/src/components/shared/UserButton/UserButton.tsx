@@ -5,6 +5,7 @@ import React, { memo } from 'react';
 import { CircleUserIcon, MailIcon, SettingsIcon } from 'lucide-react';
 import { useAuth } from '@clerk/nextjs';
 import { useTranslations } from 'next-intl';
+import { signOut as nextAuthSignOut } from 'next-auth/react';
 
 // Components
 import { Avatar, Button, Divider, Flex, Menu, Popover, Typography } from '@/components/ui';
@@ -42,6 +43,13 @@ export const UserButton = memo(() => {
     },
   ];
 
+  const onClickSignOut = () => {
+    signOut({
+      redirectUrl: ROUTES.home.path,
+    });
+    nextAuthSignOut();
+  };
+
   const popoverContent = () => {
     return (
       <Flex vertical className="w-[300px]">
@@ -54,7 +62,7 @@ export const UserButton = memo(() => {
               {fullName}
             </Text>
             <Text ellipsis={{ tooltip: true }} className="!text-xs">
-              {organization?.attributes?.organizationName || ''}
+              {organization?.organizationName || ''}
             </Text>
             <Flex align="center" gap={4} className="mt-1">
               <MailIcon size={14} />
@@ -68,16 +76,7 @@ export const UserButton = memo(() => {
 
         <Menu items={items} mode="inline" inlineIndent={16} />
 
-        <Button
-          color="danger"
-          className="mt-4"
-          danger
-          onClick={() =>
-            signOut({
-              redirectUrl: ROUTES.home.path,
-            })
-          }
-        >
+        <Button color="danger" className="mt-4" danger onClick={onClickSignOut}>
           {t('user.logout')}
         </Button>
       </Flex>

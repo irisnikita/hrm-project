@@ -13,7 +13,12 @@ import { useTranslations } from 'next-intl';
 import { QUERY_KEYS } from '@/constants';
 
 // Services
-import { type TGetUserListArgs, TUpdateUserArgs, userService } from '@/services';
+import {
+  TGetUserDetailArgs,
+  type TGetUserListArgs,
+  TUpdateUserArgs,
+  userService,
+} from '@/services';
 
 // Schemas
 import { CreateUserDto, User } from '@/schemas';
@@ -23,11 +28,16 @@ import { StrapiResponse } from '@/types';
 
 interface UseGetUserProps {
   args: TGetUserListArgs;
-  options?: UseQueryOptions<User[], Error, User[], any[]>;
+  options?: Partial<UseQueryOptions<User[], Error, User[], any[]>>;
 }
 
 interface UseUpdateUserProps {
   options?: UseMutationOptions<User | null, Error, TUpdateUserArgs>;
+}
+
+interface UseGetUserDetailProps {
+  args: TGetUserDetailArgs;
+  options?: UseQueryOptions<User | null, Error, User | null, any[]>;
 }
 
 interface UseCreateUserProps {
@@ -44,6 +54,17 @@ export const useGetUserList = (props?: UseGetUserProps) => {
   return useQuery({
     queryKey: [QUERY_KEYS.USER_LIST, args],
     queryFn: () => userService.getUserList(args),
+    ...options,
+  });
+};
+
+export const useGetUserDetail = (props?: UseGetUserDetailProps) => {
+  const { args, options } = props || {};
+
+  return useQuery({
+    queryKey: [QUERY_KEYS.USER_DETAIL, args],
+    queryFn: () => userService.getUser(args),
+    enabled: !!args?.id,
     ...options,
   });
 };

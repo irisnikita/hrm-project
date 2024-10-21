@@ -25,21 +25,15 @@ import { CreateOrganization, Organization } from '@/schemas';
 
 interface UseGetOrganizationListProps {
   args?: GetOrganizationListArgs;
-  options?: UseQueryOptions<
-    StrapiResponse<Organization[]>,
-    Error,
-    StrapiResponse<Organization[]>,
-    any[]
+  options?: Partial<
+    UseQueryOptions<StrapiResponse<Organization[]>, Error, StrapiResponse<Organization[]>, any[]>
   >;
 }
 
 interface UseGetOrganizationProps {
   args?: GetOrganizationArgs;
-  options?: UseQueryOptions<
-    StrapiResponse<Organization>,
-    Error,
-    StrapiResponse<Organization>,
-    any[]
+  options?: Partial<
+    UseQueryOptions<StrapiResponse<Organization>, Error, StrapiResponse<Organization>, any[]>
   >;
 }
 

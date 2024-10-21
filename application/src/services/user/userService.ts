@@ -5,14 +5,20 @@ import { axiosInstance } from '@/services/api';
 import { User, CreateUserDto } from '@/schemas/User';
 
 // Types
-import { TGetUserListArgs, TUpdateUserArgs } from './types';
+import { TGetUserDetailArgs, TGetUserListArgs, TUpdateUserArgs } from './types';
 import { CheckNameResponse, StrapiResponse } from '@/types';
 
 const USER_ENDPOINT = '/users';
 
 export const userService = {
-  getUser: async (id: string): Promise<User | null> => {
-    const response = await axiosInstance.get(`${USER_ENDPOINT}/${id}`);
+  getUser: async (args?: TGetUserDetailArgs): Promise<User | null> => {
+    const { id, params } = args || {};
+
+    const response = await axiosInstance({
+      method: 'GET',
+      url: `${USER_ENDPOINT}/${id}`,
+      params,
+    });
     return response.data;
   },
   getUserList: async (args?: TGetUserListArgs): Promise<User[]> => {

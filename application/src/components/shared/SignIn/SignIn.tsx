@@ -4,6 +4,8 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React, { useCallback } from 'react';
+import { signIn } from 'next-auth/react';
+import { useImmer } from 'use-immer';
 
 // Components
 import { OrganizationLogo } from '@/components/shared/OrganizationLogo';
@@ -15,11 +17,8 @@ import { ROUTE_KEYS, ROUTES } from '@/constants';
 // Types
 import { SignUpProps, TFormValues } from './types';
 
-// Queries
-import { useSignIn } from '@/queries';
-
 // Services
-import { useRouter } from '@/hooks';
+import { useRouter, useUserConfig } from '@/hooks';
 
 const { Text, Link } = Typography;
 const { Item } = Form;
@@ -28,23 +27,48 @@ export const SignIn: React.FC<SignUpProps> = props => {
   const { organization, ...restProps } = props;
 
   const t = useTranslations();
+  const { setUserConfig } = useUserConfig();
   const [messageApi, contextHolder] = message.useMessage();
-  const { pushKeepSearchQuery } = useRouter();
+  const { pushKeepSearchQuery, push } = useRouter();
   const [form] = Form.useForm<TFormValues>();
 
+  // State
+  const [state, setState] = useImmer({
+    isSignInLoading: false,
+  });
+  const { isSignInLoading } = state;
+
   // Mutation
-  const { mutateAsync: signIn, isPending: isSigningIn } = useSignIn();
+  // const { mutateAsync: signIn, isPending: isSigningIn } = useSignIn();
 
   // Handlers
   const onFinish = useCallback(
     async (values: TFormValues) => {
-      const data = await signIn(values);
+      setState(draft => {
+        draft.isSignInLoading = true;
+      });
 
-      if (data.error) {
+      const data = await signIn('credentials', {
+        redirect: false,
+        redirectTo: '/',
+        ...values,
+      });
+
+      if (data?.error) {
         messageApi.error(t('signIn.signInError'));
+      } else {
+        setUserConfig(prev => ({
+          ...prev,
+          organizationId: organization?.id,
+        }));
+        push(ROUTES[ROUTE_KEYS.OVERVIEW].path || '');
       }
+
+      setState(draft => {
+        draft.isSignInLoading = false;
+      });
     },
-    [messageApi, signIn, t],
+    [messageApi, organization?.id, push, setUserConfig, t],
   );
 
   const redirectToSignUp = useCallback(() => {
@@ -69,7 +93,7 @@ export const SignIn: React.FC<SignUpProps> = props => {
 
           <Form name="signIn" layout="vertical" form={form} onFinish={onFinish}>
             <Item<TFormValues>
-              name="username"
+              name="identifier"
               label={t('common.username')}
               validateDebounce={500}
               rules={[{ required: true }]}
@@ -87,7 +111,7 @@ export const SignIn: React.FC<SignUpProps> = props => {
             </Item>
 
             <Item noStyle>
-              <Button htmlType="submit" type="primary" block loading={isSigningIn}>
+              <Button htmlType="submit" type="primary" block loading={isSignInLoading}>
                 {t('signIn.title')}
               </Button>
             </Item>

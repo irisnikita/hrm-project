@@ -9,3 +9,8 @@ export type TUpdateUserArgs = {
   id: number;
   userData: UpdateUserDto;
 };
+
+export type TGetUserDetailArgs = {
+  id: string;
+  params?: Record<string, any>;
+};

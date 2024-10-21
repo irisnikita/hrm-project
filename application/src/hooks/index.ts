@@ -7,3 +7,4 @@ export * from './useOrganizationRole';
 export * from './useDarkMode';
 export * from './useCustomerAuth';
 export * from './useRouter';
+export * from './useUserConfig';

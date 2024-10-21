@@ -11,13 +11,13 @@ import { useTranslations } from 'next-intl';
 import { Button, Flex } from '@/components/ui';
 import { UserButton as CusUserButton, DarkModeSwitcher } from '@/components/shared';
 import { Logo } from '../Logo';
-import { SignedOut, SignedIn } from '@clerk/nextjs';
 
 // Styled
 import { StyledHeader } from './styled';
 
 // Hooks
-import { useScrollPosition } from '@/hooks';
+import { useScrollPosition, useUser } from '@/hooks';
+import { isEmpty } from 'lodash';
 
 // const LanguageSwitcher = dynamic(
 //   () => import('@/components/shared/LanguageSwitcher').then(mod => mod.LanguageSwitcher),
@@ -40,6 +40,34 @@ export const Header: React.FC<HeaderProps> = props => {
   const t = useTranslations();
   const { className, isDashboard, parentRef, leftContent, rightContent, ...restOfProps } = props;
   const { isScrolled } = useScrollPosition(0, parentRef);
+  const { user, isLoading } = useUser();
+
+  const renderRightContent = () => {
+    if (isLoading) return null;
+
+    if (isEmpty(user)) {
+      return (
+        <>
+          <Link href="/sign-in">
+            <Button size="large">{t('common.logIn')}</Button>
+          </Link>
+          <Link href="/sign-up">
+            <Button type="primary" size="large">
+              {t('common.signUp')}
+            </Button>
+          </Link>
+        </>
+      );
+    }
+
+    return (
+      <>
+        {rightContent}
+
+        <CusUserButton />
+      </>
+    );
+  };
 
   return (
     <StyledHeader
@@ -59,23 +87,7 @@ export const Header: React.FC<HeaderProps> = props => {
         <Flex gap={16} align="center">
           <DarkModeSwitcher />
 
-          <SignedOut>
-            <Link href="/sign-in">
-              <Button size="large">{t('common.logIn')}</Button>
-            </Link>
-            <Link href="/sign-up">
-              <Button type="primary" size="large">
-                {t('common.signUp')}
-              </Button>
-            </Link>
-          </SignedOut>
-          <SignedIn>
-            {rightContent}
-
-            {/* <LanguageSwitcher /> */}
-            <CusUserButton />
-            {/* <UserButton userProfileMode="navigation" userProfileUrl="/dashboard" /> */}
-          </SignedIn>
+          {renderRightContent()}
         </Flex>
       </div>
     </StyledHeader>

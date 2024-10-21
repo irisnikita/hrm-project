@@ -6,6 +6,6 @@ export interface SignUpProps {
 }
 
 export type TFormValues = {
-  username: string;
+  identifier: string;
   password: string;
 };

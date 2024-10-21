@@ -5,6 +5,7 @@ export const QUERY_KEYS = {
 
   /* User */
   USER_LIST: 'USER_LIST',
+  USER_DETAIL: 'USER_DETAIL',
 
   /* News */
   NEWS_LIST: 'NEWS_LIST',

@@ -1,9 +1,9 @@
 // Libraries
 import { useUser as useClerkUser } from '@clerk/nextjs';
+import { useSession } from 'next-auth/react';
 
 // Queries
-import { useGetUserList } from '@/queries/user';
-import { useGetOrganization } from '@/queries/organization';
+import { useGetUserDetail, useGetUserList } from '@/queries/user';
 
 // Schemas
 import { User } from '@/schemas';
@@ -13,12 +13,13 @@ import { useUserConfig } from '../useUserConfig';
 
 // Utils
 import { combineUserInfo } from './utils';
+import { useMemo } from 'react';
 
 export const useUser = () => {
   const { userConfig } = useUserConfig();
   const { user, isLoaded, isSignedIn } = useClerkUser();
+  const { id: nextAuthId } = useSession()?.data || {};
   const { id } = user || {};
-
   const { data: users, isLoading: isLoadingUsers } = useGetUserList({
     args: {
       params: {
@@ -26,17 +27,25 @@ export const useUser = () => {
         populate: 'organizations,role',
       },
     },
+    options: {
+      enabled: !!id,
+    },
   });
-  const { data: organization, isLoading: isLoadingOrganization } = useGetOrganization({
+  const { data: nextAuthUser, isLoading: isLoadingNextAuth } = useGetUserDetail({
     args: {
-      id: userConfig.organizationId || -1,
+      id: `${nextAuthId || ''}`,
       params: {
-        populate: 'logo,owner',
+        populate: 'organizations,role',
       },
     },
   });
+  const systemUser = nextAuthUser || (users?.[0] as User);
 
-  const systemUser = users?.[0] as User;
+  const organization = useMemo(() => {
+    return systemUser?.organizations.find(
+      organization => organization.id === userConfig.organizationId,
+    );
+  }, [systemUser?.organizations, userConfig.organizationId]);
 
   return {
     clerkUser: user,
@@ -45,7 +54,7 @@ export const useUser = () => {
     isLoaded,
     isSignedIn,
     role: systemUser?.role,
-    organization: organization?.data,
-    isLoading: isLoadingUsers || isLoadingOrganization,
+    organization,
+    isLoading: isLoadingUsers || isLoadingNextAuth,
   };
 };

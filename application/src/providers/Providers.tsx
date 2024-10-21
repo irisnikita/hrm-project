@@ -10,6 +10,7 @@ import { App } from 'antd';
 import { MotionConfig } from 'framer-motion';
 import { AntdConfigProvider } from './AntdConfigProvider';
 import ReactQueryProvider from './ReactQueryProvider';
+import { SessionProvider } from 'next-auth/react';
 
 // Constants
 import { CLERK_APPEARANCE, MAP_CLERK_LOCALIZATION, MOTION_CONFIG, STYLED_THEME } from '@/constants';
@@ -38,20 +39,22 @@ export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return (
     <ReactQueryProvider>
-      <ClerkProvider
-        appearance={CLERK_APPEARANCE}
-        localization={MAP_CLERK_LOCALIZATION[locale] || enUS}
-      >
-        <ThemeProvider theme={STYLED_THEME || {}}>
-          {/* <PageTransition> */}
-          <AntdConfigProvider>
-            <App>
-              <MotionConfig {...MOTION_CONFIG}>{children}</MotionConfig>
-            </App>
-          </AntdConfigProvider>
-          {/* </PageTransition> */}
-        </ThemeProvider>
-      </ClerkProvider>
+      <SessionProvider>
+        <ClerkProvider
+          appearance={CLERK_APPEARANCE}
+          localization={MAP_CLERK_LOCALIZATION[locale] || enUS}
+        >
+          <ThemeProvider theme={STYLED_THEME || {}}>
+            {/* <PageTransition> */}
+            <AntdConfigProvider>
+              <App>
+                <MotionConfig {...MOTION_CONFIG}>{children}</MotionConfig>
+              </App>
+            </AntdConfigProvider>
+            {/* </PageTransition> */}
+          </ThemeProvider>
+        </ClerkProvider>
+      </SessionProvider>
     </ReactQueryProvider>
   );
 };

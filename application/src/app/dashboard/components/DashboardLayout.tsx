@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 // Components
 import { OrganizationList } from '@/components/shared';
-import { Button, Flex, Layout, Result } from '@/components/ui';
+import { Button, Flex, Layout, Result, Spin } from '@/components/ui';
 import { DashboardSider } from './DashboardSider';
 
 // Hooks
@@ -23,13 +23,17 @@ const { Content } = Layout;
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const t = useTranslations();
-  const { currentOrganizationId } = useOrganization();
+  const { currentOrganization, isLoading: isOrganizationLoading } = useOrganization();
   const { isAuthenticated, isLoading } = useAuthentication();
   const parentRef = useRef<HTMLDivElement>(null);
-  const isShowSider = !!currentOrganizationId;
+  const isShowSider = !!currentOrganization;
 
   const renderContent = () => {
-    if (!isLoading && !isAuthenticated && !!currentOrganizationId) {
+    if (isLoading && isOrganizationLoading) {
+      return <Spin rootClassName="!m-auto" />;
+    }
+
+    if (!isLoading && !isAuthenticated && !!currentOrganization) {
       return (
         <Result
           status="404"
