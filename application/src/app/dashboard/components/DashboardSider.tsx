@@ -73,8 +73,6 @@ export const DashboardSider: React.FC<DashboardSiderProps> = memo(props => {
     return routeInfo?.key || '1';
   }, [pathname]);
 
-  console.log('selectedMenuKey:: ', selectedMenuKey);
-
   return isShow ? (
     <StyledSider
       trigger={null}
