@@ -1,1 +1,1 @@
-export { Avatar } from 'antd';
+export { Avatar, type AvatarProps } from 'antd';

@@ -5,3 +5,5 @@ export * from './useUser';
 export * from './useOrganization';
 export * from './useOrganizationRole';
 export * from './useDarkMode';
+export * from './useCustomerAuth';
+export * from './useRouter';

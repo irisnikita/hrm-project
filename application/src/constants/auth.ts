@@ -15,3 +15,8 @@ export const USER_ROLE_IDS = {
   PUBLIC: 2,
   AUTHENTICATED: 1,
 };
+
+export const SIGN_UP_TYPES = {
+  CUSTOMER: 'customer',
+  EMPLOYEE: 'employee',
+};

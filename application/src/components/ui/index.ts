@@ -25,3 +25,4 @@ export * from './Popover';
 export * from './Divider';
 export * from './Badge';
 export * from './Drawer';
+export * from './Spin';

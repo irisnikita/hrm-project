@@ -6,6 +6,7 @@ import { User, CreateUserDto } from '@/schemas/User';
 
 // Types
 import { TGetUserListArgs, TUpdateUserArgs } from './types';
+import { CheckNameResponse, StrapiResponse } from '@/types';
 
 const USER_ENDPOINT = '/users';
 
@@ -31,6 +32,22 @@ export const userService = {
     const response = await axiosInstance({
       method: 'PUT',
       url: `${USER_ENDPOINT}/${id}`,
+      data: userData,
+    });
+    return response.data;
+  },
+  checkUserName: async (username: string): Promise<StrapiResponse<CheckNameResponse>> => {
+    const response = await axiosInstance({
+      method: 'POST',
+      url: `${USER_ENDPOINT}/check-username`,
+      data: { username: username },
+    });
+    return response.data;
+  },
+  registerUser: async (userData: CreateUserDto): Promise<StrapiResponse<User>> => {
+    const response = await axiosInstance({
+      method: 'POST',
+      url: `${USER_ENDPOINT}/register`,
       data: userData,
     });
     return response.data;

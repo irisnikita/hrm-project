@@ -11,9 +11,21 @@ export const ROUTE_KEYS = {
   ACCOUNT: 'account',
   ACCOUNT_SETTING: 'account-setting',
   PROFILE: 'profile',
+  SIGN_UP: 'sign-up',
+  SIGN_IN: 'sign-in',
 } as const;
-const { HOME, OVERVIEW, MANAGEMENT, ORG_CHART, EMPLOYEES, ACCOUNT, ACCOUNT_SETTING, PROFILE } =
-  ROUTE_KEYS;
+const {
+  HOME,
+  OVERVIEW,
+  MANAGEMENT,
+  ORG_CHART,
+  EMPLOYEES,
+  ACCOUNT,
+  ACCOUNT_SETTING,
+  PROFILE,
+  SIGN_UP,
+  SIGN_IN,
+} = ROUTE_KEYS;
 const { ADMIN, EMPLOYEE, MANAGER, USER, AUTHENTICATED } = USER_ROLES;
 
 type RouteKey = (typeof ROUTE_KEYS)[keyof typeof ROUTE_KEYS];
@@ -31,6 +43,18 @@ type Route = Record<
 const fullRoles = [ADMIN, MANAGER, EMPLOYEE, USER, AUTHENTICATED];
 
 export const ROUTES: Route = {
+  [SIGN_IN]: {
+    key: SIGN_IN,
+    label: 'signIn.title',
+    path: '/sign-in',
+    roles: fullRoles,
+  },
+  [SIGN_UP]: {
+    key: SIGN_UP,
+    label: 'signUp.title',
+    path: '/sign-up',
+    roles: fullRoles,
+  },
   [OVERVIEW]: {
     key: OVERVIEW,
     label: 'menu.overview',

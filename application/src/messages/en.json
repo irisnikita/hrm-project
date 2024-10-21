@@ -12,7 +12,9 @@
     "explore": "Explore",
     "readMore": "Read More",
     "noData": "No data",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "username": "Email address or phone number",
+    "password": "Password"
   },
   "user": {
     "profile": "Profile",
@@ -47,6 +49,7 @@
     "email": "Please enter a valid email address",
     "url": "Please enter a valid URL",
     "number": "Please enter a valid number",
+    "phoneNumber": "Please enter a valid phone number",
     "passwordStrength": "Password must be at least 8 characters, with uppercase, lowercase, number, and special character!",
     "basePasswordStrength": "Password must be at least 8 characters!",
     "nameExists": "{fieldName} already exists",
@@ -118,7 +121,9 @@
     "accountSetting": "Account Setting",
     "profile": "Profile",
     "preferences": "Preferences",
-    "security": "Security"
+    "security": "Security",
+    "signUp": "Sign Up",
+    "signIn": "Sign In"
   },
   "notFound": {
     "title": "404",
@@ -139,9 +144,16 @@
     "title": "Sign Up",
     "createYourAccount": "Create your account",
     "welcome": "Welcome! Please fill in the details to get started.",
-    "username": "Email address or phone number",
-    "password": "Password",
     "confirmPassword": "Confirm password",
-    "alreadyHaveAccount": "Already have an account?"
+    "alreadyHaveAccount": "Already have an account?",
+    "signUpSuccess": "Sign up successfully",
+    "signUpError": "Sin up error"
+  },
+  "signIn": {
+    "title": "Sign In",
+    "signInTo": "Sign in to {organizationName}",
+    "welcome": "Welcome back! Please sign in to continute",
+    "doNotHaveAccount": "Don’t have an account?",
+    "signInError": "Incorrect email or password"
   }
 }

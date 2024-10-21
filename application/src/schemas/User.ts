@@ -8,13 +8,13 @@ import { OrganizationAttributesSchema } from './Organization';
 export const UserSchema = z.object({
   userId: z.string(),
   id: z.number(),
-  username: z.string().nullable(),
+  username: z.string().nullish(),
   email: z.string(),
-  provider: z.string().nullable(),
-  confirmed: z.boolean(),
-  blocked: z.boolean(),
-  avatar: z.string(),
-  imageUrl: z.string(),
+  provider: z.string().nullish(),
+  confirmed: z.boolean().nullish(),
+  blocked: z.boolean().nullish(),
+  avatar: z.string().nullish(),
+  imageUrl: z.string().nullish(),
   role: z.object({
     id: z.number(),
     name: z.string(),
@@ -23,10 +23,11 @@ export const UserSchema = z.object({
     createdAt: z.string(),
     updatedAt: z.string(),
   }),
-  fullName: z.string().nullable(),
-  firstName: z.string().nullable(),
-  lastName: z.string().nullable(),
+  fullName: z.string().nullish(),
+  firstName: z.string().nullish(),
+  lastName: z.string().nullish(),
   organizations: z.array(OrganizationAttributesSchema),
+  phoneNumber: z.string().nullish(),
   primaryEmailAddress: z
     .object({
       id: z.string(),
@@ -51,8 +52,8 @@ export const UserSchema = z.object({
       }),
     })
     .optional(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  createdAt: z.string().nullish(),
+  updatedAt: z.string().nullish(),
 });
 
 export const CreateUserDtoSchema = UserSchema.omit({
@@ -62,9 +63,13 @@ export const CreateUserDtoSchema = UserSchema.omit({
   role: true,
   provider: true,
   organizations: true,
+  userId: true,
+  email: true,
 }).and(
   z.object({
+    userId: z.string().nullish(),
     password: z.string(),
+    email: z.string().nullish(),
     role: z.number(),
     organizations: z.array(z.number()).optional(),
   }),

@@ -12,7 +12,9 @@
     "explore": "Khám phá",
     "readMore": "Đọc thêm",
     "noData": "Không có dữ liệu",
-    "viewAll": "Xem tất cả"
+    "viewAll": "Xem tất cả",
+    "username": "Địa chỉ Email hoặc số điện thoại",
+    "password": "Mật khẩu"
   },
   "user": {
     "profile": "Hồ sơ",
@@ -47,6 +49,7 @@
     "email": "Vui lòng nhập địa chỉ email hợp lệ",
     "url": "Vui lòng nhập địa chỉ URL hợp lệ",
     "number": "Vui lòng nhập số hợp lệ",
+    "phoneNumber": "Vui lòng nhập số điện thoại hợp lệ",
     "passwordStrength": "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt!",
     "basePasswordStrength": "Mật khẩu phải có ít nhất 8 ký tự!",
     "nameExists": "{fieldName} đã tồn tại",
@@ -139,9 +142,16 @@
     "title": "Đăng ký",
     "createYourAccount": "Tạo tài khoản",
     "welcome": "Xin chào! Hãy điền thông tin để tiếp tục.",
-    "username": "Địa chỉ Email hoặc số điện thoại",
-    "password": "Mật khẩu",
     "confirmPassword": "Xác nhận mật khẩu",
-    "alreadyHaveAccount": "Đã có tài khoản?"
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "signUpSuccess": "Đăng ký thành công",
+    "signUpError": "Đăng ký thát bại"
+  },
+  "signIn": {
+    "title": "Đăng nhập",
+    "signInTo": "Đăng nhập vào {organizationName}",
+    "welcome": "Xin chào! Đăng nhập để tiếp tục",
+    "doNotHaveAccount": "Không có tài khoản?",
+    "signInError": "Thông tin đăng nhập sai, vui lòng thử lại"
   }
 }
