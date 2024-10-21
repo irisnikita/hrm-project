@@ -1,0 +1,30 @@
+export const USER_ROLES = {
+  ADMIN: "admin",
+  EMPLOYEE: "employee",
+  MANAGER: "manager",
+  USER: "user",
+  AUTHENTICATED: "authenticated",
+  CUSTOMER: "customer",
+} as const;
+
+export const USER_ROLE_IDS = {
+  ADMIN: 3,
+  EMPLOYEE: 4,
+  MANAGER: 5,
+  CUSTOMER: 6,
+  PUBLIC: 2,
+  AUTHENTICATED: 1,
+};
+
+export const SIGN_UP_TYPES = {
+  CUSTOMER: "customer",
+  EMPLOYEE: "employee",
+};
+
+export const MAP_ROLE_TYPE = {
+  [USER_ROLE_IDS.ADMIN]: USER_ROLES.ADMIN,
+  [USER_ROLE_IDS.EMPLOYEE]: USER_ROLES.EMPLOYEE,
+  [USER_ROLE_IDS.MANAGER]: USER_ROLES.MANAGER,
+  [USER_ROLE_IDS.CUSTOMER]: USER_ROLES.CUSTOMER,
+  [USER_ROLE_IDS.AUTHENTICATED]: USER_ROLES.AUTHENTICATED,
+};

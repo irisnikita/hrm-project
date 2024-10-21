@@ -4,7 +4,8 @@
   "info": {
     "singularName": "organization-role",
     "pluralName": "organization-roles",
-    "displayName": "Organization Role"
+    "displayName": "Organization Role",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -37,7 +38,8 @@
         "employee",
         "manager",
         "user",
-        "authenticated"
+        "authenticated",
+        "customer"
       ]
     }
   }

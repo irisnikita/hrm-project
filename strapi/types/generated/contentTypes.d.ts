@@ -1178,6 +1178,7 @@ export interface ApiOrganizationRoleOrganizationRole
     singularName: 'organization-role';
     pluralName: 'organization-roles';
     displayName: 'Organization Role';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1199,7 +1200,7 @@ export interface ApiOrganizationRoleOrganizationRole
       'api::organization.organization'
     >;
     role: Attribute.Enumeration<
-      ['admin', 'employee', 'manager', 'user', 'authenticated']
+      ['admin', 'employee', 'manager', 'user', 'authenticated', 'customer']
     > &
       Attribute.SetPluginOptions<{
         i18n: {

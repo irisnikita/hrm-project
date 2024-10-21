@@ -18,5 +18,14 @@ export default {
         middlewares: [],
       },
     },
+    {
+      method: "POST",
+      path: "/users/register",
+      handler: "user.registerUser",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };
