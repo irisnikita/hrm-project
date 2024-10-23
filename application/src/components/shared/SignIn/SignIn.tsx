@@ -68,7 +68,7 @@ export const SignIn: React.FC<SignUpProps> = props => {
         draft.isSignInLoading = false;
       });
     },
-    [messageApi, organization?.id, push, setUserConfig, t],
+    [messageApi, organization?.id, push, setState, setUserConfig, t],
   );
 
   const redirectToSignUp = useCallback(() => {

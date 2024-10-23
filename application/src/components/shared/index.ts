@@ -11,3 +11,4 @@ export * from './ThemeSetting';
 export * from './DarkModeSwitcher';
 export * from './SignUp';
 export * from './SignIn';
+export * from './UserRequiredInfoForm';

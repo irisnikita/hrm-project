@@ -59,7 +59,7 @@ export const UserButton = memo(() => {
           </Avatar>
           <Flex vertical>
             <Text strong ellipsis={{ tooltip: true }}>
-              {fullName}
+              {fullName || t('common.anonymous')}
             </Text>
             <Text ellipsis={{ tooltip: true }} className="!text-xs">
               {organization?.organizationName || ''}
@@ -86,7 +86,9 @@ export const UserButton = memo(() => {
   return (
     <Flex align="center">
       <Popover content={popoverContent} trigger={['click']} arrow={false} placement="bottomRight">
-        <Avatar src={imageUrl} size={32} className="cursor-pointer" />
+        <Avatar src={imageUrl} size={32} className="cursor-pointer">
+          {getAvatarLabel(fullName || '')}
+        </Avatar>
       </Popover>
     </Flex>
   );

@@ -14,12 +14,17 @@
     "noData": "Không có dữ liệu",
     "viewAll": "Xem tất cả",
     "username": "Địa chỉ Email hoặc số điện thoại",
-    "password": "Mật khẩu"
+    "password": "Mật khẩu",
+    "continue": "Tiếp tục",
+    "someThingWentWrong": "Đã xảy ra lỗi",
+    "updatedSuccess": "Cập nhật thành công",
+    "anonymous": "Vô danh"
   },
   "user": {
     "profile": "Hồ sơ",
     "accountSettings": "Cài đặt tài khoản",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "fullName": "Họ và tên"
   },
   "apiMessages": {
     "createdSuccess": "{name} được tạo thành công",
@@ -153,5 +158,8 @@
     "welcome": "Xin chào! Đăng nhập để tiếp tục",
     "doNotHaveAccount": "Không có tài khoản?",
     "signInError": "Thông tin đăng nhập sai, vui lòng thử lại"
+  },
+  "userRequiredInfo": {
+    "title": "Chào mừng! Vui lòng hoàn thành thông tin hồ sơ của bạn"
   }
 }

@@ -230,12 +230,6 @@ export const OrganizationList = memo(() => {
       <Form<TFormValues>
         form={form}
         layout="vertical"
-        requiredMark={(label, info) => (
-          <Flex align="center" gap={4}>
-            {label}
-            {info.required ? <Text type="danger">*</Text> : null}
-          </Flex>
-        )}
         onValuesChange={values => {
           if (values.organizationName) {
             form.setFieldsValue({

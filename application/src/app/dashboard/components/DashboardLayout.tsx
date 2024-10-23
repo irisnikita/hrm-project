@@ -2,37 +2,56 @@
 
 // Libraries
 import clsx from 'clsx';
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 
 // Components
-import { OrganizationList } from '@/components/shared';
+import { OrganizationList, UserRequiredInfoForm } from '@/components/shared';
 import { Button, Flex, Layout, Result, Spin } from '@/components/ui';
 import { DashboardSider } from './DashboardSider';
 
 // Hooks
-import { useOrganization } from '@/hooks';
+import { useOrganization, useUser } from '@/hooks';
 
 // Constants
 import { DashboardHeader } from './DashboardHeader';
 import { useAuthentication } from '@/hooks/useAuthentication';
+
+// Utils
+import { checkIsMissingRequiredInfo } from '@/utils';
 
 const { Content } = Layout;
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const t = useTranslations();
+  const { user } = useUser();
   const { currentOrganization, isLoading: isOrganizationLoading } = useOrganization();
   const { isAuthenticated, isLoading } = useAuthentication();
   const parentRef = useRef<HTMLDivElement>(null);
-  const isShowSider = !!currentOrganization;
+  const isHasCurrentOrganization = !!currentOrganization;
+
+  // Memo
+  const isMissingRequiredInfo = useMemo(() => {
+    return checkIsMissingRequiredInfo(user);
+  }, [user]);
+
+  const isCanAccessDashboard = useMemo(() => {
+    return isHasCurrentOrganization && !isMissingRequiredInfo;
+  }, [isHasCurrentOrganization, isMissingRequiredInfo]);
 
   const renderContent = () => {
     if (isLoading && isOrganizationLoading) {
       return <Spin rootClassName="!m-auto" />;
     }
 
+    // Render UserRequiredInfoField
+    if (isMissingRequiredInfo) {
+      return <UserRequiredInfoForm />;
+    }
+
+    // Render no permission
     if (!isLoading && !isAuthenticated && !!currentOrganization) {
       return (
         <Result
@@ -49,22 +68,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       );
     }
 
-    return isShowSider ? children : <OrganizationList />;
+    if (!isHasCurrentOrganization) {
+      return <OrganizationList />;
+    }
+
+    return children;
   };
 
   return (
     <Layout id="dashboard-layout" className="h-screen p-4">
-      <DashboardSider isShow={isShowSider} />
+      <DashboardSider isShow={isCanAccessDashboard} />
       <Flex
         ref={parentRef}
         vertical
         align="center"
         justify="center"
         className={clsx('size-full', {
-          'pl-4': isShowSider,
+          'pl-4': isCanAccessDashboard,
         })}
       >
-        <DashboardHeader isShowSider={isShowSider} />
+        <DashboardHeader isShowSider={isCanAccessDashboard} />
         <Content className="container flex flex-col">{renderContent()}</Content>
       </Flex>
     </Layout>

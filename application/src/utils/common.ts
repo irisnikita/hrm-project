@@ -19,5 +19,5 @@ export function getAvatarLabel(customerName: string): string {
     }
     return customerName[0]?.toUpperCase() || '';
   }
-  return '';
+  return 'AN';
 }

@@ -5,7 +5,7 @@ import { ConfigProvider, type ConfigProviderProps, theme } from 'antd';
 import React from 'react';
 
 // Components
-import { Empty } from '@/components/ui';
+import { Empty, Flex, Typography } from '@/components/ui';
 
 // Constants
 import { DARK_THEME, LIGHT_THEME } from '@/constants';
@@ -15,6 +15,8 @@ import { getAntdLocale, getLanguage } from '@/utils';
 
 // Hooks
 import { useDarkMode } from '@/hooks';
+
+const { Text } = Typography;
 
 interface AntdConfigProviderProps extends ConfigProviderProps {}
 
@@ -33,6 +35,14 @@ export const AntdConfigProvider: React.FC<AntdConfigProviderProps> = props => {
         algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
       renderEmpty={renderEmpty}
+      form={{
+        requiredMark: (label, info) => (
+          <Flex align="center" gap={4}>
+            {label}
+            {info.required ? <Text type="danger">*</Text> : null}
+          </Flex>
+        ),
+      }}
       locale={getAntdLocale(locale)}
       {...props}
     />

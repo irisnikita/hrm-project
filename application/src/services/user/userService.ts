@@ -6,9 +6,11 @@ import { User, CreateUserDto } from '@/schemas/User';
 
 // Types
 import { TGetUserDetailArgs, TGetUserListArgs, TUpdateUserArgs } from './types';
-import { CheckNameResponse, StrapiResponse } from '@/types';
+import { CheckNameResponse, ErrorResponse, StrapiResponse } from '@/types';
 
 const USER_ENDPOINT = '/users';
+
+export type UpdateUserResponse = User & ErrorResponse;
 
 export const userService = {
   getUser: async (args?: TGetUserDetailArgs): Promise<User | null> => {
@@ -33,7 +35,7 @@ export const userService = {
     const response = await axiosInstance.post(USER_ENDPOINT, userData);
     return response.data;
   },
-  updateUser: async (args: TUpdateUserArgs): Promise<User | null> => {
+  updateUser: async (args: TUpdateUserArgs): Promise<UpdateUserResponse | null> => {
     const { id, userData } = args;
     const response = await axiosInstance({
       method: 'PUT',

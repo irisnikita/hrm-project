@@ -17,6 +17,7 @@ import {
   TGetUserDetailArgs,
   type TGetUserListArgs,
   TUpdateUserArgs,
+  UpdateUserResponse,
   userService,
 } from '@/services';
 
@@ -32,7 +33,7 @@ interface UseGetUserProps {
 }
 
 interface UseUpdateUserProps {
-  options?: UseMutationOptions<User | null, Error, TUpdateUserArgs>;
+  options?: UseMutationOptions<UpdateUserResponse | null, Error, TUpdateUserArgs>;
 }
 
 interface UseGetUserDetailProps {
@@ -70,13 +71,22 @@ export const useGetUserDetail = (props?: UseGetUserDetailProps) => {
 };
 
 export const useUpdateUser = (props?: UseUpdateUserProps) => {
+  const t = useTranslations();
+  const { message } = App.useApp();
   const queryClient = useQueryClient();
   const { options } = props || {};
 
   return useMutation({
     mutationFn: userService.updateUser,
-    onSettled: () => {
+    onSettled: data => {
+      const { error } = data || {};
+
+      message[!!error ? 'error' : 'success'](
+        !!error ? t('common.someThingWentWrong') : t('common.updatedSuccess'),
+      );
+
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_LIST], exact: false });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_DETAIL], exact: false });
     },
     ...options,
   });

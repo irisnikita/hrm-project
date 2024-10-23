@@ -14,12 +14,17 @@
     "noData": "No data",
     "viewAll": "View All",
     "username": "Email address or phone number",
-    "password": "Password"
+    "password": "Password",
+    "continue": "Continue",
+    "someThingWentWrong": "Something went wrong",
+    "updatedSuccess": "Updated successfully",
+    "anonymous": "Anonymous"
   },
   "user": {
     "profile": "Profile",
     "accountSettings": "Account settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "fullName": "Full name"
   },
   "apiMessages": {
     "createdSuccess": "{name} created successfully",
@@ -155,5 +160,8 @@
     "welcome": "Welcome back! Please sign in to continute",
     "doNotHaveAccount": "Don’t have an account?",
     "signInError": "Incorrect email or password"
+  },
+  "userRequiredInfo": {
+    "title": "Welcome! Please Complete Your Profile"
   }
 }
