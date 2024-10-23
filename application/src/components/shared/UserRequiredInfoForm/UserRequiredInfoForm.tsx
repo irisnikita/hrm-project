@@ -1,3 +1,5 @@
+'use client';
+
 // Libraries
 import React, { memo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
