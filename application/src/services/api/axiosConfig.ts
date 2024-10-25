@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as Sentry from '@sentry/nextjs';
 import { handleError } from '@/lib';
+import { getSession } from 'next-auth/react';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL || 'https://api.example.com';
 
@@ -13,8 +14,10 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  config => {
-    config.headers['Authorization'] = `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`;
+  async config => {
+    const session = await getSession();
+
+    config.headers['Authorization'] = `Bearer ${session?.jwt || process.env.NEXT_PUBLIC_API_TOKEN}`;
     return config;
   },
   error => {

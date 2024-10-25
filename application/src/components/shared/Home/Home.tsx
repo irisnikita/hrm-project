@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { useTranslations } from 'next-intl';
-import { User } from '@clerk/nextjs/server';
 import // ChevronDown,
 
 // ChevronUp,
@@ -28,12 +27,6 @@ import { use3DEffect } from '@/hooks';
 import { Button } from '@/components/ui';
 import { Header } from '../Header';
 
-// Utils
-import { mapClerkUserToCreateUserDto } from '@/utils';
-
-// Services
-import { userService } from '@/services';
-
 // Constants
 import { SHADOW } from '@/constants';
 
@@ -41,7 +34,7 @@ import { SHADOW } from '@/constants';
 import { useUserConfig } from '@/hooks/useUserConfig';
 
 export const Home = () => {
-  const { isSignedIn, isLoaded, user } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
   const t = useTranslations();
   const { removeUserConfig } = useUserConfig();
 
@@ -57,16 +50,10 @@ export const Home = () => {
   // };
 
   useEffect(() => {
-    if (isSignedIn && !!user && isLoaded) {
-      const userData = mapClerkUserToCreateUserDto(user as unknown as User);
-
-      userService.createUser(userData);
-    }
-
     if (isLoaded && !isSignedIn) {
       removeUserConfig();
     }
-  }, [isSignedIn, user, isLoaded, removeUserConfig]);
+  }, [isSignedIn, isLoaded, removeUserConfig]);
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800">

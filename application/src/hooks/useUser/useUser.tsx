@@ -17,8 +17,9 @@ import { useMemo } from 'react';
 
 export const useUser = () => {
   const { userConfig } = useUserConfig();
+  const session = useSession();
   const { user, isLoaded, isSignedIn } = useClerkUser();
-  const { id: nextAuthId } = useSession()?.data || {};
+  const { id: nextAuthId } = session?.data || {};
   const { id } = user || {};
   const { data: users, isLoading: isLoadingUsers } = useGetUserList({
     args: {
@@ -40,9 +41,10 @@ export const useUser = () => {
     },
   });
   const systemUser = nextAuthUser || (users?.[0] as User);
+  console.log("🚀 ~ useUser ~ systemUser:", systemUser)
 
   const organization = useMemo(() => {
-    return systemUser?.organizations.find(
+    return systemUser?.organizations?.find(
       organization => organization.id === userConfig.organizationId,
     );
   }, [systemUser?.organizations, userConfig.organizationId]);
@@ -55,6 +57,7 @@ export const useUser = () => {
     isSignedIn,
     role: systemUser?.role,
     organization,
+    session,
     isLoading: isLoadingUsers || isLoadingNextAuth,
   };
 };

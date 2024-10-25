@@ -7,6 +7,8 @@ import { TFormValues } from './types';
 // Schemas
 import { CreateUserDto, Organization } from '@/schemas';
 
+const EMAIL_DEFAULT = 'invalid@gmail.com';
+
 export const handleFormatSignUpInfo = ({
   values,
   organization,
@@ -28,6 +30,11 @@ export const handleFormatSignUpInfo = ({
     signupInfo.email = username;
   } else if (REGEX.PHONE.test(username)) {
     signupInfo.phoneNumber = username;
+  }
+
+  // If Email not exist then set email default
+  if (!signupInfo.email) {
+    signupInfo.email = EMAIL_DEFAULT;
   }
 
   return signupInfo;

@@ -69,12 +69,12 @@ export const SignUp: React.FC<SignUpProps> = props => {
         },
       });
 
-      messageApi[!!user ? 'success' : 'error'](
+      messageApi[!user?.error ? 'success' : 'error'](
         !!user ? t('signUp.signUpSuccess') : t('signUp.signUpError'),
       );
 
       // Redirect to sign in
-      if (!!user) {
+      if (!user?.error) {
         redirectToSignIn();
       }
     },

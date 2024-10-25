@@ -43,7 +43,7 @@ export function mapClerkUserToCreateUserDto(clerkUser: User): CreateUserDto {
     username: username ?? primaryEmailAddress?.emailAddress ?? '',
     email: primaryEmailAddress?.emailAddress ?? '',
     avatar,
-    role: USER_ROLE_IDS.ADMIN,
+    role: USER_ROLE_IDS.EMPLOYEE,
     imageUrl: avatar,
     blocked: false,
     confirmed: true,

@@ -29,3 +29,5 @@ export type ErrorResponse = {
     details: Record<string, unknown>;
   };
 };
+
+export type SingleStrapiResponse<T> = T & ErrorResponse;

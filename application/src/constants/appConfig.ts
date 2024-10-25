@@ -1,0 +1,4 @@
+export const APP_CONFIG = {
+  API_URL: process.env.NEXT_PUBLIC_API_URL,
+  CLERK_PASSWORD_DEFAULT: process.env.NEXT_PUBLIC_CLERK_PASSWORD,
+};

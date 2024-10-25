@@ -2,10 +2,11 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-// Services
-import { authServices } from './services/auth';
+// Constants
+import { APP_CONFIG } from './constants';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   providers: [
     CredentialsProvider({
       name: 'Strapi Credentials',
@@ -17,15 +18,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const { identifier, password } = credentials || {};
 
-          const res = await authServices.signIn({
-            identifier: identifier as string,
-            password: password as string,
+          const res = await fetch(`${APP_CONFIG.API_URL}/auth/local`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              identifier: identifier as string,
+              password: password as string,
+            }),
           });
 
-          if (res.user) {
+          const response: any = await res.json();
+
+          if (response.user) {
             return {
-              ...res.user,
-              jwt: res.jwt,
+              ...response.user,
+              jwt: response.jwt,
             } as any;
           } else {
             throw new Error('Invalid credentials');

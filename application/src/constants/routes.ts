@@ -26,7 +26,7 @@ const {
   SIGN_UP,
   SIGN_IN,
 } = ROUTE_KEYS;
-const { ADMIN, EMPLOYEE, MANAGER, USER, AUTHENTICATED } = USER_ROLES;
+const { ADMIN, EMPLOYEE, MANAGER, USER, AUTHENTICATED, CUSTOMER } = USER_ROLES;
 
 type RouteKey = (typeof ROUTE_KEYS)[keyof typeof ROUTE_KEYS];
 
@@ -41,6 +41,7 @@ type Route = Record<
 >;
 
 const fullRoles = [ADMIN, MANAGER, EMPLOYEE, USER, AUTHENTICATED];
+const fullCustomerRoles = [...fullRoles, CUSTOMER];
 
 export const ROUTES: Route = {
   [SIGN_IN]: {
@@ -55,10 +56,22 @@ export const ROUTES: Route = {
     path: '/sign-up',
     roles: fullRoles,
   },
+  [HOME]: {
+    key: HOME,
+    label: 'menu.home',
+    path: '/',
+    roles: fullCustomerRoles,
+  },
   [OVERVIEW]: {
     key: OVERVIEW,
     label: 'menu.overview',
     path: '/dashboard',
+    roles: fullCustomerRoles,
+  },
+  [MANAGEMENT]: {
+    key: MANAGEMENT,
+    label: 'menu.management',
+    path: '/dashboard/management',
     roles: fullRoles,
   },
   [ORG_CHART]: {
@@ -67,18 +80,7 @@ export const ROUTES: Route = {
     path: '/dashboard/org-chart',
     roles: fullRoles,
   },
-  [HOME]: {
-    key: HOME,
-    label: 'menu.home',
-    path: '/',
-    roles: fullRoles,
-  },
-  [MANAGEMENT]: {
-    key: MANAGEMENT,
-    label: 'menu.management',
-    path: '/dashboard/management',
-    roles: fullRoles,
-  },
+
   [EMPLOYEES]: {
     key: EMPLOYEES,
     label: 'menu.employees',
@@ -88,18 +90,18 @@ export const ROUTES: Route = {
   [ACCOUNT]: {
     key: ACCOUNT,
     label: 'menu.account',
-    roles: fullRoles,
+    roles: fullCustomerRoles,
   },
   [ACCOUNT_SETTING]: {
     key: ACCOUNT_SETTING,
     label: 'menu.accountSetting',
     path: '/dashboard/account-setting',
-    roles: fullRoles,
+    roles: fullCustomerRoles,
   },
   [PROFILE]: {
     key: PROFILE,
     label: 'menu.profile',
     path: '/dashboard/profile',
-    roles: fullRoles,
+    roles: fullCustomerRoles,
   },
 };

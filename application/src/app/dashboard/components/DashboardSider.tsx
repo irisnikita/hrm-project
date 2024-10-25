@@ -1,22 +1,19 @@
 'use client';
 
 // Libraries
-import React, { memo, useCallback, useMemo } from 'react';
-import styled from 'styled-components';
 import { SiderProps, theme } from 'antd';
-import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import React, { memo } from 'react';
+import styled from 'styled-components';
 
 // Components
-import { Layout, Menu } from '@/components/ui';
 import { Logo } from '@/components/shared';
+import { Layout, Menu } from '@/components/ui';
 
 // Constants
-import { GLOBAL_TOKEN, MENU, ROUTES } from '@/constants';
+import { GLOBAL_TOKEN } from '@/constants';
 
 // Hooks
-import { useOrganizationRole } from '@/hooks';
+import { useAppMenu } from '@/hooks';
 
 interface DashboardSiderProps extends SiderProps {
   isShow?: boolean;
@@ -34,44 +31,8 @@ const StyledSider = styled(Layout.Sider)`
 export const DashboardSider: React.FC<DashboardSiderProps> = memo(props => {
   const { collapsed, isShow } = props;
 
-  const t = useTranslations();
   const { token } = theme.useToken();
-  const pathname = usePathname();
-  const { role } = useOrganizationRole();
-
-  const recursiveMenu = useCallback(
-    (menu: any[]) => {
-      return menu
-        .map((item: any) => {
-          const routeInfo = ROUTES[item?.key];
-
-          if (item.type === 'group' || routeInfo?.roles.includes(role)) {
-            return {
-              ...item,
-              label:
-                item?.type === 'group' ? (
-                  t(item?.label)?.toUpperCase()
-                ) : (
-                  <Link href={routeInfo?.path}>{t(item?.label)}</Link>
-                ),
-              children: item?.children ? recursiveMenu(item?.children) : undefined,
-            };
-          }
-
-          return null;
-        })
-        ?.filter(Boolean);
-    },
-    [t, role],
-  );
-
-  // Memos
-  const menuItems = useMemo(() => recursiveMenu(MENU), [recursiveMenu]);
-
-  const selectedMenuKey = useMemo(() => {
-    const routeInfo = Object.values(ROUTES).find(route => route.path === pathname);
-    return routeInfo?.key || '1';
-  }, [pathname]);
+  const { menuItems, selectedMenuKey } = useAppMenu();
 
   return isShow ? (
     <StyledSider

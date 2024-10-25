@@ -17,7 +17,6 @@ import {
   TGetUserDetailArgs,
   type TGetUserListArgs,
   TUpdateUserArgs,
-  UpdateUserResponse,
   userService,
 } from '@/services';
 
@@ -25,7 +24,7 @@ import {
 import { CreateUserDto, User } from '@/schemas';
 
 // Types
-import { StrapiResponse } from '@/types';
+import { SingleStrapiResponse, StrapiResponse } from '@/types';
 
 interface UseGetUserProps {
   args: TGetUserListArgs;
@@ -33,7 +32,7 @@ interface UseGetUserProps {
 }
 
 interface UseUpdateUserProps {
-  options?: UseMutationOptions<UpdateUserResponse | null, Error, TUpdateUserArgs>;
+  options?: UseMutationOptions<SingleStrapiResponse<User> | null, Error, TUpdateUserArgs>;
 }
 
 interface UseGetUserDetailProps {
@@ -42,7 +41,7 @@ interface UseGetUserDetailProps {
 }
 
 interface UseCreateUserProps {
-  options?: UseMutationOptions<User | null, Error, CreateUserDto>;
+  options?: UseMutationOptions<SingleStrapiResponse<User> | null, Error, CreateUserDto>;
 }
 
 interface UseRegisterUserProps {

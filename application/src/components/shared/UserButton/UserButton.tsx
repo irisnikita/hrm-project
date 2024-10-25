@@ -47,7 +47,9 @@ export const UserButton = memo(() => {
     signOut({
       redirectUrl: ROUTES.home.path,
     });
-    nextAuthSignOut();
+    nextAuthSignOut({
+      redirectTo: ROUTES.home.path,
+    });
   };
 
   const popoverContent = () => {

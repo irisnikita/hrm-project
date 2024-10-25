@@ -8,3 +8,6 @@ export * from './useDarkMode';
 export * from './useCustomerAuth';
 export * from './useRouter';
 export * from './useUserConfig';
+export * from './useAppMenu';
+export * from './useDeepCompareEffect';
+export * from './useAuthentication';

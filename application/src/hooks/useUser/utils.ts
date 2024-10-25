@@ -17,5 +17,5 @@ export const combineUserInfo = ({
   clerkUser,
   systemUser,
 }: CombineUserInfoParams): User & UserResource => {
-  return merge(systemUser, omit(clerkUser, 'id') || {}) as User & UserResource;
+  return merge(omit(clerkUser, 'id') || {}, systemUser || {}) as User & UserResource;
 };
