@@ -51,7 +51,7 @@ type TState = {
 
 export const WelcomeCard: React.FC<WelcomeCardProps> = () => {
   const t = useTranslations();
-  const { systemUser } = useUser();
+  const { user } = useUser();
   const [state, setState] = useImmer<TState>({
     greeting: {
       Icon: '',
@@ -107,7 +107,7 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.75 }}
             >
-              <Text className="!text-xl font-bold">{systemUser?.fullName || '&nbsp;'}</Text>
+              <Text className="!text-xl font-bold">{user?.fullName || '&nbsp;'}</Text>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 40 }}

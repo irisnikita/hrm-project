@@ -22,9 +22,13 @@ export const handleFormatSignUpInfo = ({
   const signupInfo: CreateUserDto = {
     username,
     password,
-    organizations: [organization?.id || -1],
     role: roleId || -1,
   };
+
+  // If organization exist then set organization
+  if (organization) {
+    signupInfo.organizations = [organization.id];
+  }
 
   if (REGEX.EMAIL.test(username)) {
     signupInfo.email = username;

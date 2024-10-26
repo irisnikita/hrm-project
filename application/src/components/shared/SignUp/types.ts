@@ -1,8 +1,5 @@
-// Schemas
-import { Organization } from '@/schemas';
-
 export interface SignUpProps {
-  organization?: Organization;
+  // organization?: Organization;
 }
 
 export type TFormValues = {

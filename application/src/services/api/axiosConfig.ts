@@ -16,8 +16,12 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async config => {
     const session = await getSession();
+    const { jwt } = session || {};
 
-    config.headers['Authorization'] = `Bearer ${session?.jwt || process.env.NEXT_PUBLIC_API_TOKEN}`;
+    if (jwt) {
+      config.headers['Authorization'] = `Bearer ${jwt}`;
+    }
+
     return config;
   },
   error => {

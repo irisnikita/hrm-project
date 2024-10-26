@@ -1,5 +1,4 @@
 // Libraries
-import { User as ClerkUser } from '@clerk/nextjs/server';
 import { z } from 'zod';
 
 // Schemas
@@ -79,10 +78,10 @@ export const UpdateUserDtoSchema = CreateUserDtoSchema;
 
 export type User = z.infer<typeof UserSchema>;
 export type CreateUserDto = Omit<z.infer<typeof CreateUserDtoSchema>, 'primaryEmailAddress'> & {
-  primaryEmailAddress?: ClerkUser['primaryEmailAddress'];
+  primaryEmailAddress?: Record<string, any>;
 };
 export type UpdateUserDto = Partial<
   Omit<z.infer<typeof UpdateUserDtoSchema>, 'primaryEmailAddress'> & {
-    primaryEmailAddress?: ClerkUser['primaryEmailAddress'];
+    primaryEmailAddress?: Record<string, any>;
   }
 >;

@@ -7,13 +7,13 @@ import { useUserConfig } from './useUserConfig';
 import { useCallback } from 'react';
 
 export const useOrganization = () => {
-  const { systemUser, organization } = useUser();
+  const { user, organization } = useUser();
   const { setUserConfig, userConfig } = useUserConfig();
   const { data, isLoading } = useGetOrganizationList({
     args: {
       params: {
         populate: 'logo,owner',
-        'filters[users][$in]': systemUser?.id || 0,
+        'filters[users][$in]': user?.id || 0,
       },
     },
   });

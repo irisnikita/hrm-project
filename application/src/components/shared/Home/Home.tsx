@@ -3,8 +3,6 @@
 // Libraries
 // import { useState } from "react";
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
-import { useUser } from '@clerk/nextjs';
 import { useTranslations } from 'next-intl';
 import // ChevronDown,
 
@@ -30,13 +28,9 @@ import { Header } from '../Header';
 // Constants
 import { SHADOW } from '@/constants';
 
-// Hooks
-import { useUserConfig } from '@/hooks/useUserConfig';
-
 export const Home = () => {
-  const { isSignedIn, isLoaded } = useUser();
   const t = useTranslations();
-  const { removeUserConfig } = useUserConfig();
+  // const { removeUserConfig } = useUserConfig();
 
   const {
     ref: containerRef,
@@ -48,12 +42,6 @@ export const Home = () => {
   // const toggleFaq = (index: number) => {
   //   setOpenFaq(openFaq === index ? null : index);
   // };
-
-  useEffect(() => {
-    if (isLoaded && !isSignedIn) {
-      removeUserConfig();
-    }
-  }, [isSignedIn, isLoaded, removeUserConfig]);
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800">

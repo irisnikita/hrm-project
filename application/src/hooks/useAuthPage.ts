@@ -5,12 +5,18 @@ import { useMemo } from 'react';
 // Queries
 import { useGetOrganizationList } from '@/queries';
 
-// Constants
-import { SIGN_UP_TYPES } from '@/constants';
+// Types
+import { UserRole } from '@/types';
+import { Organization } from '@/schemas';
 
-export const useCustomerAuth = () => {
+type Config = {
+  role?: UserRole;
+  organization?: Organization;
+};
+
+export const useAuthPage = () => {
   const searchParams = useSearchParams();
-  const type = searchParams.get('type');
+  const role = searchParams.get('role');
   const organizationKey = searchParams.get('organization');
 
   const { data: organizationData, isLoading } = useGetOrganizationList({
@@ -19,22 +25,22 @@ export const useCustomerAuth = () => {
         'filters[slug][$eq]': organizationKey,
       },
     },
+    options: {
+      enabled: !!organizationKey,
+    },
   });
   const organization = organizationData?.data?.[0];
 
-  // Memos
-  const isShowCustomerSignForm = useMemo(() => {
-    if (type === SIGN_UP_TYPES.CUSTOMER && !!organization) {
-      return true;
-    }
-
-    return false;
-  }, [organization, type]);
+  // Memo
+  const config: Config = useMemo(() => {
+    return {
+      organization: organization as Organization,
+      role: role as UserRole,
+    };
+  }, [organization, role]);
 
   return {
-    type,
-    organization,
+    config,
     isLoading,
-    isShowCustomerSignForm,
   };
 };

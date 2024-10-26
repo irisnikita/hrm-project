@@ -53,8 +53,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     jwt({ token, user }) {
-      console.log('🚀 ~ jwt ~ token:', token);
-      console.log('🚀 ~ jwt ~ user:', user);
       if (user) {
         token.jwt = user.jwt;
         token.id = user.id;
@@ -62,14 +60,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      console.log('🚀 ~ session ~ token:', token);
       session.jwt = token.jwt as string;
       session.id = token.id as string;
       return session;
     },
     authorized(params) {
       console.log('🚀 ~ authorized ~ params:', params);
-
       return true;
     },
   },

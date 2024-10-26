@@ -9,28 +9,41 @@ import { useImmer } from 'use-immer';
 
 // Components
 import { OrganizationLogo } from '@/components/shared/OrganizationLogo';
-import { Button, Card, Divider, Flex, Form, Input, Typography, message } from '@/components/ui';
+import {
+  Button,
+  Card,
+  Divider,
+  Flex,
+  Form,
+  Input,
+  Spin,
+  Typography,
+  message,
+} from '@/components/ui';
 
 // Constants
-import { ROUTE_KEYS, ROUTES } from '@/constants';
+import { APP_CONFIG, ROUTE_KEYS, ROUTES } from '@/constants';
 
 // Types
 import { SignUpProps, TFormValues } from './types';
 
 // Services
-import { useRouter, useUserConfig } from '@/hooks';
+import { useAuthPage, useRouter, useUserConfig } from '@/hooks';
 
 const { Text, Link } = Typography;
 const { Item } = Form;
 
 export const SignIn: React.FC<SignUpProps> = props => {
-  const { organization, ...restProps } = props;
-
+  // Hooks
+  const { config, isLoading: isLoadingAuthPage } = useAuthPage();
   const t = useTranslations();
   const { setUserConfig } = useUserConfig();
   const [messageApi, contextHolder] = message.useMessage();
   const { pushKeepSearchQuery, push } = useRouter();
   const [form] = Form.useForm<TFormValues>();
+
+  // Variables
+  const { organization } = config;
 
   // State
   const [state, setState] = useImmer({
@@ -75,17 +88,19 @@ export const SignIn: React.FC<SignUpProps> = props => {
     pushKeepSearchQuery(`${ROUTES[ROUTE_KEYS.SIGN_UP].path}`);
   }, [pushKeepSearchQuery]);
 
-  return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} {...restProps}>
+  return isLoadingAuthPage ? (
+    <Spin />
+  ) : (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} {...props}>
       {contextHolder}
       <Card className="w-[400px]" classNames={{ body: '!px-10 !py-8' }}>
         <Flex vertical gap={16}>
           <OrganizationLogo organization={organization} />
 
-          <Flex vertical align="center">
-            <Text strong className="!text-base">
+          <Flex vertical align="center" gap={8}>
+            <Text strong className="!text-lg">
               {t('signIn.signInTo', {
-                organizationName: organization?.attributes?.organizationName,
+                organizationName: organization?.attributes?.organizationName || APP_CONFIG.APP_NAME,
               })}
             </Text>
             <Text>{t('signIn.welcome')}</Text>

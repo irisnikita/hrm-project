@@ -1,12 +1,5 @@
 // Libraries
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-// import {
-//   ClerkProvider,
-//   SignedIn,
-//   SignedOut,
-//   SignInButton,
-//   UserButton,
-// } from "@clerk/nextjs";
 import type { Metadata } from 'next';
 import { Quicksand } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';

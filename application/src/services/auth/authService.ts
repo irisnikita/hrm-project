@@ -2,7 +2,7 @@
 import { axiosInstance } from '../api';
 
 // Types
-import { ErrorResponse } from '@/types';
+import { ErrorResponse, StrapiResponse } from '@/types';
 import { User } from '@/schemas';
 
 export type SignInArgs = {
@@ -15,7 +15,7 @@ export type SignInResponse = {
   user: User;
 } & ErrorResponse;
 
-const AUTH_ENDPOINT = '/auth/local';
+const AUTH_ENDPOINT = '/auth';
 
 export const authServices = {
   register: async () => {},
@@ -24,15 +24,21 @@ export const authServices = {
 
     const response = await axiosInstance({
       method: 'POST',
-      url: AUTH_ENDPOINT,
+      url: `${AUTH_ENDPOINT}/local`,
       data: {
         identifier,
         password,
       },
     });
 
-    console.log('response.data:: ', response.data);
-
     return response.data;
+  },
+  validateToken: async (): Promise<StrapiResponse<boolean>> => {
+    const response = await axiosInstance({
+      method: 'POST',
+      url: `${AUTH_ENDPOINT}/validate-token`,
+    });
+
+    return response?.data;
   },
 };

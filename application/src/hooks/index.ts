@@ -5,7 +5,7 @@ export * from './useUser';
 export * from './useOrganization';
 export * from './useOrganizationRole';
 export * from './useDarkMode';
-export * from './useCustomerAuth';
+export * from './useAuthPage';
 export * from './useRouter';
 export * from './useUserConfig';
 export * from './useAppMenu';

@@ -67,7 +67,7 @@ const { Text } = Typography;
 
 export const OrganizationList = memo(() => {
   const t = useTranslations();
-  const { systemUser } = useUser();
+  const { user } = useUser();
   const [form] = Form.useForm<TFormValues>();
   const { setUserConfig } = useUserConfig();
   const [state, setState] = useImmer<TState>({
@@ -79,7 +79,7 @@ export const OrganizationList = memo(() => {
     args: {
       params: {
         populate: 'logo,owner',
-        'filters[users][$in]': systemUser?.id || 0,
+        'filters[users][$in]': user?.id || 0,
       },
     },
   });
@@ -115,7 +115,7 @@ export const OrganizationList = memo(() => {
     const { logo, organizationName, slug } = values;
     const createOrganizationData: CreateOrganization['data'] = {
       logo: undefined,
-      owner: systemUser?.id || 0,
+      owner: user?.id || 0,
       organizationName,
       slug,
     };
@@ -141,9 +141,9 @@ export const OrganizationList = memo(() => {
 
     // Add created organizations for user
     await updateUser({
-      id: systemUser?.id || 0,
+      id: user?.id || 0,
       userData: {
-        organizations: systemUser.organizations
+        organizations: user.organizations
           ?.map(organization => organization.id || 0)
           .concat(organizationId),
       },
@@ -154,7 +154,7 @@ export const OrganizationList = memo(() => {
       data: {
         organization: organizationId,
         role: 'admin',
-        user: systemUser?.id,
+        user: user?.id,
       },
     });
 
@@ -186,7 +186,7 @@ export const OrganizationList = memo(() => {
           renderItem={item => {
             const { id, attributes } = item;
             const { organizationName, logo, owner } = attributes || {};
-            const isOwner = owner?.data?.id === systemUser?.id;
+            const isOwner = owner?.data?.id === user?.id;
 
             return (
               <ListItem key={id} onClick={() => onClickOrganization(item)}>

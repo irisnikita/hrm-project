@@ -3,7 +3,6 @@
 // Libraries
 import React, { memo } from 'react';
 import { CircleUserIcon, MailIcon, SettingsIcon } from 'lucide-react';
-import { useAuth } from '@clerk/nextjs';
 import { useTranslations } from 'next-intl';
 import { signOut as nextAuthSignOut } from 'next-auth/react';
 
@@ -27,7 +26,6 @@ const { Text } = Typography;
 export const UserButton = memo(() => {
   const t = useTranslations();
   const { user, organization } = useUser();
-  const { signOut } = useAuth();
   const { imageUrl, fullName, email } = user || {};
 
   const items: MenuItem[] = [
@@ -44,9 +42,6 @@ export const UserButton = memo(() => {
   ];
 
   const onClickSignOut = () => {
-    signOut({
-      redirectUrl: ROUTES.home.path,
-    });
     nextAuthSignOut({
       redirectTo: ROUTES.home.path,
     });

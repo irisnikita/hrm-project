@@ -1,32 +1,38 @@
 // Libraries
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 // Auth
 import { auth as NextAuth } from '@/auth';
 
+// Constants
+import { APP_CONFIG } from './constants';
+
+// Utils
+import { createRouteMatcher } from './utils';
+
 const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
 const isAuthRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)']);
 
-export default clerkMiddleware(async (auth, req: NextRequest) => {
+export default NextAuth(async req => {
   const session = await NextAuth();
+  const { jwt } = session || {};
+  const response = await fetch(`${APP_CONFIG.API_URL}/auth/validate-token`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
 
-  if (isAuthRoute(req) && session) {
+  const { data: isValidToken } = (await response.json()) || {};
+
+  if (isAuthRoute(req) && isValidToken) {
     return NextResponse.redirect(new URL('/dashboard', req.url));
   }
 
-  if (isProtectedRoute(req)) {
-    if (session) {
-      // TODO: CHECK TOKEN IN HERE
-    } else {
-      auth().protect();
-    }
+  if (isProtectedRoute(req) && !isValidToken) {
+    return NextResponse.redirect(new URL('/sign-in', req.url));
   }
 });
-
-// export default function nextAuthmiddleware(req, res) {
-
-// }
 
 export const config = {
   matcher: [
