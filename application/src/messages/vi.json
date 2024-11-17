@@ -18,7 +18,12 @@
     "continue": "Tiếp tục",
     "someThingWentWrong": "Đã xảy ra lỗi",
     "updatedSuccess": "Cập nhật thành công",
-    "anonymous": "Vô danh"
+    "anonymous": "Vô danh",
+    "product": "Sản phẩm",
+    "description": "Mô tả",
+    "quantity": "Số lượng",
+    "points": "Điểm",
+    "saveAndExport": "Lưu và xuất"
   },
   "user": {
     "profile": "Hồ sơ",
@@ -166,6 +171,11 @@
     "welcome": "Xin chào! Đăng nhập để tiếp tục",
     "doNotHaveAccount": "Không có tài khoản?",
     "signInError": "Thông tin đăng nhập sai, vui lòng thử lại"
+  },
+  "qrCode": {
+    "title": "Mã QR",
+    "createQRCode": "Tạo mã QR",
+    "qrCodeList": "Danh sách mã QR"
   },
   "userRequiredInfo": {
     "title": "Chào mừng! Vui lòng hoàn thành thông tin hồ sơ của bạn"

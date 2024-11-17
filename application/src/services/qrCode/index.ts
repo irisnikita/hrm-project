@@ -1,1 +1,1 @@
-export * from './productService';
+export * from './qrCodeService';

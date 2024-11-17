@@ -4,13 +4,22 @@
 import React, { useCallback, useMemo } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useImmer } from 'use-immer';
-import { nanoid } from 'nanoid';
+import { useTranslations } from 'next-intl';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 // Components
 import { Flex, Form, Input, Modal, ModalProps, Scrollbars, Typography } from '@/components/ui';
-import { ClientSelect, ProductSelect } from '@/components/shared';
-import { useCreateQRCode } from '@/queries';
+import { ProductSelect } from '@/components/shared';
+
+// Queries
+import { useBulkCreateQRCode } from '@/queries';
+
+// Constants
 import { QR_CODE_STATUS } from '@/constants';
+
+// Utils
+import { nanoid } from '@/utils';
 
 interface CreateQrCodeDrawerProps extends ModalProps {}
 
@@ -19,13 +28,21 @@ type TFormValues = {
   points: number;
   expiresAt: string;
   image: any;
-  client: number;
   product: number;
   quantity: number;
 };
 
 const initialState = {
   isOpenQRModal: false,
+  isExportLoading: false,
+};
+
+const EXPORT_QR_CODE_SIZE = {
+  width: 595,
+  height: 842,
+};
+const QR_CODE_SIZE = {
+  width: 472,
 };
 
 const ZALO_MINI_APP_URL = 'https://zalo.me/s/3516483688051051916/?env=TESTING&version=1';
@@ -33,6 +50,7 @@ const ZALO_MINI_APP_URL = 'https://zalo.me/s/3516483688051051916/?env=TESTING&ve
 export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
   const { onCancel, ...restProps } = props;
 
+  const t = useTranslations();
   const [form] = Form.useForm<TFormValues>();
   const [state, setState] = useImmer(initialState);
   const { isOpenQRModal } = state;
@@ -40,18 +58,18 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
   const formValues = Form.useWatch([], form);
 
   // Mutations
-  const { mutateAsync: createQRCode } = useCreateQRCode({});
+  const { mutateAsync: bulkCreateQRCode, isPending: isBulkCreateLoading } = useBulkCreateQRCode({});
 
   // Memos
   const qrCodes = useMemo(() => {
-    const { description, product, quantity, client, points } = formValues || {};
+    const { description, product, quantity, points } = formValues || {};
 
     return Array.from({ length: quantity }).map(() => ({
       qrCodeId: nanoid(),
       description,
+      status: QR_CODE_STATUS.ACTIVE,
       product,
       points,
-      client,
     }));
   }, [formValues]);
 
@@ -63,7 +81,7 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
       setState(initialState);
       onCancel?.(e);
     },
-    [onCancel, form],
+    [form, setState, onCancel],
   );
 
   const onFinish = useCallback(() => {
@@ -72,35 +90,65 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
     });
   }, [setState]);
 
+  const handleExportQRCodeList = useCallback(async () => {
+    setState(draft => {
+      draft.isExportLoading = true;
+    });
+
+    const pdf = new jsPDF({
+      orientation: 'p',
+      unit: 'px',
+      format: [EXPORT_QR_CODE_SIZE.width, EXPORT_QR_CODE_SIZE.height],
+      putOnlyUsedFonts: true,
+    });
+
+    const qrCodeListEl = document.querySelector('#qr-code-list') as HTMLElement;
+    const qrCodeListCanvas = await html2canvas(qrCodeListEl, {
+      allowTaint: true,
+      useCORS: true,
+      scrollX: 0,
+      scrollY: 0,
+    });
+
+    const imgData = qrCodeListCanvas.toDataURL('image/png');
+    const centerPosition = (EXPORT_QR_CODE_SIZE.width - QR_CODE_SIZE.width) / 2;
+
+    // const countPage = Math.ceil(qrCodeListEl.clientHeight / EXPORT_QR_CODE_SIZE.height);
+
+    // Array.from({ length: countPage }).forEach((_, index) => {
+    //   pdf.addPage();
+    // });
+
+    pdf.addImage(imgData, 'PNG', centerPosition, 50, QR_CODE_SIZE.width, qrCodeListEl.clientHeight);
+
+    pdf.save('qr-code-list.pdf');
+
+    // Reset state and form
+    setState(initialState);
+    onCancel?.({} as any);
+    form.resetFields();
+  }, [form, onCancel, setState]);
+
   const onSaveAndExportQrCodeList = useCallback(async () => {
-    await Promise.all(
-      qrCodes.map(async ({ qrCodeId, client, description, points, product }) => {
-        await createQRCode({
-          data: {
-            qrCodeId,
-            description,
-            points,
-            status: QR_CODE_STATUS.ACTIVE,
-            product,
-            client,
-          },
-        });
-      }),
-    );
-  }, [createQRCode, qrCodes]);
+    await bulkCreateQRCode(qrCodes);
+
+    await handleExportQRCodeList();
+  }, [qrCodes, bulkCreateQRCode, handleExportQRCodeList]);
 
   // Renders
   const renderQRCodeList = () => {
     return qrCodes.map(qrCode => (
       <Flex vertical gap={8} key={qrCode.qrCodeId}>
         <QRCodeCanvas
+          id={`qr-code-${qrCode.qrCodeId}`}
+          className="qr-code-canvas"
           value={`${ZALO_MINI_APP_URL}&qrCodeId=${qrCode.qrCodeId}`}
           size={105} // size of the QR code
           fgColor="#000000" // foreground color
           bgColor="#ffffff" // background color
           level="H" // error correction level ('L', 'M', 'Q', 'H')
         />
-        <Typography.Text className="w-[100px]" ellipsis={{ tooltip: true }}>
+        <Typography.Text className="w-[100px] text-center !text-xs" ellipsis={{ tooltip: true }}>
           {qrCode.qrCodeId}
         </Typography.Text>
       </Flex>
@@ -109,13 +157,23 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
 
   return (
     <>
-      <Modal title="Create QR Code" onCancel={handleOnCancel} onOk={form.submit} {...restProps}>
+      <Modal
+        title={t('qrCode.createQRCode')}
+        centered
+        onCancel={handleOnCancel}
+        onOk={form.submit}
+        {...restProps}
+      >
         <Form name="create-qr-code" form={form} layout="vertical" onFinish={onFinish}>
-          <Form.Item<TFormValues> name="description" label="Description">
+          <Form.Item<TFormValues> name="description" label={t('common.description')}>
             <Input />
           </Form.Item>
 
-          <Form.Item<TFormValues> name="product" label="Product" rules={[{ required: true }]}>
+          <Form.Item<TFormValues>
+            name="product"
+            label={t('common.product')}
+            rules={[{ required: true }]}
+          >
             <ProductSelect
               onChange={(value, option) => {
                 form.setFieldsValue({
@@ -125,19 +183,19 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
             />
           </Form.Item>
 
-          <Form.Item<TFormValues> name="client" label="Client" rules={[{ required: true }]}>
-            <ClientSelect />
-          </Form.Item>
-
           <Form.Item<TFormValues>
             name="quantity"
-            label="Quantity"
+            label={t('common.quantity')}
             rules={[{ required: true }, { max: 100 }]}
           >
             <Input type="number" />
           </Form.Item>
 
-          <Form.Item<TFormValues> name="points" label="Points" rules={[{ required: true }]}>
+          <Form.Item<TFormValues>
+            name="points"
+            label={t('common.points')}
+            rules={[{ required: true }]}
+          >
             <Input type="number" />
           </Form.Item>
         </Form>
@@ -145,17 +203,18 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
       <Modal
         open={isOpenQRModal}
         title="QR Code list"
-        okText="Save and Export"
+        okText={t('common.saveAndExport')}
         centered
         onCancel={() =>
           setState(draft => {
             draft.isOpenQRModal = false;
           })
         }
+        okButtonProps={{ loading: isBulkCreateLoading }}
         onOk={onSaveAndExportQrCodeList}
       >
         <Scrollbars autoHeight autoHeightMax={500}>
-          <Flex gap={16} wrap className="mt-4">
+          <Flex id="qr-code-list" gap={16} wrap className="mt-4">
             {renderQRCodeList()}
           </Flex>
         </Scrollbars>

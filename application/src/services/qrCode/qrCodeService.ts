@@ -36,4 +36,15 @@ export const qrCodeService = {
 
     return response.data;
   },
+  bulkCreateQRCode: async (data: CreateQRCode['data'][]): Promise<StrapiResponse<boolean>> => {
+    const response = await axiosInstance({
+      method: 'POST',
+      url: `${QR_CODE_BASE_URL}/bulk-create`,
+      data: {
+        data,
+      },
+    });
+
+    return response.data;
+  },
 };

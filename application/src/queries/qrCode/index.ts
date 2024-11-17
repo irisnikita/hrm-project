@@ -1,5 +1,15 @@
+// Libraries
+import { App } from 'antd';
+import { useTranslations } from 'next-intl';
+
 // Queries
-import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 
 // Constants
 import { QUERY_KEYS } from '@/constants';
@@ -24,6 +34,10 @@ interface UseCreateQRCodeProps {
   options?: UseMutationOptions<StrapiResponse<QRCode>, Error, CreateQRCode>;
 }
 
+interface UseBulkCreateQRCodeProps {
+  options?: UseMutationOptions<StrapiResponse<boolean>, Error, CreateQRCode['data'][]>;
+}
+
 export const useGetQrCodeList = ({ args, options }: UseGetQRCodeListProps = {}) =>
   useQuery({
     queryKey: [QUERY_KEYS.QR_CODE_LIST, args],
@@ -34,6 +48,31 @@ export const useGetQrCodeList = ({ args, options }: UseGetQRCodeListProps = {}) 
 export const useCreateQRCode = ({ options }: UseCreateQRCodeProps = {}) => {
   return useMutation({
     mutationFn: qrCodeService.createQRCode,
+    ...options,
+  });
+};
+
+export const useBulkCreateQRCode = ({ options }: UseBulkCreateQRCodeProps = {}) => {
+  const queryClient = useQueryClient();
+  const { message } = App.useApp();
+  const t = useTranslations();
+
+  return useMutation({
+    mutationFn: qrCodeService.bulkCreateQRCode,
+    onSettled: data => {
+      const isError = !data?.data;
+
+      message[isError ? 'error' : 'success'](
+        t(isError ? 'apiMessages.createdFailed' : 'apiMessages.createdSuccess', {
+          name: t('qrCode.title'),
+        }),
+      );
+
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.QR_CODE_LIST],
+        exact: false,
+      });
+    },
     ...options,
   });
 };

@@ -27,6 +27,7 @@ export const UserRequiredInfoForm: React.FC<UserRequiredInfoFormProps> = memo(pr
   const { ...restProps } = props;
 
   const { user } = useUser();
+
   const t = useTranslations();
   const [form] = Form.useForm<TFormValues>();
 

@@ -18,7 +18,12 @@
     "continue": "Continue",
     "someThingWentWrong": "Something went wrong",
     "updatedSuccess": "Updated successfully",
-    "anonymous": "Anonymous"
+    "anonymous": "Anonymous",
+    "product": "Product",
+    "description": "Description",
+    "quantity": "Quantity",
+    "points": "Points",
+    "saveAndExport": "Save and Export"
   },
   "user": {
     "profile": "Profile",
@@ -166,6 +171,11 @@
     "welcome": "Welcome back! Please sign in to continute",
     "doNotHaveAccount": "Don’t have an account?",
     "signInError": "Incorrect email or password"
+  },
+  "qrCode": {
+    "title": "QR Code",
+    "createQRCode": "Create QR Code",
+    "qrCodeList": "QR Code List"
   },
   "userRequiredInfo": {
     "title": "Welcome! Please Complete Your Profile"
