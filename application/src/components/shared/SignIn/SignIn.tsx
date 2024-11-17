@@ -43,7 +43,7 @@ export const SignIn: React.FC<SignUpProps> = props => {
   const [form] = Form.useForm<TFormValues>();
 
   // Variables
-  const { organization } = config;
+  const { organization, redirectTo } = config;
 
   // State
   const [state, setState] = useImmer({
@@ -63,7 +63,6 @@ export const SignIn: React.FC<SignUpProps> = props => {
 
       const data = await signIn('credentials', {
         redirect: false,
-        redirectTo: '/',
         ...values,
       });
 
@@ -74,14 +73,15 @@ export const SignIn: React.FC<SignUpProps> = props => {
           ...prev,
           organizationId: organization?.id,
         }));
-        push(ROUTES[ROUTE_KEYS.OVERVIEW].path || '');
+
+        push(redirectTo || ROUTES[ROUTE_KEYS.OVERVIEW].path || '');
       }
 
       setState(draft => {
         draft.isSignInLoading = false;
       });
     },
-    [messageApi, organization?.id, push, setState, setUserConfig, t],
+    [messageApi, organization?.id, redirectTo, push, setState, setUserConfig, t],
   );
 
   const redirectToSignUp = useCallback(() => {

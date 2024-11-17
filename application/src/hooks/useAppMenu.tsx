@@ -4,16 +4,44 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
+// Components
+import { Typography } from '@/components/ui';
+
 // Types
 import { MENU, ROUTES } from '@/constants';
 
 // Hooks
 import { useOrganizationRole } from './useOrganizationRole';
 
+const { Text } = Typography;
+
 export const useAppMenu = () => {
   const t = useTranslations();
   const pathname = usePathname();
   const { role } = useOrganizationRole();
+
+  // Handlers
+  const renderItemLabel = useCallback(
+    ({ routeInfo, item }: { routeInfo: any; item: any }) => {
+      const { type, label } = item || {};
+      const {} = routeInfo || {};
+
+      if (type === 'group') {
+        return t(label)?.toUpperCase();
+      }
+
+      if (type === 'submenu') {
+        return <Text ellipsis={{ tooltip: true }}>{t(label)}</Text>;
+      }
+
+      if (routeInfo?.path) {
+        return <Link href={routeInfo?.path}>{t(label)}</Link>;
+      }
+
+      return <Text ellipsis={{ tooltip: true }}>{t(label)}</Text>;
+    },
+    [t],
+  );
 
   const recursiveMenu = useCallback(
     (menu: any[]) => {
@@ -24,12 +52,7 @@ export const useAppMenu = () => {
           if (routeInfo?.roles.includes(role)) {
             return {
               ...item,
-              label:
-                item?.type === 'group' ? (
-                  t(item?.label)?.toUpperCase()
-                ) : (
-                  <Link href={routeInfo?.path}>{t(item?.label)}</Link>
-                ),
+              label: renderItemLabel({ routeInfo, item }),
               children: item?.children ? recursiveMenu(item?.children) : undefined,
             };
           }
@@ -38,7 +61,7 @@ export const useAppMenu = () => {
         })
         ?.filter(Boolean);
     },
-    [t, role],
+    [role, renderItemLabel],
   );
 
   // Memos

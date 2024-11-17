@@ -12,4 +12,13 @@ export const QUERY_KEYS = {
 
   /* Organization Role */
   ORGANIZATION_ROLE_LIST: 'ORGANIZATION_ROLE_LIST',
+
+  /* Client */
+  CLIENT_LIST: 'CLIENT_LIST',
+
+  /* Product */
+  PRODUCT_LIST: 'PRODUCT_LIST',
+
+  /* QR Code */
+  QR_CODE_LIST: 'QR_CODE_LIST',
 };

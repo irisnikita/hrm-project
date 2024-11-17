@@ -4,3 +4,6 @@ export * from './organizationRole';
 export * from './upload';
 export * from './user';
 export * from './auth';
+export * from './client';
+export * from './product';
+export * from './qrCode';

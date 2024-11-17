@@ -12,12 +12,14 @@ import { Organization } from '@/schemas';
 type Config = {
   role?: UserRole;
   organization?: Organization;
+  redirectTo: string | null;
 };
 
 export const useAuthPage = () => {
   const searchParams = useSearchParams();
   const role = searchParams.get('role');
   const organizationKey = searchParams.get('organization');
+  const redirectTo = searchParams.get('redirect-to');
 
   const { data: organizationData, isLoading } = useGetOrganizationList({
     args: {
@@ -36,8 +38,9 @@ export const useAuthPage = () => {
     return {
       organization: organization as Organization,
       role: role as UserRole,
+      redirectTo,
     };
-  }, [organization, role]);
+  }, [organization, redirectTo, role]);
 
   return {
     config,

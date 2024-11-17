@@ -18,9 +18,7 @@ axiosInstance.interceptors.request.use(
     const session = await getSession();
     const { jwt } = session || {};
 
-    if (jwt) {
-      config.headers['Authorization'] = `Bearer ${jwt}`;
-    }
+    config.headers['Authorization'] = `Bearer ${jwt || ''}`;
 
     return config;
   },

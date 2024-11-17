@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 // Components
 import { Logo } from '@/components/shared';
-import { Layout, Menu } from '@/components/ui';
+import { Layout, Menu, Scrollbars } from '@/components/ui';
 
 // Constants
 import { GLOBAL_TOKEN } from '@/constants';
@@ -26,6 +26,11 @@ const StyledSider = styled(Layout.Sider)`
   border-radius: ${borderRadiusLG}px !important;
   box-shadow: ${boxShadowTertiary} !important;
   backdrop-filter: var(--bg-filter-blur);
+
+  > .ant-layout-sider-children {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const DashboardSider: React.FC<DashboardSiderProps> = memo(props => {
@@ -46,7 +51,9 @@ export const DashboardSider: React.FC<DashboardSiderProps> = memo(props => {
       }}
     >
       <Logo className="h-[64px]" />
-      <Menu inlineIndent={16} mode="inline" selectedKeys={[selectedMenuKey]} items={menuItems} />
+      <Scrollbars className="h-ful">
+        <Menu inlineIndent={16} mode="inline" selectedKeys={[selectedMenuKey]} items={menuItems} />
+      </Scrollbars>
     </StyledSider>
   ) : null;
 });

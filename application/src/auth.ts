@@ -1,9 +1,26 @@
 // Libraries
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { createRouteMatcher } from '@clerk/nextjs/server';
 
 // Constants
 import { APP_CONFIG } from './constants';
+import { NextResponse } from 'next/server';
+
+const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
+const isAuthRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)']);
+
+const checkToken = async (jwt: string) => {
+  const response = await fetch(`${APP_CONFIG.API_URL}/auth/validate-token`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+  const { data: isValidToken } = (await response.json()) || {};
+
+  return isValidToken;
+};
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   trustHost: true,
@@ -64,8 +81,44 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.id = token.id as string;
       return session;
     },
-    authorized(params) {
-      console.log('🚀 ~ authorized ~ params:', params);
+    async authorized({ request, auth }) {
+      const { jwt } = auth || {};
+      console.log('🚀 ~ authorized ~ jwt:', jwt);
+
+      // If the request is for an authentication route (e.g. /sign-in) and
+      // the user is already authenticated, redirect them to the dashboard
+      // after checking that the token is valid.
+      if (isAuthRoute(request) && jwt) {
+        const isValidToken = await checkToken(jwt);
+        console.log('🚀 ~ authorized ~ isValidToken:', isValidToken);
+
+        if (isValidToken) {
+          return NextResponse.redirect(new URL('/dashboard', request.url));
+        }
+      }
+
+      // If the request is for a protected route (e.g. /dashboard) and
+      // there is no token, redirect to the sign-in page.
+      // If there is a token, check that it is valid. If it is not,
+      // redirect to the sign-in page.
+      if (isProtectedRoute(request)) {
+        // Get current url for redirect if not authenticated
+        const signInUrl = new URL('/sign-in', request.url);
+        signInUrl.searchParams.set('redirect-to', request.nextUrl.pathname);
+
+        if (!jwt) {
+          return NextResponse.redirect(signInUrl);
+        }
+
+        if (jwt) {
+          const isValidToken = await checkToken(jwt);
+
+          if (!isValidToken) {
+            return NextResponse.redirect(signInUrl);
+          }
+        }
+      }
+
       return true;
     },
   },

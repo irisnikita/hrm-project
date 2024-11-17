@@ -3,16 +3,29 @@ import { UserRoleType } from '@/schemas';
 import { USER_ROLES } from './auth';
 
 export const ROUTE_KEYS = {
+  // Home
   HOME: 'home',
   OVERVIEW: 'overview',
   MANAGEMENT: 'management',
   ORG_CHART: 'org-chart',
   EMPLOYEES: 'employees',
+
+  // Account
   ACCOUNT: 'account',
   ACCOUNT_SETTING: 'account-setting',
   PROFILE: 'profile',
+
+  // Auth
   SIGN_UP: 'sign-up',
   SIGN_IN: 'sign-in',
+
+  // CRM
+  CRM: 'crm',
+  CUSTOMERS: 'customers',
+  CUSTOMER_LOYALTY: 'customer-loyalty',
+  POINTS_MANAGEMENT: 'points-management',
+  REWARDS: 'rewards',
+  QR_CODES: 'qr-codes',
 } as const;
 const {
   HOME,
@@ -25,6 +38,12 @@ const {
   PROFILE,
   SIGN_UP,
   SIGN_IN,
+  CRM,
+  CUSTOMERS,
+  CUSTOMER_LOYALTY,
+  POINTS_MANAGEMENT,
+  REWARDS,
+  QR_CODES,
 } = ROUTE_KEYS;
 const { ADMIN, EMPLOYEE, MANAGER, USER, AUTHENTICATED, CUSTOMER } = USER_ROLES;
 
@@ -103,5 +122,43 @@ export const ROUTES: Route = {
     label: 'menu.profile',
     path: '/dashboard/profile',
     roles: fullCustomerRoles,
+  },
+
+  // CRM
+  [CRM]: {
+    key: CRM,
+    label: 'menu.crm',
+    path: '/dashboard/crm',
+    roles: [ADMIN, MANAGER],
+  },
+  [CUSTOMERS]: {
+    key: CUSTOMERS,
+    label: 'menu.customers',
+    path: '/dashboard/crm/customers',
+    roles: [ADMIN, MANAGER],
+  },
+  [CUSTOMER_LOYALTY]: {
+    key: CUSTOMER_LOYALTY,
+    label: 'menu.customerLoyalty',
+    path: '/dashboard/crm/customer-loyalty',
+    roles: [ADMIN, MANAGER],
+  },
+  [POINTS_MANAGEMENT]: {
+    key: POINTS_MANAGEMENT,
+    label: 'menu.pointsManagement',
+    path: '/dashboard/crm/points-management',
+    roles: [ADMIN, MANAGER],
+  },
+  [REWARDS]: {
+    key: REWARDS,
+    label: 'menu.rewards',
+    path: '/dashboard/crm/rewards',
+    roles: [ADMIN, MANAGER],
+  },
+  [QR_CODES]: {
+    key: QR_CODES,
+    label: 'menu.qrCodes',
+    path: '/dashboard/crm/qr-codes',
+    roles: [ADMIN, MANAGER],
   },
 };

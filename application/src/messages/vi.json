@@ -126,7 +126,15 @@
     "accountSetting": "Cài đặt tài khoản",
     "profile": "Hồ sơ",
     "preferences": "Thông tin",
-    "security": "Bảo mật"
+    "security": "Bảo mật",
+    "signUp": "Đăng ký",
+    "signIn": "Đăng nhập",
+    "crm": "CRM",
+    "customers": "Khách hàng",
+    "customerLoyalty": "Khách hàng trung thành",
+    "pointsManagement": "Quản lý điểm thường",
+    "rewards": "Phần thưởng",
+    "qrCodes": "Mã QR"
   },
   "notFound": {
     "title": "404",

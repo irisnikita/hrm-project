@@ -15,6 +15,7 @@ import { getAntdLocale, getLanguage } from '@/utils';
 
 // Hooks
 import { useDarkMode } from '@/hooks';
+import { ChevronDownIcon } from 'lucide-react';
 
 const { Text } = Typography;
 
@@ -35,6 +36,13 @@ export const AntdConfigProvider: React.FC<AntdConfigProviderProps> = props => {
         algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
       renderEmpty={renderEmpty}
+      menu={{
+        expandIcon(props) {
+          console.log({ props });
+
+          return <ChevronDownIcon size={16} />;
+        },
+      }}
       form={{
         requiredMark: (label, info) => (
           <Flex align="center" gap={4}>

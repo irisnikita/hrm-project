@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_points",
+  "info": {
+    "singularName": "user-point",
+    "pluralName": "user-points",
+    "displayName": "User Point"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "zaloUserId": {
+      "type": "string"
+    },
+    "totalPoints": {
+      "type": "biginteger"
+    }
+  }
+}

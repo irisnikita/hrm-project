@@ -128,7 +128,13 @@
     "preferences": "Preferences",
     "security": "Security",
     "signUp": "Sign Up",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "crm": "CRM",
+    "customers": "Customers",
+    "customerLoyalty": "Customer Loyalty",
+    "pointsManagement": "Points Management",
+    "rewards": "Rewards",
+    "qrCodes": "QR Codes"
   },
   "notFound": {
     "title": "404",

@@ -5,3 +5,6 @@ export * from './News';
 export * from './PostStatus';
 export * from './UserRole';
 export * from './OrganizationRole';
+export * from './Product';
+export * from './Client';
+export * from './QRCode';

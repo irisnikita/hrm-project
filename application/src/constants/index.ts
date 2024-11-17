@@ -12,3 +12,4 @@ export * from './routes';
 export * from './auth';
 export * from './regex';
 export * from './appConfig';
+export * from './qrCode';
