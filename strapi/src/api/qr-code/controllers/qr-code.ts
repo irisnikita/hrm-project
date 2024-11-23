@@ -24,15 +24,14 @@ export default factories.createCoreController(
       }
     },
     useQrCode: async (ctx) => {
-      const { qrCodeId } = ctx.request.body || {};
-      // console.log("🚀 ~ useQrCode: ~ ctx:", body);
+      const { qrCodeId, zaloUserId } = ctx.request.body || {};
 
       const updatedData = await strapi
         .service("api::qr-code.qr-code")
-        .useQrCode({ qrCodeId });
+        .useQrCode({ qrCodeId, zaloUserId });
 
       return {
-        data: true,
+        data: updatedData,
         meta: {},
       };
     },

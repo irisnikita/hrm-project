@@ -46,26 +46,49 @@ export default factories.createCoreService(
     },
     useQrCode: async ({ qrCodeId, zaloUserId }) => {
       try {
-        // const qrCode = await strapi.db
-        //   .query("api::qr-code.qr-code")
-        //   .findOne({ where: { id: qrCodeId }, populate: true });
+        // Get Point data from qrCodeId
+        const point = await strapi.db.query("api::qr-code.qr-code").findOne({
+          where: { qrCodeId },
+          populate: true,
+        });
 
-        // Update
-        // await strapi.db
-        //   .query("api::qr-code.qr-code")
-        //   .update({ where: { id: "G7MQe5QT6Oe8" }, data: { status: 2 } });
+        // If Point is not active (Used, expired, inactive)
+        if (point.status !== QR_CODE_STATUS.ACTIVE) {
+          return null;
+        }
 
-        const data = await strapi.db.query("api::qr-code.qr-code").update({
+        // Update the QR code status to USED
+        await strapi.db.query("api::qr-code.qr-code").update({
           where: { qrCodeId },
           data: { status: QR_CODE_STATUS.USED },
         });
 
-        console.log({ data });
-        // if (!qrCode) {
-        //   throw new Error("QR Code not found");
-        // }
+        // Retrieve user points associated with the given zaloUserId
+        const userPoint = await strapi.db
+          .query("api::user-point.user-point")
+          .findOne({ where: { zaloUserId }, populate: true });
 
-        return "hello";
+        if (!userPoint) {
+          // If no user points exist, create a new user point entry
+          await strapi.db.query("api::user-point.user-point").create({
+            data: {
+              zaloUserId,
+              totalPoints: point?.points || 0,
+              publishedAt: new Date(),
+            },
+          });
+        } else {
+          // If user points exist, update the total points
+          const currentTotalPoints = userPoint?.totalPoints || 0;
+          await strapi.db.query("api::user-point.user-point").update({
+            where: { zaloUserId },
+            data: {
+              totalPoints: +currentTotalPoints + +point?.points,
+            },
+          });
+        }
+
+        return point;
       } catch (error) {}
     },
   })
