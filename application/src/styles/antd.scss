@@ -10,6 +10,12 @@
   font-weight: 600;
 }
 
+.ant-menu-submenu-selected {
+  .ant-menu-title-content > span {
+    color: var(--ant-menu-item-selected-color);
+  }
+}
+
 /* Card */
 .ant-card {
   backdrop-filter: var(--bg-filter-blur);

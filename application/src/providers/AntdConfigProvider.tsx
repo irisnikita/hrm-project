@@ -37,9 +37,7 @@ export const AntdConfigProvider: React.FC<AntdConfigProviderProps> = props => {
       }}
       renderEmpty={renderEmpty}
       menu={{
-        expandIcon(props) {
-          console.log({ props });
-
+        expandIcon() {
           return <ChevronDownIcon size={16} />;
         },
       }}

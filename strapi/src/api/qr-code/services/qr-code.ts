@@ -4,6 +4,9 @@
 
 import { factories } from "@strapi/strapi";
 
+// Constants
+import { QR_CODE_STATUS } from "../../../constants";
+
 type BulkCreateArgs = {
   data: any[];
 };
@@ -40,6 +43,30 @@ export default factories.createCoreService(
       } catch (error) {
         throw new Error(error);
       }
+    },
+    useQrCode: async ({ qrCodeId, zaloUserId }) => {
+      try {
+        // const qrCode = await strapi.db
+        //   .query("api::qr-code.qr-code")
+        //   .findOne({ where: { id: qrCodeId }, populate: true });
+
+        // Update
+        // await strapi.db
+        //   .query("api::qr-code.qr-code")
+        //   .update({ where: { id: "G7MQe5QT6Oe8" }, data: { status: 2 } });
+
+        const data = await strapi.db.query("api::qr-code.qr-code").update({
+          where: { qrCodeId },
+          data: { status: QR_CODE_STATUS.USED },
+        });
+
+        console.log({ data });
+        // if (!qrCode) {
+        //   throw new Error("QR Code not found");
+        // }
+
+        return "hello";
+      } catch (error) {}
     },
   })
 );

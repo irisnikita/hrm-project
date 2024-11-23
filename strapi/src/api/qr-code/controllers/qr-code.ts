@@ -23,5 +23,20 @@ export default factories.createCoreController(
         ctx.badRequest(error.message);
       }
     },
+    useQrCode: async (ctx) => {
+      // const body = ctx.request.body;
+      // console.log("🚀 ~ useQrCode: ~ ctx:", body);
+
+      const updatedData = await strapi
+        .service("api::qr-code.qr-code")
+        .useQrCode("133");
+
+      console.log({ updatedData });
+
+      return {
+        data: true,
+        meta: {},
+      };
+    },
   })
 );
