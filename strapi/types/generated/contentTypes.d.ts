@@ -1379,6 +1379,48 @@ export interface ApiQrCodeQrCode extends Schema.CollectionType {
   };
 }
 
+export interface ApiTransactionTransaction extends Schema.CollectionType {
+  collectionName: 'transactions';
+  info: {
+    singularName: 'transaction';
+    pluralName: 'transactions';
+    displayName: 'Transaction';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    zaloUserId: Attribute.String;
+    user: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    earnedPoints: Attribute.Integer;
+    qrCode: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'api::qr-code.qr-code'
+    >;
+    transactionDate: Attribute.DateTime;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiUserPointUserPoint extends Schema.CollectionType {
   collectionName: 'user_points';
   info: {
@@ -1438,6 +1480,7 @@ declare module '@strapi/types' {
       'api::position-level.position-level': ApiPositionLevelPositionLevel;
       'api::product.product': ApiProductProduct;
       'api::qr-code.qr-code': ApiQrCodeQrCode;
+      'api::transaction.transaction': ApiTransactionTransaction;
       'api::user-point.user-point': ApiUserPointUserPoint;
     }
   }

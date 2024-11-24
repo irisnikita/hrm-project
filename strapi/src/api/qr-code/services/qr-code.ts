@@ -51,10 +51,13 @@ export default factories.createCoreService(
           where: { qrCodeId },
           populate: true,
         });
+        const qrCode = await strapi.db.query("api::qr-code.qr-code").findOne({
+          where: { qrCodeId },
+        });
 
         // If Point is not active (Used, expired, inactive)
         if (point.status !== QR_CODE_STATUS.ACTIVE) {
-          return null;
+          return "Point is not active";
         }
 
         // Update the QR code status to USED
@@ -88,8 +91,25 @@ export default factories.createCoreService(
           });
         }
 
+        // Create Transaction
+        const data = await strapi.db
+          .query("api::transaction.transaction")
+          .create({
+            data: {
+              qrCode: qrCode?.id,
+              zaloUserId,
+              earnedPoints: +point?.points || 0,
+              publishedAt: new Date(),
+              transactionDate: new Date(),
+            },
+          });
+
+        console.log({ data });
+
         return point;
-      } catch (error) {}
+      } catch (error) {
+        throw new Error(error);
+      }
     },
   })
 );

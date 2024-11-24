@@ -3,6 +3,13 @@
  */
 
 import { factories } from "@strapi/strapi";
+import { yup } from "@strapi/utils";
+import { parseJson } from "../../../utils";
+
+const useQrCodeSchema = yup.object().shape({
+  qrCodeId: yup.string().required(),
+  zaloUserId: yup.string().required(),
+});
 
 export default factories.createCoreController(
   "api::qr-code.qr-code",
@@ -24,16 +31,25 @@ export default factories.createCoreController(
       }
     },
     useQrCode: async (ctx) => {
-      const { qrCodeId, zaloUserId } = ctx.request.body || {};
+      try {
+        await useQrCodeSchema.validate(ctx.request.body);
+        const dataBody = ctx.request.body;
+        const { qrCodeId, zaloUserId } = parseJson(dataBody);
 
-      const updatedData = await strapi
-        .service("api::qr-code.qr-code")
-        .useQrCode({ qrCodeId, zaloUserId });
+        const updatedData = await strapi
+          .service("api::qr-code.qr-code")
+          .useQrCode({
+            qrCodeId,
+            zaloUserId,
+          });
 
-      return {
-        data: updatedData,
-        meta: {},
-      };
+        return {
+          data: updatedData,
+          meta: {},
+        };
+      } catch (error) {
+        ctx.badRequest(error.message);
+      }
     },
   })
 );

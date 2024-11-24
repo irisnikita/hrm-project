@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transactions",
+  "info": {
+    "singularName": "transaction",
+    "pluralName": "transactions",
+    "displayName": "Transaction"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "zaloUserId": {
+      "type": "string",
+      "required": false
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "earnedPoints": {
+      "type": "integer"
+    },
+    "qrCode": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::qr-code.qr-code"
+    },
+    "transactionDate": {
+      "type": "datetime"
+    }
+  }
+}
