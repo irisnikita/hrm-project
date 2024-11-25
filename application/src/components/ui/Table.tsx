@@ -1,1 +1,1 @@
-export { Table } from 'antd';
+export { Table, type TableProps } from 'antd';

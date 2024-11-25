@@ -1,10 +1,19 @@
 // Libraries
 import React from 'react';
 
-interface DataTableProps {}
+// Components
+import { Table, TableProps } from '@/components/ui';
+
+interface DataTableProps {
+  tableProps: TableProps;
+}
 
 export const DataTable: React.FC<DataTableProps> = props => {
-  const { ...restProps } = props;
+  const { tableProps, ...restProps } = props;
 
-  return <div>DataTable</div>;
+  return (
+    <>
+      <Table {...tableProps} />
+    </>
+  );
 };

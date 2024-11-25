@@ -45,7 +45,7 @@ const QR_CODE_SIZE = {
   width: 472,
 };
 
-const ZALO_MINI_APP_URL = 'https://zalo.me/s/3516483688051051916/?env=TESTING&version=1';
+const ZALO_MINI_APP_URL = 'https://zalo.me/s/3516483688051051916/?env=TESTING&version=5';
 
 export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
   const { onCancel, ...restProps } = props;

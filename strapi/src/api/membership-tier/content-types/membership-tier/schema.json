@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "membership_tiers",
+  "info": {
+    "singularName": "membership-tier",
+    "pluralName": "membership-tiers",
+    "displayName": "Membership Tier"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "minPoints": {
+      "type": "biginteger"
+    },
+    "benefits": {
+      "type": "text"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "backgroundCard": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

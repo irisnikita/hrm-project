@@ -948,6 +948,40 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
   };
 }
 
+export interface ApiMembershipTierMembershipTier extends Schema.CollectionType {
+  collectionName: 'membership_tiers';
+  info: {
+    singularName: 'membership-tier';
+    pluralName: 'membership-tiers';
+    displayName: 'Membership Tier';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    minPoints: Attribute.BigInteger;
+    benefits: Attribute.Text;
+    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    backgroundCard: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::membership-tier.membership-tier',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::membership-tier.membership-tier',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiNewNew extends Schema.CollectionType {
   collectionName: 'news';
   info: {
@@ -1473,6 +1507,7 @@ declare module '@strapi/types' {
       'api::client.client': ApiClientClient;
       'api::department.department': ApiDepartmentDepartment;
       'api::employee.employee': ApiEmployeeEmployee;
+      'api::membership-tier.membership-tier': ApiMembershipTierMembershipTier;
       'api::new.new': ApiNewNew;
       'api::new-tag.new-tag': ApiNewTagNewTag;
       'api::organization.organization': ApiOrganizationOrganization;
