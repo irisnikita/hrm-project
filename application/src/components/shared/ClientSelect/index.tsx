@@ -4,7 +4,7 @@
 import React, { useMemo } from 'react';
 
 // Queries
-import { useGetClientList, useGetProductList } from '@/queries';
+import { useGetClientList } from '@/queries';
 
 // Components
 import { Select, Spin, type SelectProps } from '@/components/ui';

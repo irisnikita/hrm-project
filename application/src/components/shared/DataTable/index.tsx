@@ -9,7 +9,7 @@ interface DataTableProps {
 }
 
 export const DataTable: React.FC<DataTableProps> = props => {
-  const { tableProps, ...restProps } = props;
+  const { tableProps } = props;
 
   return (
     <>
