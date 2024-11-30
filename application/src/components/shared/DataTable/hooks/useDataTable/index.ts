@@ -1,3 +1,5 @@
+'use client';
+
 // Libraries
 import { isEmpty } from 'lodash';
 import { useMemo } from 'react';
