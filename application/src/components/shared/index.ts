@@ -13,5 +13,6 @@ export * from './SignUp';
 export * from './SignIn';
 export * from './UserRequiredInfoForm';
 export * from './DrawerDetail';
-export * from './ProductSelect'
-export * from './ClientSelect'
+export * from './ProductSelect';
+export * from './ClientSelect';
+export * from './DataTable';

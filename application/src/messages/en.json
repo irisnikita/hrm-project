@@ -179,5 +179,8 @@
   },
   "userRequiredInfo": {
     "title": "Welcome! Please Complete Your Profile"
+  },
+  "dataTable": {
+    "addRecord": "Add Record"
   }
 }

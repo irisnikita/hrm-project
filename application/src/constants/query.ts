@@ -21,4 +21,7 @@ export const QUERY_KEYS = {
 
   /* QR Code */
   QR_CODE_LIST: 'QR_CODE_LIST',
+
+  /* Data Table */
+  DATA_TABLE_LIST: 'DATA_TABLE_LIST',
 };

@@ -5,3 +5,4 @@ export * from './news';
 export * from './client';
 export * from './product';
 export * from './qrCode';
+export * from './dataTable';

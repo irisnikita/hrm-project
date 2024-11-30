@@ -179,5 +179,8 @@
   },
   "userRequiredInfo": {
     "title": "Chào mừng! Vui lòng hoàn thành thông tin hồ sơ của bạn"
+  },
+  "dataTable": {
+    "addRecord": "Thêm dữ liệu"
   }
 }

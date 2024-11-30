@@ -83,14 +83,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async authorized({ request, auth }) {
       const { jwt } = auth || {};
-      console.log('🚀 ~ authorized ~ jwt:', jwt);
-
       // If the request is for an authentication route (e.g. /sign-in) and
       // the user is already authenticated, redirect them to the dashboard
       // after checking that the token is valid.
       if (isAuthRoute(request) && jwt) {
         const isValidToken = await checkToken(jwt);
-        console.log('🚀 ~ authorized ~ isValidToken:', isValidToken);
 
         if (isValidToken) {
           return NextResponse.redirect(new URL('/dashboard', request.url));

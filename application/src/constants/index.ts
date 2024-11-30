@@ -13,3 +13,5 @@ export * from './auth';
 export * from './regex';
 export * from './appConfig';
 export * from './qrCode';
+export * from './object';
+export * from './tableData';

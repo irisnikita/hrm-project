@@ -72,6 +72,11 @@ export const useBulkCreateQRCode = ({ options }: UseBulkCreateQRCodeProps = {}) 
         queryKey: [QUERY_KEYS.QR_CODE_LIST],
         exact: false,
       });
+
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.DATA_TABLE_LIST],
+        exact: false,
+      });
     },
     ...options,
   });

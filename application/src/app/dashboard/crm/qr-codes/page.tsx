@@ -5,11 +5,19 @@ import { useCallback } from 'react';
 import { useImmer } from 'use-immer';
 
 // Components
-import { Button, Card } from '@/components/ui';
+import { Card } from '@/components/ui';
 import { CreateQrCodeModal } from './components';
+import { DataTable, useDataTable } from '@/components/shared';
+
+// Schemas
+import { QRCode } from '@/schemas';
 
 type TState = {
   isOpenModal?: boolean;
+};
+
+type DataType = QRCode['attributes'] & {
+  key: string;
 };
 
 export default function QrCodesPage() {
@@ -18,6 +26,13 @@ export default function QrCodesPage() {
     isOpenModal: false,
   });
   const { isOpenModal } = state;
+
+  // Hooks
+  const { table } = useDataTable<DataType>({
+    config: {
+      objectType: 'qr-codes',
+    },
+  });
 
   const onClickCreateQrCode = useCallback(() => {
     setState(draft => {
@@ -28,16 +43,16 @@ export default function QrCodesPage() {
   return (
     <>
       <Card className="h-full">
-        <Button onClick={onClickCreateQrCode}>Create QR Code</Button>
-        {/* <Flex gap={8} vertical>
-          <QRCodeSVG
-            value={zaloMiniAppURL}
-            size={200} // size of the QR code
-            fgColor="#000000" // foreground color
-            bgColor="#ffffff" // background color
-            level="H" // error correction level ('L', 'M', 'Q', 'H')
-          />
-        </Flex> */}
+        <DataTable<DataType>
+          toolbarProps={{
+            addButtonProps: {
+              onClick: onClickCreateQrCode,
+            },
+          }}
+          tableProps={{
+            ...table,
+          }}
+        />
       </Card>
 
       <CreateQrCodeModal

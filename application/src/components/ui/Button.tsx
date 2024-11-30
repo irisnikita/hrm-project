@@ -1,4 +1,4 @@
 // Libraries
-import Button from 'antd/es/button';
+import Button, { ButtonProps } from 'antd/es/button';
 
-export { Button };
+export { Button, type ButtonProps };
