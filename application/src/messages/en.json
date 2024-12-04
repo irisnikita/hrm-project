@@ -175,7 +175,13 @@
   "qrCode": {
     "title": "QR Code",
     "createQRCode": "Create QR Code",
-    "qrCodeList": "QR Code List"
+    "qrCodeList": "QR Code List",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "expired": "Expired",
+      "used": "Used"
+    }
   },
   "userRequiredInfo": {
     "title": "Welcome! Please Complete Your Profile"

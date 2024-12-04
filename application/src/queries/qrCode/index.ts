@@ -59,7 +59,7 @@ export const useBulkCreateQRCode = ({ options }: UseBulkCreateQRCodeProps = {}) 
 
   return useMutation({
     mutationFn: qrCodeService.bulkCreateQRCode,
-    onSettled: data => {
+    onSettled: async data => {
       const isError = !data?.data;
 
       message[isError ? 'error' : 'success'](
@@ -67,6 +67,8 @@ export const useBulkCreateQRCode = ({ options }: UseBulkCreateQRCodeProps = {}) 
           name: t('qrCode.title'),
         }),
       );
+
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.QR_CODE_LIST],

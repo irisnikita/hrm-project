@@ -5,3 +5,7 @@ export function mapUser(user: any) {
     updatedAt: user.updated_at,
   };
 }
+
+export function mapApiSortOrder(direction: string) {
+  return direction === 'descend' ? 'desc' : 'asc';
+}

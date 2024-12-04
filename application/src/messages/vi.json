@@ -175,7 +175,13 @@
   "qrCode": {
     "title": "Mã QR",
     "createQRCode": "Tạo mã QR",
-    "qrCodeList": "Danh sách mã QR"
+    "qrCodeList": "Danh sách mã QR",
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Chưa kích hoạt",
+      "expired": "Hết hạn",
+      "used": "Đã sử dụng"
+    }
   },
   "userRequiredInfo": {
     "title": "Chào mừng! Vui lòng hoàn thành thông tin hồ sơ của bạn"

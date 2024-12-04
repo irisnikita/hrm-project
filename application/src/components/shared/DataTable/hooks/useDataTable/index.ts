@@ -1,33 +1,48 @@
 'use client';
 
 // Libraries
+import { keepPreviousData } from '@tanstack/react-query';
 import { isEmpty } from 'lodash';
 import { useMemo } from 'react';
 import { useImmer } from 'use-immer';
-import { keepPreviousData } from '@tanstack/react-query';
 
 // Types
-import { UseDataTableProps } from './types';
+import { UseDataTable, UseDataTableProps } from './types';
+import { TableProps } from '@/components/ui';
+import { SorterResult } from 'antd/es/table/interface';
 
 // Queries
 import { useGetDataTableList } from '@/queries';
+
+// Constants
 import { OBJECT_COLUMNS } from '@/constants';
+import { mapApiSortOrder } from '@/utils';
+
+type TState<DT = any> = {
+  pagination: {
+    pageSize: number;
+    page: number;
+  };
+  sorter: SorterResult<DT>;
+};
 
 const initialState = {
   pagination: {
     pageSize: 10,
     page: 1,
   },
+  sorter: {},
 };
 
-export const useDataTable = <DT = any>(props: UseDataTableProps) => {
-  const { config } = props;
+export const useDataTable = <DT = any>(props: UseDataTableProps<DT>): UseDataTable<DT> => {
+  const { config, table } = props;
 
-  const [state, setState] = useImmer(initialState);
+  const [state, setState] = useImmer<TState<DT>>(initialState);
 
   // Variables
   const { objectType } = config;
-  const { pagination: paginationState } = state;
+  const { columns: tableColumns } = table || {};
+  const { pagination: paginationState, sorter } = state;
 
   const { data, isLoading, isFetching } = useGetDataTableList<DT>({
     args: {
@@ -35,7 +50,13 @@ export const useDataTable = <DT = any>(props: UseDataTableProps) => {
       params: {
         'pagination[page]': paginationState.page,
         'pagination[pageSize]': paginationState.pageSize,
-        'sort[0]': 'createdAt:desc',
+        ...(sorter?.columnKey && sorter?.order
+          ? {
+              'sort[0]': `${sorter.columnKey}:${mapApiSortOrder(sorter.order)}`,
+            }
+          : {
+              'sort[0]': 'createdAt:desc',
+            }),
       },
     },
     options: {
@@ -54,8 +75,19 @@ export const useDataTable = <DT = any>(props: UseDataTableProps) => {
   }, [tableData]);
 
   const columns = useMemo(() => {
-    return OBJECT_COLUMNS[objectType] || [];
-  }, [objectType]);
+    return (
+      OBJECT_COLUMNS[objectType]?.map(column => {
+        const configColumn = tableColumns?.[column.key as any];
+        const sortOrder = sorter?.columnKey === column.key ? sorter?.order : undefined;
+
+        return {
+          ...column,
+          ...configColumn,
+          sortOrder,
+        };
+      }) || []
+    );
+  }, [objectType, sorter?.columnKey, sorter?.order, tableColumns]);
 
   const pagination = {
     total: meta?.pagination?.total,
@@ -68,12 +100,21 @@ export const useDataTable = <DT = any>(props: UseDataTableProps) => {
     },
   };
 
+  const onChangeTable: TableProps<DT>['onChange'] = (_pagination, _filters, sorter) => {
+    if (!isEmpty(sorter)) {
+      setState(draft => {
+        draft.sorter = sorter as any;
+      });
+    }
+  };
+
   return {
     table: {
       dataSource,
       columns,
       pagination,
       loading: isLoading || isFetching,
+      onChange: onChangeTable,
     },
   };
 };

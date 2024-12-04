@@ -23,7 +23,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({ addButtonProps }) => {
   } = addButtonProps || {};
 
   return (
-    <Flex data-test="data-table-toolbar" align="center" gap={8}>
+    <Flex data-test="data-table-toolbar" align="center" gap={8} className="px-4">
       {showAddButton && (
         <Button type="text" icon={icon} {...restOfAddButtonProps}>
           {children}
