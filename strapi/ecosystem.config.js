@@ -7,7 +7,7 @@ module.exports = {
       script: "yarn",
       args: "start",
       exec_mode: "fork",
-      watch: true,
+      watch: false,
     },
   ],
 };
