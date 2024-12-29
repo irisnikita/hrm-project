@@ -30,6 +30,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const { isAuthenticated, isLoading: isAuthenticatedLoading } = useAuthentication();
   const parentRef = useRef<HTMLDivElement>(null);
   const isHasCurrentOrganization = !!currentOrganization;
+  const isAnyLoading = isAuthenticatedLoading || isUserLoading || isOrganizationLoading;
 
   // Memo
   const isMissingRequiredInfo = useMemo(() => {
@@ -41,14 +42,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }, [isHasCurrentOrganization, isMissingRequiredInfo]);
 
   const renderContent = () => {
-    if (isAuthenticatedLoading || isUserLoading || isOrganizationLoading) {
-      return <Spin rootClassName="!m-auto" />;
-    }
+    if (isAnyLoading) return <Spin rootClassName="!m-auto" />;
 
     // Render UserRequiredInfoField
-    if (isMissingRequiredInfo) {
-      return <UserRequiredInfoForm />;
-    }
+    if (isMissingRequiredInfo) return <UserRequiredInfoForm />;
 
     // Render no permission
     if (!isAuthenticated && !!currentOrganization) {
@@ -68,9 +65,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
 
     // Render OrganizationList
-    if (!isHasCurrentOrganization) {
-      return <OrganizationList />;
-    }
+    if (!isHasCurrentOrganization) return <OrganizationList />;
 
     return children;
   };
