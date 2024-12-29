@@ -18,4 +18,11 @@ export default ({ env }) => ({
       },
     },
   },
+  upload: {
+    config: {
+      providerOptions: {
+        sizeLimit: 10 * 1024 * 1024,
+      },
+    },
+  },
 });
