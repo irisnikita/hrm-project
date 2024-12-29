@@ -4,10 +4,11 @@
 import { useCallback } from 'react';
 import { useImmer } from 'use-immer';
 import { useTranslations } from 'next-intl';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 // Components
 import { Card, Typography, Tag } from '@/components/ui';
-import { CreateQrCodeModal } from './components';
+import { CreateQrCodeModal, QrCodeDetail } from './components';
 import { DataTable, renderDate, useDataTable } from '@/components/shared';
 
 // Schemas
@@ -16,6 +17,7 @@ import { QR_CODE_STATUS_OPTIONS } from '@/constants';
 
 type TState = {
   isOpenModal?: boolean;
+  selectedQrCode?: null | DataType;
 };
 
 type DataType = QRCode['attributes'] & {
@@ -26,12 +28,27 @@ const { Text } = Typography;
 
 export default function QrCodesPage() {
   const t = useTranslations();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   // State
+
   const [state, setState] = useImmer<TState>({
     isOpenModal: false,
+    selectedQrCode: null,
   });
   const { isOpenModal } = state;
+
+  // Handlers
+  const onClickQrCode = useCallback((record: DataType) => {
+    setState(draft => {
+      draft.selectedQrCode = record;
+    });
+    // const params = new URLSearchParams(searchParams.toString());
+    // params.set('qrCodeId', qrCodeId);
+
+    // router.push(`/dashboard/crm/qr-codes?${params.toString()}`);
+  }, []);
 
   // Hooks
   const { table } = useDataTable<DataType>({
@@ -41,9 +58,13 @@ export default function QrCodesPage() {
     table: {
       columns: {
         qrCodeId: {
-          render(value) {
+          render(value, record) {
             return (
-              <Text strong className="!text-primary">
+              <Text
+                strong
+                className="!text-primary cursor-pointer"
+                onClick={() => onClickQrCode(record)}
+              >
                 {value}
               </Text>
             );
@@ -96,6 +117,16 @@ export default function QrCodesPage() {
           }}
         />
       </Card>
+
+      <QrCodeDetail
+        open={!!state.selectedQrCode}
+        qrCode={state.selectedQrCode as any}
+        onClose={() =>
+          setState(draft => {
+            draft.selectedQrCode = null;
+          })
+        }
+      />
 
       <CreateQrCodeModal
         open={isOpenModal}
