@@ -20,6 +20,20 @@
     },
     "points": {
       "type": "biginteger"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "images": {
+      "allowedTypes": ["images", "files", "videos", "audios"],
+      "type": "media",
+      "multiple": true
+    },
+    "costPrice": {
+      "type": "decimal"
+    },
+    "SKU": {
+      "type": "string"
     }
   }
 }
