@@ -71,7 +71,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   return (
-    <Layout id="dashboard-layout" className="h-screen p-4">
+    <Layout id="dashboard-layout" className="h-screen p-4 gap-4">
       <DashboardSider isShow={isCanAccessDashboard} />
       <Flex
         ref={parentRef}
