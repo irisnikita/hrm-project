@@ -4,7 +4,7 @@
 import { useCallback } from 'react';
 import { useImmer } from 'use-immer';
 import { useTranslations } from 'next-intl';
-import { useSearchParams, useRouter } from 'next/navigation';
+// import { useSearchParams, useRouter } from 'next/navigation';
 
 // Components
 import { Card, Typography, Tag } from '@/components/ui';
@@ -28,8 +28,8 @@ const { Text } = Typography;
 
 export default function QrCodesPage() {
   const t = useTranslations();
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  // const searchParams = useSearchParams();
+  // const router = useRouter();
 
   // State
 

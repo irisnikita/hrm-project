@@ -1,19 +1,18 @@
+# syntax=docker/dockerfile:1.4
 # Stage 1: Build the application
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package.json and yarn.lock
 COPY package.json yarn.lock ./
 
-# Install dependencies
-RUN yarn install
+# Leverage BuildKit caching for dependencies
+# Use 'mount=type=cache' to cache yarn cache folder
+RUN --mount=type=cache,target=/root/.yarn YARN_CACHE_FOLDER=/root/.yarn yarn install --network-timeout 1000000
 
-# Copy the rest of the application code
+# Cache .next build artifacts
 COPY . .
-
-# Build the application
-RUN yarn build
+RUN --mount=type=cache,target=.next/cache yarn build
 
 # Stage 2: Create the production image
 FROM node:20-alpine AS runner
