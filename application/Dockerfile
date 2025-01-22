@@ -19,10 +19,14 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
+# Install PM2 globally
+RUN yarn global add pm2
+
 # Copy necessary files from the builder stage
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/.env* ./
 COPY --from=builder /app/node_modules ./node_modules
 
 # Set environment variables
@@ -32,4 +36,5 @@ ENV NODE_ENV=production
 EXPOSE 3000
 
 # Start the application
-CMD ["yarn", "start"]
+# CMD ["yarn", "start"]
+CMD ["pm2-runtime", "start", "node_modules/.bin/next", "--name", "compily-fe", "--", "start"]

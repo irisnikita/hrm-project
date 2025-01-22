@@ -144,7 +144,7 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
           id={`qr-code-${qrCode.qrCodeId}`}
           className="qr-code-canvas"
           value={`${ZALO_MINI_APP_URL}&qrCodeId=${qrCode.qrCodeId}`}
-          size={105} // size of the QR code
+          size={105}
           fgColor="#000000" // foreground color
           bgColor="#ffffff" // background color
           level="H" // error correction level ('L', 'M', 'Q', 'H')
