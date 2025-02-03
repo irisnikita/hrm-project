@@ -948,6 +948,35 @@ export interface ApiEmployeeEmployee extends Schema.CollectionType {
   };
 }
 
+export interface ApiGiftGift extends Schema.CollectionType {
+  collectionName: 'gifts';
+  info: {
+    singularName: 'gift';
+    pluralName: 'gifts';
+    displayName: 'Gift';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    pointsRequired: Attribute.Integer;
+    quantity: Attribute.Integer;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    isActive: Attribute.Boolean & Attribute.DefaultTo<true>;
+    content: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::gift.gift', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::gift.gift', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMembershipTierMembershipTier extends Schema.CollectionType {
   collectionName: 'membership_tiers';
   info: {
@@ -1511,6 +1540,7 @@ declare module '@strapi/types' {
       'api::client.client': ApiClientClient;
       'api::department.department': ApiDepartmentDepartment;
       'api::employee.employee': ApiEmployeeEmployee;
+      'api::gift.gift': ApiGiftGift;
       'api::membership-tier.membership-tier': ApiMembershipTierMembershipTier;
       'api::new.new': ApiNewNew;
       'api::new-tag.new-tag': ApiNewTagNewTag;
