@@ -9,7 +9,7 @@ import bcrypt from "bcryptjs";
 import { MAP_ROLE_TYPE } from "../../../constants";
 
 // Utils
-import { logger } from "../../../utils";
+import { logger, parseJson } from "../../../utils";
 
 export default () => ({
   async checkUsername(username: string) {
@@ -33,9 +33,9 @@ export default () => ({
       throw new Error(err);
     }
   },
-  async registerUser(registerInfo: any) {
+  async createUser(registerInfo: any) {
     try {
-      const { username, organizations, role } = registerInfo || {};
+      const { username, organizations, role } = parseJson(registerInfo) || {};
 
       // Check if username is available
       const isUsernameAvailable = await this.checkUsername(username);
@@ -65,5 +65,18 @@ export default () => ({
     } catch (error) {
       throw new Error(error);
     }
+  },
+  async findByField(field, value) {
+    // Join user points table
+    const data = await strapi.entityService.findMany(
+      "plugin::users-permissions.user",
+      {
+        filters: { [field]: value },
+        fields: ["fullName", "email", "userId", "id", "firstName", "lastName"],
+        populate: ["userPoint"],
+      }
+    );
+
+    return data;
   },
 });

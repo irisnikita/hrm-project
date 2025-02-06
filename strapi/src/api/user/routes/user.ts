@@ -27,5 +27,14 @@ export default {
         middlewares: [],
       },
     },
+    {
+      method: "GET",
+      path: "/users/by-field/:field/:value",
+      handler: "user.getByField",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

@@ -745,6 +745,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
         minLength: 5;
         maxLength: 20;
       }>;
+    userPoint: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::user-point.user-point'
+    >;
+    redemptions: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::redemption.redemption'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1446,6 +1456,51 @@ export interface ApiQrCodeQrCode extends Schema.CollectionType {
   };
 }
 
+export interface ApiRedemptionRedemption extends Schema.CollectionType {
+  collectionName: 'redemptions';
+  info: {
+    singularName: 'redemption';
+    pluralName: 'redemptions';
+    displayName: 'Redemption';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::redemption.redemption',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    gift: Attribute.Relation<
+      'api::redemption.redemption',
+      'oneToOne',
+      'api::gift.gift'
+    >;
+    pointsUsed: Attribute.Integer;
+    status: Attribute.Enumeration<['pending', 'redeemed', 'canceled']> &
+      Attribute.DefaultTo<'pending'>;
+    qrCode: Attribute.String;
+    redeemedAt: Attribute.DateTime;
+    canceledAt: Attribute.DateTime;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::redemption.redemption',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::redemption.redemption',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTransactionTransaction extends Schema.CollectionType {
   collectionName: 'transactions';
   info: {
@@ -1494,6 +1549,7 @@ export interface ApiUserPointUserPoint extends Schema.CollectionType {
     singularName: 'user-point';
     pluralName: 'user-points';
     displayName: 'User Point';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1501,6 +1557,11 @@ export interface ApiUserPointUserPoint extends Schema.CollectionType {
   attributes: {
     zaloUserId: Attribute.String;
     totalPoints: Attribute.BigInteger;
+    userId: Attribute.Relation<
+      'api::user-point.user-point',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1549,6 +1610,7 @@ declare module '@strapi/types' {
       'api::position-level.position-level': ApiPositionLevelPositionLevel;
       'api::product.product': ApiProductProduct;
       'api::qr-code.qr-code': ApiQrCodeQrCode;
+      'api::redemption.redemption': ApiRedemptionRedemption;
       'api::transaction.transaction': ApiTransactionTransaction;
       'api::user-point.user-point': ApiUserPointUserPoint;
     }

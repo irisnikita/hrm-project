@@ -8,7 +8,7 @@ const checkUserNameSchema = yup.object().shape({
   username: yup.string().required(),
 });
 
-const registerUserSchema = yup.object().shape({
+const createUserSchema = yup.object().shape({
   username: yup.string().required(),
   email: yup.string().email("Invalid email").required(),
   password: yup.string().required(),
@@ -47,16 +47,38 @@ export default {
     try {
       const { body } = ctx.request || {};
 
-      await registerUserSchema.validate(body);
+      await createUserSchema.validate(body);
 
       const registerUser = await strapi
         .service("api::user.user")
-        .registerUser(body);
+        .createUser(body);
 
       ctx.body = {
         data: registerUser,
         meta: {},
       };
+    } catch (error) {
+      ctx.badRequest(error.message);
+    }
+  },
+  getByField: async (ctx, next) => {
+    try {
+      const { field, value } = ctx.params;
+
+      const allowedFields = ["userId", "email"];
+      if (!allowedFields.includes(field)) {
+        return ctx.badRequest("Field is not allowed!");
+      }
+
+      const user = await strapi
+        .service("api::user.user")
+        .findByField(field, value);
+
+      if (!user.length) {
+        return ctx.notFound("User not found!");
+      }
+
+      return ctx.send(user);
     } catch (error) {
       ctx.badRequest(error.message);
     }

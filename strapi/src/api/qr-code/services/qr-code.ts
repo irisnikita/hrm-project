@@ -76,6 +76,7 @@ export default factories.createCoreService(
           await strapi.db.query("api::user-point.user-point").create({
             data: {
               zaloUserId,
+              userId: zaloUserId,
               totalPoints: point?.points || 0,
               publishedAt: new Date(),
             },

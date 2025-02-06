@@ -4,7 +4,8 @@
   "info": {
     "singularName": "user-point",
     "pluralName": "user-points",
-    "displayName": "User Point"
+    "displayName": "User Point",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,12 @@
     },
     "totalPoints": {
       "type": "biginteger"
+    },
+    "userId": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "userPoint"
     }
   }
 }

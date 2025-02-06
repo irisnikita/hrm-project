@@ -100,6 +100,18 @@
       "unique": true,
       "maxLength": 20,
       "minLength": 5
+    },
+    "userPoint": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-point.user-point",
+      "mappedBy": "userId"
+    },
+    "redemptions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::redemption.redemption",
+      "mappedBy": "user"
     }
   }
 }
