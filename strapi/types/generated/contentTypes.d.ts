@@ -1562,6 +1562,7 @@ export interface ApiUserPointUserPoint extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    usedPoints: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -23,6 +23,9 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "userPoint"
+    },
+    "usedPoints": {
+      "type": "biginteger"
     }
   }
 }
