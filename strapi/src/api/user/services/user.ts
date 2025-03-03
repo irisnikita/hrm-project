@@ -72,7 +72,15 @@ export default () => ({
       "plugin::users-permissions.user",
       {
         filters: { [field]: value },
-        fields: ["fullName", "email", "userId", "id", "firstName", "lastName"],
+        fields: [
+          "fullName",
+          "email",
+          "userId",
+          "id",
+          "firstName",
+          "lastName",
+          "name",
+        ],
         populate: ["userPoint"],
       }
     );
