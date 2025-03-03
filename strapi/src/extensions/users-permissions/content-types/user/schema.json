@@ -112,6 +112,9 @@
       "relation": "oneToMany",
       "target": "api::redemption.redemption",
       "mappedBy": "user"
+    },
+    "name": {
+      "type": "string"
     }
   }
 }

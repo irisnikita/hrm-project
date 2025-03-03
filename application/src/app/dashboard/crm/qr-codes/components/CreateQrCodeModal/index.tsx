@@ -45,8 +45,7 @@ const QR_CODE_SIZE = {
   width: 472,
 };
 
-const ZALO_MINI_APP_URL =
-  'https://zalo.me/s/3516483688051051916/?env=DEVELOPMENT&version=zdev-6ddc435b';
+const ZALO_MINI_APP_URL = 'https://zalo.me/s/3516483688051051916/redeem-code';
 
 export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
   const { onCancel, ...restProps } = props;
@@ -143,7 +142,7 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
         <QRCodeCanvas
           id={`qr-code-${qrCode.qrCodeId}`}
           className="qr-code-canvas"
-          value={`${ZALO_MINI_APP_URL}&qrCodeId=${qrCode.qrCodeId}`}
+          value={`${ZALO_MINI_APP_URL}?qrCodeId=${qrCode.qrCodeId}&env=DEVELOPMENT&version=zdev-7bc54d88`}
           size={105}
           fgColor="#000000" // foreground color
           bgColor="#ffffff" // background color
