@@ -80,6 +80,7 @@ export default () => ({
           "firstName",
           "lastName",
           "name",
+          "imageUrl",
         ],
         populate: ["userPoint"],
       }
