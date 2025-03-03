@@ -32,15 +32,16 @@ export default factories.createCoreController(
     },
     useQrCode: async (ctx) => {
       try {
-        await useQrCodeSchema.validate(ctx.request.body);
+        // await useQrCodeSchema.validate(ctx.request.body);
         const dataBody = ctx.request.body;
-        const { qrCodeId, zaloUserId } = parseJson(dataBody);
+        const { qrCodeId, zaloUserId, userId } = parseJson(dataBody);
 
         const updatedData = await strapi
           .service("api::qr-code.qr-code")
           .useQrCode({
             qrCodeId,
             zaloUserId,
+            userId,
           });
 
         return {

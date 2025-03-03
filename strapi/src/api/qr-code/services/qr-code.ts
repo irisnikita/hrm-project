@@ -44,7 +44,7 @@ export default factories.createCoreService(
         throw new Error(error);
       }
     },
-    useQrCode: async ({ qrCodeId, zaloUserId }) => {
+    useQrCode: async ({ qrCodeId, zaloUserId, userId }) => {
       try {
         // Get Point data from qrCodeId
         const point = await strapi.db.query("api::qr-code.qr-code").findOne({
@@ -76,8 +76,9 @@ export default factories.createCoreService(
           await strapi.db.query("api::user-point.user-point").create({
             data: {
               zaloUserId,
-              userId: zaloUserId,
+              userId: userId,
               totalPoints: point?.points || 0,
+              usedPoints: 0,
               publishedAt: new Date(),
             },
           });
@@ -104,8 +105,6 @@ export default factories.createCoreService(
               transactionDate: new Date(),
             },
           });
-
-        console.log({ data });
 
         return point;
       } catch (error) {

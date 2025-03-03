@@ -22,8 +22,6 @@ export default factories.createCoreController(
           .service("api::transaction.transaction")
           .countTransactions(queryParams);
 
-        console.log("count", count);
-
         ctx.body = {
           data: count,
           meta: {},

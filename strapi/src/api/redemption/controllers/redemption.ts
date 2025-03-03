@@ -24,7 +24,6 @@ export default factories.createCoreController(
       try {
         const { field, value } = ctx.params;
         const { populate, pagination } = ctx.query;
-        console.log({ populate, pagination });
 
         // Join user points table
         const { pagination: paginationMeta, results } = await strapi
