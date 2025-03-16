@@ -38,20 +38,11 @@ const initialState = {
   isExportLoading: false,
 };
 
-// QR Code size, mm unit
-const EXPORT_QR_CODE_SIZE = {
-  width: 297,
-  height: 420,
-};
-const QR_CODE_SIZE = {
-  width: 472,
-};
-
 const QR_EXPORT_SIZE_CM = 2.5;
-const QR_EXPORT_SIZE_PX = (QR_EXPORT_SIZE_CM / 2.54) * 96; // Chuyển đổi từ cm sang px (96dpi)
-const PAGE_WIDTH_CM = 29.7; // A3 width in cm
-const PAGE_HEIGHT_CM = 42; // A3 height in cm
-const MARGIN_CM = 1; // Lề
+const QR_EXPORT_SIZE_PX = (QR_EXPORT_SIZE_CM / 2.54) * 96;
+const PAGE_WIDTH_CM = 29.7;
+const PAGE_HEIGHT_CM = 42;
+const MARGIN_CM = 1;
 
 const QR_PER_ROW = Math.floor((PAGE_WIDTH_CM - MARGIN_CM * 2) / QR_EXPORT_SIZE_CM);
 const QR_PER_COLUMN = Math.floor((PAGE_HEIGHT_CM - MARGIN_CM * 2) / QR_EXPORT_SIZE_CM);
@@ -115,7 +106,7 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
       format: 'a3',
       putOnlyUsedFonts: true,
     });
-    let pageCount = Math.ceil(qrCodes.length / QR_PER_PAGE);
+    const pageCount = Math.ceil(qrCodes.length / QR_PER_PAGE);
 
     for (let page = 0; page < pageCount; page++) {
       if (page > 0) pdf.addPage();
@@ -127,7 +118,7 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
       exportContainerRef.current.style.display = 'flex';
       exportContentRef.current.innerHTML = '';
 
-      pageQRCodes.forEach((data, index) => {
+      pageQRCodes.forEach(data => {
         const qrWrapper = document.createElement('div');
         const qrCanvas = document.createElement('canvas');
         QRCode.toCanvas(qrCanvas, buildVoucherQRCode(data.qrCodeId), { width: QR_EXPORT_SIZE_PX });
