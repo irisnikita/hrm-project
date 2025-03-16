@@ -10,3 +10,4 @@ export * from './weather';
 export * from './supabase';
 export * from './user';
 export * from './nanoid';
+export * from './qrCode';

@@ -45,6 +45,6 @@ export const qrCodeService = {
       },
     });
 
-    return response.data;
+    return response?.data;
   },
 };

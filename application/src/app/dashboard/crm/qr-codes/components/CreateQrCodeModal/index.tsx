@@ -1,8 +1,9 @@
 'use client';
 
 // Libraries
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
+import QRCode from 'qrcode';
 import { useImmer } from 'use-immer';
 import { useTranslations } from 'next-intl';
 import jsPDF from 'jspdf';
@@ -19,7 +20,7 @@ import { useBulkCreateQRCode } from '@/queries';
 import { QR_CODE_STATUS } from '@/constants';
 
 // Utils
-import { nanoid } from '@/utils';
+import { buildVoucherQRCode, nanoid } from '@/utils';
 
 interface CreateQrCodeDrawerProps extends ModalProps {}
 
@@ -37,15 +38,24 @@ const initialState = {
   isExportLoading: false,
 };
 
+// QR Code size, mm unit
 const EXPORT_QR_CODE_SIZE = {
-  width: 595,
-  height: 842,
+  width: 297,
+  height: 420,
 };
 const QR_CODE_SIZE = {
   width: 472,
 };
 
-const ZALO_MINI_APP_URL = 'https://zalo.me/s/3516483688051051916/redeem-code';
+const QR_EXPORT_SIZE_CM = 2.5;
+const QR_EXPORT_SIZE_PX = (QR_EXPORT_SIZE_CM / 2.54) * 96; // Chuyển đổi từ cm sang px (96dpi)
+const PAGE_WIDTH_CM = 29.7; // A3 width in cm
+const PAGE_HEIGHT_CM = 42; // A3 height in cm
+const MARGIN_CM = 1; // Lề
+
+const QR_PER_ROW = Math.floor((PAGE_WIDTH_CM - MARGIN_CM * 2) / QR_EXPORT_SIZE_CM);
+const QR_PER_COLUMN = Math.floor((PAGE_HEIGHT_CM - MARGIN_CM * 2) / QR_EXPORT_SIZE_CM);
+const QR_PER_PAGE = QR_PER_ROW * QR_PER_COLUMN;
 
 export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
   const { onCancel, ...restProps } = props;
@@ -56,6 +66,10 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
   const { isOpenQRModal } = state;
 
   const formValues = Form.useWatch([], form);
+
+  // Ref
+  const exportContainerRef = useRef<any>(null);
+  const exportContentRef = useRef<any>(null);
 
   // Mutations
   const { mutateAsync: bulkCreateQRCode, isPending: isBulkCreateLoading } = useBulkCreateQRCode({});
@@ -97,37 +111,61 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
 
     const pdf = new jsPDF({
       orientation: 'p',
-      unit: 'px',
-      format: [EXPORT_QR_CODE_SIZE.width, EXPORT_QR_CODE_SIZE.height],
+      unit: 'cm',
+      format: 'a3',
       putOnlyUsedFonts: true,
     });
+    let pageCount = Math.ceil(qrCodes.length / QR_PER_PAGE);
 
-    const qrCodeListEl = document.querySelector('#qr-code-list') as HTMLElement;
-    const qrCodeListCanvas = await html2canvas(qrCodeListEl, {
-      allowTaint: true,
-      useCORS: true,
-      scrollX: 0,
-      scrollY: 0,
-    });
+    for (let page = 0; page < pageCount; page++) {
+      if (page > 0) pdf.addPage();
 
-    const imgData = qrCodeListCanvas.toDataURL('image/png');
-    const centerPosition = (EXPORT_QR_CODE_SIZE.width - QR_CODE_SIZE.width) / 2;
+      const startIdx = page * QR_PER_PAGE;
+      const endIdx = Math.min(startIdx + QR_PER_PAGE, qrCodes.length);
+      const pageQRCodes = qrCodes.slice(startIdx, endIdx);
 
-    // const countPage = Math.ceil(qrCodeListEl.clientHeight / EXPORT_QR_CODE_SIZE.height);
+      exportContainerRef.current.style.display = 'flex';
+      exportContentRef.current.innerHTML = '';
 
-    // Array.from({ length: countPage }).forEach((_, index) => {
-    //   pdf.addPage();
-    // });
+      pageQRCodes.forEach((data, index) => {
+        const qrWrapper = document.createElement('div');
+        const qrCanvas = document.createElement('canvas');
+        QRCode.toCanvas(qrCanvas, buildVoucherQRCode(data.qrCodeId), { width: QR_EXPORT_SIZE_PX });
+        qrCanvas.style.width = `${QR_EXPORT_SIZE_CM}cm`;
+        qrCanvas.style.height = `${QR_EXPORT_SIZE_CM}cm`;
+        qrCanvas.style.margin = '5px';
+        qrWrapper.appendChild(qrCanvas);
+        exportContentRef.current.appendChild(qrWrapper);
+      });
 
-    pdf.addImage(imgData, 'PNG', centerPosition, 50, QR_CODE_SIZE.width, qrCodeListEl.clientHeight);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const canvas = await html2canvas(exportContainerRef.current, {
+        scale: 1,
+        allowTaint: true,
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+      });
+      const imgData = canvas.toDataURL('image/jpeg');
 
-    pdf.save('qr-code-list.pdf');
+      pdf.addImage(
+        imgData,
+        'JPEG',
+        MARGIN_CM,
+        MARGIN_CM,
+        PAGE_WIDTH_CM - 2 * MARGIN_CM,
+        PAGE_HEIGHT_CM - 2 * MARGIN_CM,
+      );
+    }
 
-    // Reset state and form
+    pdf.save(`${formValues.description || 'qr-code-list'}.pdf`);
+
+    // Reset state and form, hide container
+    exportContainerRef.current.style.display = 'none';
     setState(initialState);
     onCancel?.({} as any);
     form.resetFields();
-  }, [form, onCancel, setState]);
+  }, [form, qrCodes, onCancel, setState]);
 
   const onSaveAndExportQrCodeList = useCallback(async () => {
     await bulkCreateQRCode(qrCodes);
@@ -142,7 +180,7 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
         <QRCodeCanvas
           id={`qr-code-${qrCode.qrCodeId}`}
           className="qr-code-canvas"
-          value={`${ZALO_MINI_APP_URL}?qrCodeId=${qrCode.qrCodeId}&env=DEVELOPMENT&version=zdev-7bc54d88`}
+          value={buildVoucherQRCode(qrCode.qrCodeId)}
           size={105}
           fgColor="#000000" // foreground color
           bgColor="#ffffff" // background color
@@ -219,6 +257,19 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
           </Flex>
         </Scrollbars>
       </Modal>
+      <div
+        ref={exportContainerRef}
+        className="flex-wrap"
+        style={{
+          position: 'fixed',
+          zIndex: -1,
+          display: 'none',
+          width: `${PAGE_WIDTH_CM - 2 * MARGIN_CM}cm`,
+          height: `${PAGE_HEIGHT_CM - 2 * MARGIN_CM}cm`,
+        }}
+      >
+        <div ref={exportContentRef} className="flex flex-wrap h-fit"></div>
+      </div>
     </>
   );
 };
