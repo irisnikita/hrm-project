@@ -3,14 +3,14 @@
 // Libraries
 import { MenuProps } from 'antd';
 import {
-  AwardIcon,
+  // AwardIcon,
   GaugeIcon,
-  NetworkIcon,
+  // NetworkIcon,
   QrCodeIcon,
   SmileIcon,
-  StarIcon,
-  UserRoundCheckIcon,
-  UserRoundCogIcon,
+  // StarIcon,
+  // UserRoundCheckIcon,
+  // UserRoundCogIcon,
   UsersIcon,
 } from 'lucide-react';
 
@@ -22,17 +22,17 @@ export type MenuItem = Required<MenuProps>['items'][number];
 const {
   HOME,
   OVERVIEW,
-  MANAGEMENT,
-  ORG_CHART,
-  EMPLOYEES,
-  ACCOUNT,
-  ACCOUNT_SETTING,
-  PROFILE,
+  // MANAGEMENT,
+  // ORG_CHART,
+  // EMPLOYEES,
+  // ACCOUNT,
+  // ACCOUNT_SETTING,
+  // PROFILE,
   CRM,
   CUSTOMERS,
   CUSTOMER_LOYALTY,
-  POINTS_MANAGEMENT,
-  REWARDS,
+  // POINTS_MANAGEMENT,
+  // REWARDS,
   QR_CODES,
 } = ROUTE_KEYS;
 
@@ -49,40 +49,40 @@ export const MENU: MenuItem[] = [
       },
     ],
   },
-  {
-    key: ROUTES[MANAGEMENT].key,
-    label: ROUTES[MANAGEMENT].label,
-    type: 'group',
-    children: [
-      {
-        key: ROUTES[ORG_CHART].key,
-        label: ROUTES[ORG_CHART].label,
-        icon: <NetworkIcon size={20} />,
-      },
-      {
-        key: ROUTES[EMPLOYEES].key,
-        label: ROUTES[EMPLOYEES].label,
-        icon: <UsersIcon size={20} />,
-      },
-    ],
-  },
-  {
-    key: ROUTES[ACCOUNT].key,
-    label: ROUTES[ACCOUNT].label,
-    type: 'group',
-    children: [
-      {
-        key: ROUTES[PROFILE].key,
-        label: ROUTES[PROFILE].label,
-        icon: <UserRoundCheckIcon size={20} />,
-      },
-      {
-        key: ROUTES[ACCOUNT_SETTING].key,
-        label: ROUTES[ACCOUNT_SETTING].label,
-        icon: <UserRoundCogIcon size={20} />,
-      },
-    ],
-  },
+  // {
+  //   key: ROUTES[MANAGEMENT].key,
+  //   label: ROUTES[MANAGEMENT].label,
+  //   type: 'group',
+  //   children: [
+  //     {
+  //       key: ROUTES[ORG_CHART].key,
+  //       label: ROUTES[ORG_CHART].label,
+  //       icon: <NetworkIcon size={20} />,
+  //     },
+  //     {
+  //       key: ROUTES[EMPLOYEES].key,
+  //       label: ROUTES[EMPLOYEES].label,
+  //       icon: <UsersIcon size={20} />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   key: ROUTES[ACCOUNT].key,
+  //   label: ROUTES[ACCOUNT].label,
+  //   type: 'group',
+  //   children: [
+  //     {
+  //       key: ROUTES[PROFILE].key,
+  //       label: ROUTES[PROFILE].label,
+  //       icon: <UserRoundCheckIcon size={20} />,
+  //     },
+  //     {
+  //       key: ROUTES[ACCOUNT_SETTING].key,
+  //       label: ROUTES[ACCOUNT_SETTING].label,
+  //       icon: <UserRoundCogIcon size={20} />,
+  //     },
+  //   ],
+  // },
 
   // CRM
   {
@@ -101,16 +101,16 @@ export const MENU: MenuItem[] = [
         icon: <SmileIcon size={20} />,
         type: 'submenu',
         children: [
-          {
-            key: ROUTES[POINTS_MANAGEMENT].key,
-            label: ROUTES[POINTS_MANAGEMENT].label,
-            icon: <StarIcon size={20} />,
-          },
-          {
-            key: ROUTES[REWARDS].key,
-            label: ROUTES[REWARDS].label,
-            icon: <AwardIcon size={20} />,
-          },
+          // {
+          //   key: ROUTES[POINTS_MANAGEMENT].key,
+          //   label: ROUTES[POINTS_MANAGEMENT].label,
+          //   icon: <StarIcon size={20} />,
+          // },
+          // {
+          //   key: ROUTES[REWARDS].key,
+          //   label: ROUTES[REWARDS].label,
+          //   icon: <AwardIcon size={20} />,
+          // },
           {
             key: ROUTES[QR_CODES].key,
             label: ROUTES[QR_CODES].label,

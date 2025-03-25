@@ -23,7 +23,9 @@
     "description": "Description",
     "quantity": "Quantity",
     "points": "Points",
-    "saveAndExport": "Save and Export"
+    "saveAndExport": "Save and Export",
+    "ID": "ID",
+    "status": "Status"
   },
   "user": {
     "profile": "Profile",

@@ -23,7 +23,9 @@
     "description": "Mô tả",
     "quantity": "Số lượng",
     "points": "Điểm",
-    "saveAndExport": "Lưu và xuất"
+    "saveAndExport": "Lưu và xuất",
+    "ID": "Mã",
+    "status": "Trạng thái"
   },
   "user": {
     "profile": "Hồ sơ",
