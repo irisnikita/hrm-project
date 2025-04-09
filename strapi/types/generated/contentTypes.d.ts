@@ -1482,12 +1482,16 @@ export interface ApiRedemptionRedemption extends Schema.CollectionType {
       'api::gift.gift'
     >;
     pointsUsed: Attribute.Integer;
-    status: Attribute.Enumeration<['pending', 'redeemed', 'canceled']> &
+    status: Attribute.Enumeration<
+      ['pending', 'redeemed', 'received', 'canceled']
+    > &
       Attribute.DefaultTo<'pending'>;
     qrCode: Attribute.String;
     redeemedAt: Attribute.DateTime;
     canceledAt: Attribute.DateTime;
     receivedAt: Attribute.DateTime;
+    redemptionCode: Attribute.UID &
+      Attribute.CustomField<'plugin::field-nanoid.nanoid'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1586,6 +1590,42 @@ export interface ApiUserPointUserPoint extends Schema.CollectionType {
   };
 }
 
+export interface ApiZmaAppSettingZmaAppSetting extends Schema.CollectionType {
+  collectionName: 'zma_app_settings';
+  info: {
+    singularName: 'zma-app-setting';
+    pluralName: 'zma-app-settings';
+    displayName: 'ZMAAppSetting';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    organization: Attribute.Relation<
+      'api::zma-app-setting.zma-app-setting',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    settings: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::zma-app-setting.zma-app-setting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::zma-app-setting.zma-app-setting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1619,6 +1659,7 @@ declare module '@strapi/types' {
       'api::redemption.redemption': ApiRedemptionRedemption;
       'api::transaction.transaction': ApiTransactionTransaction;
       'api::user-point.user-point': ApiUserPointUserPoint;
+      'api::zma-app-setting.zma-app-setting': ApiZmaAppSettingZmaAppSetting;
     }
   }
 }

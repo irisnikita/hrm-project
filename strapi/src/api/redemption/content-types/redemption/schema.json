@@ -28,11 +28,7 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "redeemed",
-        "canceled"
-      ],
+      "enum": ["pending", "redeemed", "received", "canceled"],
       "default": "pending"
     },
     "qrCode": {
@@ -46,6 +42,10 @@
     },
     "receivedAt": {
       "type": "datetime"
+    },
+    "redemptionCode": {
+      "type": "customField",
+      "customField": "plugin::field-nanoid.nanoid"
     }
   }
 }

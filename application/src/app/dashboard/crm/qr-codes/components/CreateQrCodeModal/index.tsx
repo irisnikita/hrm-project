@@ -40,8 +40,12 @@ const initialState = {
 
 const QR_EXPORT_SIZE_CM = 2.5;
 const QR_EXPORT_SIZE_PX = (QR_EXPORT_SIZE_CM / 2.54) * 96;
-const PAGE_WIDTH_CM = 29.7;
-const PAGE_HEIGHT_CM = 42;
+// A4
+const PAGE_WIDTH_CM = 21;
+const PAGE_HEIGHT_CM = 29.7;
+// const PAGE_WIDTH_CM = 29.7;
+// const PAGE_HEIGHT_CM = 42;
+// const MARGIN_CM = 1;
 const MARGIN_CM = 1;
 
 const QR_PER_ROW = Math.floor((PAGE_WIDTH_CM - MARGIN_CM * 2) / QR_EXPORT_SIZE_CM);
@@ -103,7 +107,8 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
     const pdf = new jsPDF({
       orientation: 'p',
       unit: 'cm',
-      format: 'a3',
+      // format: 'a3',
+      format: 'a4',
       putOnlyUsedFonts: true,
     });
     const pageCount = Math.ceil(qrCodes.length / QR_PER_PAGE);
@@ -131,7 +136,7 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
 
       await new Promise(resolve => setTimeout(resolve, 1000));
       const canvas = await html2canvas(exportContainerRef.current, {
-        scale: 1,
+        scale: 1.2,
         allowTaint: true,
         useCORS: true,
         scrollX: 0,
@@ -250,7 +255,8 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
       </Modal>
       <div
         ref={exportContainerRef}
-        className="flex-wrap"
+        id="qr-export-container"
+        className="flex flex-col items-center"
         style={{
           position: 'fixed',
           zIndex: -1,
@@ -259,7 +265,7 @@ export const CreateQrCodeModal: React.FC<CreateQrCodeDrawerProps> = props => {
           height: `${PAGE_HEIGHT_CM - 2 * MARGIN_CM}cm`,
         }}
       >
-        <div ref={exportContentRef} className="flex flex-wrap h-fit"></div>
+        <div ref={exportContentRef} className="flex flex-wrap justify-between w-full h-fit"></div>
       </div>
     </>
   );

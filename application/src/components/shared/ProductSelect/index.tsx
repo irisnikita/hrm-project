@@ -30,13 +30,28 @@ export const ProductSelect: React.FC<ProductSelectProps> = props => {
         value: id,
         label: attributes.productName,
         points: attributes.points,
+        description: attributes.description,
       })) || []
     );
   }, [productListData]);
 
   return (
     <Spin spinning={isLoading}>
-      <Select showSearch options={options} loading={isLoading} {...restProps} />
+      <Select
+        showSearch
+        options={options}
+        optionRender={option => {
+          console.log('option', option);
+
+          return (
+            <span>
+              {option.label} - {(option as any).data?.description}
+            </span>
+          );
+        }}
+        loading={isLoading}
+        {...restProps}
+      />
     </Spin>
   );
 };
