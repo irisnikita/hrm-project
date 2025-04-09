@@ -1394,6 +1394,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
     costPrice: Attribute.Decimal;
     SKU: Attribute.String;
     content: Attribute.Blocks;
+    position: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1464,6 +1465,7 @@ export interface ApiRedemptionRedemption extends Schema.CollectionType {
     singularName: 'redemption';
     pluralName: 'redemptions';
     displayName: 'Redemption';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1485,6 +1487,7 @@ export interface ApiRedemptionRedemption extends Schema.CollectionType {
     qrCode: Attribute.String;
     redeemedAt: Attribute.DateTime;
     canceledAt: Attribute.DateTime;
+    receivedAt: Attribute.DateTime;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

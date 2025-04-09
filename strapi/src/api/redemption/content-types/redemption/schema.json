@@ -4,7 +4,8 @@
   "info": {
     "singularName": "redemption",
     "pluralName": "redemptions",
-    "displayName": "Redemption"
+    "displayName": "Redemption",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -41,6 +42,9 @@
       "type": "datetime"
     },
     "canceledAt": {
+      "type": "datetime"
+    },
+    "receivedAt": {
       "type": "datetime"
     }
   }

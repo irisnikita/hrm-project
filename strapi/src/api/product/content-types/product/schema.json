@@ -43,6 +43,9 @@
     },
     "content": {
       "type": "blocks"
+    },
+    "position": {
+      "type": "integer"
     }
   }
 }
